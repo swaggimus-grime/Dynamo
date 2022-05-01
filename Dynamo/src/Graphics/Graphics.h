@@ -2,8 +2,6 @@
 
 #include <d3d11.h>
 
-using Microsoft::WRL::ComPtr;
-
 class Graphics {
 public:
 	Graphics(HWND hWnd);
@@ -13,8 +11,5 @@ public:
 
 	void Render();
 private:
-	ComPtr<ID3D11Device> m_Device;
-	ComPtr<ID3D11DeviceContext> m_DC;
-	ComPtr<IDXGISwapChain> m_SC;
-	ComPtr<ID3D11RenderTargetView> m_RTV;
+	std::shared_ptr<class GPU> m_GPU;
 };
