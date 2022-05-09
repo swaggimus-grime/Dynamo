@@ -12,5 +12,4 @@ add_subdirectory ("Dynamo")
 add_subdirectory("tools/assimp")
 add_subdirectory("tools/DirectXTex")
 
-
 install(TARGETS Dynamo assimp DirectXTex DESTINATION bin)

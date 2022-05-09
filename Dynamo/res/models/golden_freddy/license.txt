@@ -1,0 +1,11 @@
+Model Information:
+* title:	FNaF 2 Withered Golden Freddy
+* source:	https://sketchfab.com/3d-models/fnaf-2-withered-golden-freddy-ea030a71c3384582a7b27fcadeee7fb7
+* author:	ShadowTan (https://sketchfab.com/ShadowTan)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "FNaF 2 Withered Golden Freddy" (https://sketchfab.com/3d-models/fnaf-2-withered-golden-freddy-ea030a71c3384582a7b27fcadeee7fb7) by ShadowTan (https://sketchfab.com/ShadowTan) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

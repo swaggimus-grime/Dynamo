@@ -170,6 +170,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
+    <ProjectReference Include="C:\Users\hunte\source\repos\Dynamo\tools\DirectXTex\DirectXTex.vcxproj">
+      <Project>{5726C908-E61B-3070-88BC-D4C6247537C4}</Project>
+      <Name>DirectXTex</Name>
+    </ProjectReference>
     <ProjectReference Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\Dynamo.vcxproj">
       <Project>{31B8FC43-3013-3B4B-802B-E22064176865}</Project>
       <Name>Dynamo</Name>
@@ -181,6 +185,22 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ProjectReference Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\tools\assimp_cmd\assimp_cmd.vcxproj">
       <Project>{4A404C78-A4A1-3D60-A38E-D02B4F95E536}</Project>
       <Name>assimp_cmd</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\hunte\source\repos\Dynamo\tools\DirectXTex\ddsview.vcxproj">
+      <Project>{B6F8E99B-A3EB-34D0-A990-8D899F124228}</Project>
+      <Name>ddsview</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\hunte\source\repos\Dynamo\tools\DirectXTex\texassemble.vcxproj">
+      <Project>{A18A4DF6-6E56-342C-9102-F90A9EA342AE}</Project>
+      <Name>texassemble</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\hunte\source\repos\Dynamo\tools\DirectXTex\texconv.vcxproj">
+      <Project>{471A5EC0-497B-3C35-BF60-0EC1B6F2EAD1}</Project>
+      <Name>texconv</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\hunte\source\repos\Dynamo\tools\DirectXTex\texdiag.vcxproj">
+      <Project>{153C665A-1C4F-3A15-9ADE-8C56CD802A38}</Project>
+      <Name>texdiag</Name>
     </ProjectReference>
     <ProjectReference Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\test\unit.vcxproj">
       <Project>{D7D80EC6-F7EC-3989-9292-5E0FFDBB8AFA}</Project>

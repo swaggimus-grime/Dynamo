@@ -1,30 +1,20 @@
 #include "dynamopch.h"
 #include "Window.h"
-#include "imgui_impl_dx11.h"
+#include <imgui_impl_dx11.h>
+#include <imgui_impl_win32.h>
 #include <comdef.h>
+#include "Graphics/Gui.h"
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-static LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
-	if (ImGui_ImplWin32_WndProcHandler(hwnd, uMsg, wParam, lParam))
-		return true;
-	switch (uMsg) {
-	case WM_CLOSE:
-		PostQuitMessage(1);
-		return 0;
-	}
-
-	return DefWindowProc(hwnd, uMsg, wParam, lParam);
-}
-
-Window::Window(LPCWSTR name, unsigned int width, unsigned int height)
-	:m_Inst(GetModuleHandle(nullptr)), m_Closed(false), m_Name(name)
+Window::Window(const std::string& name, unsigned int width, unsigned int height)
+	:m_Inst(GetModuleHandle(nullptr)), m_Name(name)
 {
-	WNDCLASSEXW wc{};
+	WNDCLASSEX wc{};
 	HINSTANCE hInst = m_Inst;
 	wc.cbSize = sizeof(wc);
-	wc.style = CS_OWNDC;
-	wc.lpfnWndProc = WindowProc;
+	wc.style = CS_OWNDC | CS_HREDRAW | CS_VREDRAW;
+	wc.lpfnWndProc = SetupMessageProc;
 	wc.cbClsExtra = 0;
 	wc.cbWndExtra = 0;
 	wc.hInstance = hInst;
@@ -32,35 +22,40 @@ Window::Window(LPCWSTR name, unsigned int width, unsigned int height)
 	wc.hCursor = nullptr;
 	wc.hbrBackground = nullptr;
 	wc.lpszMenuName = nullptr;
-	wc.lpszClassName = m_Name;
-	RegisterClassExW(&wc);
+	wc.lpszClassName = m_Name.c_str();
+	RegisterClassEx(&wc);
 
 	RECT wr = { 0, 0, width, height };
 	AdjustWindowRect(&wr, WS_MINIMIZEBOX | WS_CAPTION | WS_SYSMENU, FALSE);
-	m_Handle = CreateWindowExW(NULL, m_Name, m_Name,
+	m_Handle = CreateWindowEx(NULL, m_Name.c_str(), m_Name.c_str(),
 		WS_MINIMIZEBOX | WS_CAPTION | WS_SYSMENU,
 		0, 0,
 		wr.right - wr.left, wr.bottom - wr.top,
 		nullptr, nullptr,
-		hInst, nullptr);
+		hInst, this);
 	if (!m_Handle)
 		throw WIN_PREV_EXCEP;
+	ImGui_ImplWin32_Init(m_Handle);
 	ShowWindow(m_Handle, SW_SHOW);
+	
+
 }
 
 Window::~Window()
 {
-	UnregisterClassW(m_Name, m_Inst);
+	UnregisterClass(m_Name.c_str(), m_Inst);
+	ImGui_ImplWin32_Shutdown();
+	DestroyWindow(m_Handle);
+	Gui::Shutdown();
 }
 
-void Window::Update()
+ std::optional<INT> Window::Update()
 {
-	static MSG msg;
+	MSG msg;
 	if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
 		switch (msg.message) {
 		case WM_QUIT:
-			m_Closed = true;
-			break;
+			return static_cast<INT>(msg.wParam);
 		default:
 			//translate any virtual key message into WM_CHAR message
 			TranslateMessage(&msg);
@@ -68,6 +63,71 @@ void Window::Update()
 			DispatchMessage(&msg);
 		}
 	}
+
+	return {};
+}
+
+LRESULT Window::SetupMessageProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+	if (msg != WM_NCCREATE)
+		return DefWindowProc(hWnd, msg, wParam, lParam);
+
+	const CREATESTRUCTW createInfo = *reinterpret_cast<CREATESTRUCTW*>(lParam);
+	Window* window = static_cast<Window*>(createInfo.lpCreateParams);
+	SetWindowLongPtr(hWnd, GWLP_USERDATA, reinterpret_cast<LONG_PTR>(window));
+	SetWindowLongPtr(hWnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(Window::MessageProc));
+	return window->HandleMessage(hWnd, msg, wParam, lParam);
+}
+
+LRESULT Window::MessageProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+	return reinterpret_cast<Window*>(GetWindowLongPtr(hWnd, GWLP_USERDATA))->HandleMessage(hWnd, msg, wParam, lParam);
+}
+
+LRESULT Window::HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
+{
+	if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
+		return true;
+
+	const auto& guiIO = ImGui::GetIO();
+	switch (msg) {
+	case WM_CLOSE:
+		PostQuitMessage(0);
+		return 0;
+	case WM_KEYDOWN:
+		if (guiIO.WantCaptureKeyboard)
+			break;
+		m_Input.OnKeyPressed(static_cast<UINT>(wParam));
+		break;
+	case WM_KEYUP:
+		if (guiIO.WantCaptureKeyboard)
+			break;
+		m_Input.OnKeyReleased(static_cast<UINT>(wParam));
+		break;
+	case WM_MOUSEMOVE:
+		POINTS mp = MAKEPOINTS(lParam);
+		m_Input.OnMouseMoved(mp.x, mp.y);
+		break;
+	case WM_MOUSEWHEEL:
+		POINTS wp = MAKEPOINTS(lParam);
+		m_Input.OnWheelDelta(wp.x, wp.y);
+		break;
+	case WM_INPUT:
+		UINT buffSize = 0;
+		if (GetRawInputData(reinterpret_cast<HRAWINPUT>(lParam), RID_INPUT, nullptr, &buffSize, sizeof(RAWINPUTHEADER)) < 0)
+			break;
+		std::string buff;
+		buff.resize(buffSize);
+		if (GetRawInputData(reinterpret_cast<HRAWINPUT>(lParam), RID_INPUT, buff.data(), &buffSize, sizeof(RAWINPUTHEADER)) != buffSize)
+			break;
+		auto ri = reinterpret_cast<const RAWINPUT*>(buff.data());
+		if (ri->header.dwType == RIM_TYPEMOUSE &&
+			(ri->data.mouse.lLastX != 0 || ri->data.mouse.lLastY != 0))
+			m_Input.OnMouseDelta(ri->data.mouse.lLastX, ri->data.mouse.lLastY);
+		break;
+	}
+
+	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
 
 Window::WindowException::WindowException(const char* file, unsigned int line, HRESULT result)

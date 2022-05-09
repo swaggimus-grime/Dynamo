@@ -7,12 +7,10 @@ int WINAPI WinMain(HINSTANCE hInstance,
     int nShowCmd)
 {
     try {
-        App app(L"Dynamo", 1280, 720);
-        app.Run();
+        App app("Dynamo", 1280, 720);
+        return app.Run();
     }
     catch (const DynamoException& e) {
         MessageBox(nullptr, e.what(), e.GetType(), MB_OK | MB_ICONEXCLAMATION);
     }
-
-    return 0;
 }

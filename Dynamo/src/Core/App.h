@@ -5,13 +5,18 @@
 
 class App {
 public:
-	App(LPCWSTR name, UINT32 width, UINT32 height);
+	App(const std::string& name, UINT32 width, UINT32 height);
 	~App();
 	App(App&) = delete;
 	App& operator=(const App&) = delete;
 
-	void Run();
+	void UserInput(float deltaTime);
+	INT Run();
 private:
 	std::unique_ptr<Window> m_Window;
 	std::unique_ptr<Graphics> m_Graphics;
+
+	std::shared_ptr<class Model> m_Model;
+	std::shared_ptr<class Shader> m_ModelShader;
+	std::shared_ptr<class Camera> m_Camera;
 };

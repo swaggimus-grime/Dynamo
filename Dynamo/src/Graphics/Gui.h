@@ -5,7 +5,9 @@
 
 class Gui {
 public:
-	static void Init(HWND hWnd, std::shared_ptr<class GPU> gpu);
+	static void Init();
+	//static void WinInit(HWND& hWnd);
+	//static void GraphicsInit(std::shared_ptr<class GPU> gpu);
 	static void BeginFrame();
 	static void EndFrame();
 	static void Shutdown();
