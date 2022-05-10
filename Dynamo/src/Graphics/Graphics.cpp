@@ -66,7 +66,8 @@ void Graphics::BeginFrame(std::shared_ptr<Camera> camera)
 
 void Graphics::Render(std::shared_ptr<Renderable> r)
 {
-    auto mvp = XMMatrixIdentity() * m_Camera->LookAt();
+    auto model = XMMatrixRotationRollPitchYaw(-M_PI / 2.f, M_PI, 0.f);
+    auto mvp = model * m_Camera->LookAt();
     transform.ModelView = XMMatrixTranspose(mvp);
     mvp *= m_Camera->Projection();
     transform.MVP = XMMatrixTranspose(mvp);

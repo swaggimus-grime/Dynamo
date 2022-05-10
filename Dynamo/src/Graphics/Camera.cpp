@@ -2,9 +2,6 @@
 #include <imgui.h>
 #include <algorithm>
 
-#define _USE_MATH_DEFINES
-#include <math.h>
-
 Camera::Camera(XMFLOAT3 pos)
 	:m_Pos(pos), 
 	m_Proj(XMMatrixPerspectiveLH(1, 16.f/9.f, 0.5f, 1000.0f)), 

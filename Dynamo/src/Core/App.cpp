@@ -15,7 +15,7 @@ App::App(const std::string& name, UINT32 width, UINT32 height)
 	m_ModelShader = std::make_shared<Shader>(m_Graphics->GetGPU(),
 		L"res/shaders/Modelvs.cso", L"res/shaders/Modelps.cso");
 	m_Model = std::make_shared<Model>(m_Graphics->GetGPU(), "res/models/golden_freddy/scene.gltf", m_ModelShader);
-	m_Camera = std::make_shared<Camera>(XMFLOAT3(0.f, 0.f, -10.f));
+	m_Camera = std::make_shared<Camera>(XMFLOAT3(0.f, 100.f, -70.f));
 }
 
 App::~App()
