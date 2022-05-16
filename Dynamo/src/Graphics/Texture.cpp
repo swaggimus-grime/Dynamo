@@ -1,6 +1,7 @@
 #include "dynamopch.h"
 #include "Texture.h"
 #include <DirectXTex.h>
+#include <comdef.h>
 
 DXGI_FORMAT Texture2D::GetFormat(UINT numComponents)
 {
@@ -14,7 +15,7 @@ DXGI_FORMAT Texture2D::GetFormat(UINT numComponents)
 	case 4:
 		return DXGI_FORMAT_R32G32B32A32_FLOAT;
 	default:
-		throw TEX2D_EXCEP("Invalid number of components");
+		return DXGI_FORMAT_UNKNOWN;
 	}
 }
 
@@ -33,19 +34,21 @@ UINT Texture2D::GetNumComponents(DXGI_FORMAT format)
 	case DXGI_FORMAT_R8G8B8A8_UNORM:
 		return 4;
 	default:
-		throw TEX2D_EXCEP("Unrecognized format");
+		return DXGI_FORMAT_UNKNOWN;
 	}
 }
 
-Texture2D::Texture2D(std::shared_ptr<GPU> gpu, LPCWSTR path, UINT slot)
-	:m_GPU(gpu), m_Slot(slot)
+Texture2D::Texture2D(Graphics& g, LPCWSTR path, UINT slot)
+	:m_Slot(slot)
 {
 	DirectX::ScratchImage image;
 	DirectX::LoadFromWICFile(path, DirectX::WIC_FLAGS_IGNORE_SRGB, nullptr, image);
+	if (!image.GetPixels())
+		throw TEX2D_PREV_EXCEP;
 
 	D3D11_TEXTURE2D_DESC texDesc = { 0 };
 	texDesc.Width = image.GetMetadata().width;
-	texDesc.Height =image.GetMetadata().height;
+	texDesc.Height = image.GetMetadata().height;
 	texDesc.MipLevels = 1;
 	texDesc.ArraySize = 1;
 	texDesc.Format = image.GetMetadata().format;
@@ -56,29 +59,32 @@ Texture2D::Texture2D(std::shared_ptr<GPU> gpu, LPCWSTR path, UINT slot)
 	texDesc.CPUAccessFlags = 0;
 	texDesc.MiscFlags = 0;
 
+	ComPtr<ID3D11Texture2D> texture;
 	D3D11_SUBRESOURCE_DATA data = { 0 };
 	data.pSysMem = image.GetPixels();
-	data.SysMemPitch = GetNumComponents(texDesc.Format) * image.GetMetadata().width;
-	m_GPU->GetDevice()->CreateTexture2D(&texDesc, &data, m_Texture.GetAddressOf());
+	data.SysMemPitch = image.GetImage(0, 0, 0)->rowPitch;
+	data.SysMemSlicePitch = 0;
+	g.Device().CreateTexture2D(&texDesc, &data, &texture);
 
 	D3D11_SHADER_RESOURCE_VIEW_DESC viewDesc = {};
 	viewDesc.Format = texDesc.Format;
 	viewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
 	viewDesc.Texture2D.MostDetailedMip = 0;
 	viewDesc.Texture2D.MipLevels = 1;
-	m_GPU->GetDevice()->CreateShaderResourceView(m_Texture.Get(), &viewDesc, m_View.GetAddressOf());
+	g.Device().CreateShaderResourceView(texture.Get(), &viewDesc, m_View.GetAddressOf());
 }
 
-void Texture2D::Bind()
+void Texture2D::Bind(Graphics& g) const
 {
-	m_GPU->GetDC()->PSSetShaderResources(m_Slot, 1, m_View.GetAddressOf());
+	g.DC().PSSetShaderResources(m_Slot, 1, m_View.GetAddressOf());
 }
 
-Texture2D::Texture2DException::Texture2DException(const char* file, unsigned int line, const char* msg)
+Texture2D::Texture2DException::Texture2DException(const char* file, unsigned int line, HRESULT result)
 	:DynamoException(file, line)
 {
+	_com_error err(result);
 	std::stringstream s;
-	s << __super::what() << std::endl << msg;
+	s << __super::what() << std::endl << err.ErrorMessage();
 	m_What = s.str();
 }
 

@@ -3,21 +3,21 @@
 #include <d3d11.h>
 #include "GPU.h"
 #include "Camera.h"
-#include "Renderable.h"
+#include "Framebuffer.h"
 
 class Graphics {
 public:
-	Graphics(HWND hWnd);
+	Graphics(HWND hWnd, UINT width, UINT height);
 	Graphics(const Graphics&) = delete;
 	Graphics& operator=(const Graphics&) = delete;
 	~Graphics();
 
-	inline std::shared_ptr<GPU> GetGPU() { return m_GPU; }
-	void BeginFrame(std::shared_ptr<Camera> camera);
-	void Render(std::shared_ptr<Renderable> r);
-	void DrawTriangle();
+	inline IDXGISwapChain& SC() const { return *m_GPU->GetSwapChain(); }
+	inline ID3D11Device& Device() const { return *m_GPU->GetDevice(); }
+	inline ID3D11DeviceContext& DC() const { return *m_GPU->GetDC(); }
+	void BeginFrame();
 	void EndFrame();
 private:
-	std::shared_ptr<GPU> m_GPU;
-	std::shared_ptr<Camera> m_Camera;
+	std::unique_ptr<GPU> m_GPU;
+
 };

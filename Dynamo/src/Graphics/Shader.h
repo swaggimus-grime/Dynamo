@@ -1,20 +1,15 @@
 #pragma once
 
-#include "GPU.h"
+#include "Graphics.h"
 #include "Debug/DynamoException.h"
 #include <unordered_map>
-#include "Buffer.h"
+#include "Bindable.h"
 
-enum class SHADER_TYPE {
-	VERTEX_SHADER,
-	PIXEL_SHADER
-};
-
-class Shader {
+class Shader : public Bindable {
 public:
-	Shader(std::shared_ptr<GPU> gpu, LPCWSTR vertPath, LPCWSTR pixPath);
+	Shader(Graphics& g, LPCWSTR vertPath, LPCWSTR pixPath);
 	~Shader();
-	void Bind();
+	virtual void Bind(Graphics& g) const override;
 	inline ID3D10Blob& GetVSCode() const { return *m_VSCode.Get(); }
 public:
 	class ShaderException : public DynamoException {
@@ -25,11 +20,9 @@ public:
 	};
 
 private:
-	std::shared_ptr<GPU> m_GPU;
 	ComPtr<ID3D11VertexShader> m_VS;
 	ComPtr<ID3D11PixelShader> m_PS;
 	ComPtr<ID3D10Blob> m_VSCode;
-	
 };
 
 #define SHADER_EXCEP(result) Shader::ShaderException(__FILE__, __LINE__, result)

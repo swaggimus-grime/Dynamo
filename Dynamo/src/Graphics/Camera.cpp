@@ -4,7 +4,7 @@
 
 Camera::Camera(XMFLOAT3 pos)
 	:m_Pos(pos), 
-	m_Proj(XMMatrixPerspectiveLH(1, 16.f/9.f, 0.5f, 1000.0f)), 
+	m_Proj(XMMatrixPerspectiveLH(1, 9.f/16.f, 0.5f, 1000.0f)), 
 	m_Pitch(0.f), m_Yaw(0)
 {
 }

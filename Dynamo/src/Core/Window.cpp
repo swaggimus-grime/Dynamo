@@ -8,7 +8,7 @@
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 Window::Window(const std::string& name, unsigned int width, unsigned int height)
-	:m_Inst(GetModuleHandle(nullptr)), m_Name(name)
+	:m_Inst(GetModuleHandle(nullptr)), m_Name(name), m_Width(width), m_Height(height)
 {
 	WNDCLASSEX wc{};
 	HINSTANCE hInst = m_Inst;
@@ -25,7 +25,7 @@ Window::Window(const std::string& name, unsigned int width, unsigned int height)
 	wc.lpszClassName = m_Name.c_str();
 	RegisterClassEx(&wc);
 
-	RECT wr = { 0, 0, width, height };
+	RECT wr = { 0, 0, m_Width, m_Height };
 	AdjustWindowRect(&wr, WS_MINIMIZEBOX | WS_CAPTION | WS_SYSMENU, FALSE);
 	m_Handle = CreateWindowEx(NULL, m_Name.c_str(), m_Name.c_str(),
 		WS_MINIMIZEBOX | WS_CAPTION | WS_SYSMENU,
@@ -37,12 +37,13 @@ Window::Window(const std::string& name, unsigned int width, unsigned int height)
 		throw WIN_PREV_EXCEP;
 	ImGui_ImplWin32_Init(m_Handle);
 	ShowWindow(m_Handle, SW_SHOW);
-	
 
+	m_Graphics = std::make_unique<Graphics>(m_Handle, m_Width, m_Height);
 }
 
 Window::~Window()
 {
+	m_Graphics.release();
 	UnregisterClass(m_Name.c_str(), m_Inst);
 	ImGui_ImplWin32_Shutdown();
 	DestroyWindow(m_Handle);

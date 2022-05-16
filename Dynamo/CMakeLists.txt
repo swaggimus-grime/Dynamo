@@ -10,15 +10,11 @@ set(IMGUI_DIR ../tools/imgui)
 
 set(DXTEX_DIR ../tools/DirectXTex)
 
-set(VERTEX_SHADER_FILES
-    "res/shaders/Modelvs.hlsl"
-    "res/shaders/Flatvs.hlsl"
-    )
+file(GLOB_RECURSE VERTEX_SHADER_FILES CONFIGURE_DEPENDS
+  "res/shaders/*vs.hlsl")
 
-set(PIXEL_SHADER_FILES
-    "res/shaders/Modelps.hlsl"
-    "res/shaders/Flatps.hlsl"
-    )
+file(GLOB_RECURSE PIXEL_SHADER_FILES CONFIGURE_DEPENDS
+  "res/shaders/*ps.hlsl")
 
 set(SHADER_FILES 
     ${VERTEX_SHADER_FILES}
@@ -26,21 +22,7 @@ set(SHADER_FILES
     )
 
 # Add source to this project's executable.
-set(SRC
-     "src/Core/Main.cpp"
-     "src/Core/Window.cpp"
-     "src/Core/App.cpp"
-     "src/Core/Input.cpp"
-     "src/Graphics/Graphics.cpp"
-     "src/Graphics/Model.cpp"
-     "src/Debug/DynamoException.cpp"
-     "src/Graphics/Gui.cpp" 
-     "src/Graphics/Buffer.cpp"
-     "src/Graphics/GPU.cpp"
-     "src/Graphics/Shader.cpp"
-     "src/Graphics/Texture.cpp"
-     "src/Graphics/Camera.cpp"
-    )
+file(GLOB_RECURSE SRC CONFIGURE_DEPENDS "src/*.h" "src/*.cpp")
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src 
                     ${IMGUI_DIR} 
@@ -59,7 +41,7 @@ set(IMGUI_SRC
 
 set(RESOURCE_SCRIPTS res/dynamo.rc)
 
-add_executable(Dynamo WIN32 ${SRC} ${IMGUI_SRC} ${RESOURCE_SCRIPTS})
+add_executable(Dynamo WIN32 ${SRC} ${IMGUI_SRC} ${RESOURCE_SCRIPTS} ${SHADER_FILES})
 target_precompile_headers(Dynamo PRIVATE src/dynamopch.h)
 target_link_libraries(Dynamo "d3d11.lib" "d3dcompiler.lib" "dxgi.lib" DirectXTex assimp)
 add_custom_command(TARGET Dynamo POST_BUILD       

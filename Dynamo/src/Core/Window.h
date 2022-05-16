@@ -3,6 +3,7 @@
 #include <Windows.h>
 #include "Debug/DynamoException.h"
 #include "Input.h"
+#include "Graphics/Graphics.h"
 
 class Window {
 public:
@@ -13,8 +14,10 @@ public:
 
 	std::optional<INT> Update();
 	inline HWND GetHandle() const { return m_Handle; }
-
 	inline Input& GetInput() { return m_Input; }
+	inline UINT GetWidth() const { return m_Width; }
+	inline UINT GetHeight() const { return m_Height; }
+	inline Graphics& GetGraphics() const { return *m_Graphics; }
 public:
 	class WindowException : public DynamoException {
 	public:
@@ -32,6 +35,9 @@ private:
 	HINSTANCE m_Inst;
 	std::string m_Name;
 	Input m_Input;
+	UINT m_Width;
+	UINT m_Height;
+	std::unique_ptr<Graphics> m_Graphics;
 };
 
 #define WIN_EXCEP(r) Window::WindowException(__FILE__, __LINE__, r)

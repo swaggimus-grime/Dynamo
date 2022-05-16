@@ -29,22 +29,5 @@ GPU::GPU(HWND& hWnd)
         NULL,
         &m_DC);
 
-    ID3D11Resource* backBuff;
-    m_SC->GetBuffer(0, __uuidof(ID3D11Resource), reinterpret_cast<void**>(&backBuff));
-    m_Device->CreateRenderTargetView(backBuff, nullptr, &m_RTV);
-    backBuff->Release();
-
-    D3D11_VIEWPORT viewport;
-    SecureZeroMemory(&viewport, sizeof(D3D11_VIEWPORT));
-    viewport.TopLeftX = 0;
-    viewport.TopLeftY = 0;
-    viewport.Width = 1280;
-    viewport.Height = 720;
-    viewport.MinDepth = 0.f;
-    viewport.MaxDepth = 1.f;
-
-    m_DC->OMSetRenderTargets(1, m_RTV.GetAddressOf(), nullptr);
-    m_DC->RSSetViewports(1, &viewport);
-
     SetTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 }
