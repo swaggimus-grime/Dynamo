@@ -15,9 +15,6 @@ public:
 private:
 	std::unique_ptr<Window> m_Window;
 	std::shared_ptr<class Camera> m_Camera;
-	std::unique_ptr<class SkyboxPass> m_Skybox;
-	std::unique_ptr<class ConstantBuffer> m_SkyTransform;
-	std::unique_ptr<class ConstantBuffer> m_TriTransform;
-	std::unique_ptr<class DSState> m_DSState;
-	ComPtr<ID3D11RasterizerState> m_Rast;
+	std::unique_ptr<class Skybox> m_Skybox;
+	std::unique_ptr<class Model> m_GF;
 };

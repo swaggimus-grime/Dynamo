@@ -3,8 +3,8 @@
 
 static std::string directory = "";
 
-Model::Model(Graphics& g, const std::string& path, std::shared_ptr<Shader> shader)
-    :m_Shader(shader)
+Model::Model(Graphics& g, const std::string& path)
+    :m_Shader(std::move(std::make_shared<Shader>(g, L"res/shaders/Modelvs.cso", L"res/shaders/Modelps.cso")))
 {
     Assimp::Importer importer;
     const aiScene* scene = importer.ReadFile(path, aiProcess_FlipUVs | aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_CalcTangentSpace);
@@ -60,23 +60,26 @@ Model::Model(Graphics& g, const std::string& path, std::shared_ptr<Shader> shade
                 indices.push_back(face.mIndices[indIndex]);
         }
 
+        std::shared_ptr<VertexBuffer<Vertex>> vbuff = std::make_shared<VertexBuffer<Vertex>>(g, vertices, m_Shader->GetVSCode(), layout);
+        std::shared_ptr<IndexBuffer> ibuff = std::make_shared<IndexBuffer>(g, indices);
+        Mesh<Vertex> m = { vbuff, ibuff };
+
         std::vector<std::shared_ptr<Texture2D>> textures;
         if (mesh->mMaterialIndex >= 0) {
             const aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
 
             if (std::shared_ptr<Texture2D> diffuse = GetTexture(g, material, aiTextureType_DIFFUSE, 0))
-                textures.push_back(diffuse);
+                m.AddTexture(diffuse);
             if (std::shared_ptr<Texture2D> specular = GetTexture(g, material, aiTextureType_SPECULAR, 1))
-                textures.push_back(specular);
+                m.AddTexture(specular);
             if (std::shared_ptr<Texture2D> normal = GetTexture(g, material, aiTextureType_HEIGHT, 2))
-                textures.push_back(normal);
+                m.AddTexture(normal);
         }
 
-        std::shared_ptr<VertexBuffer<Vertex>> vbuff = std::make_shared<VertexBuffer<Vertex>>(g, vertices, shader->GetVSCode(), layout);
-        std::shared_ptr<IndexBuffer> ibuff = std::make_shared<IndexBuffer>(g, indices);
-        Mesh<Vertex> m = { vbuff, ibuff, textures };
         m_Meshes.push_back(m);
     }
+
+    m_TransformCBuff = std::make_unique<ModelConstantBuffer>(g, m_Transform, SHADER_TYPE::VS, sizeof(ModelTransform));
 }
 
 Model::~Model()
@@ -87,14 +90,9 @@ Model::~Model()
 void Model::Render(Graphics& g) const
 {
     m_Shader->Bind(g);
-    for (const auto& m : m_Meshes) {
-        m.VBuff->Bind(g);
-        m.IBuff->Bind(g);
-        for (const auto& t : m.Textures)
-            t->Bind(g);
-
-        g.DC().DrawIndexed(m.IBuff->Size(), 0, 0);
-    }
+    m_TransformCBuff->Bind(g);
+    for (const auto& m : m_Meshes)
+        m.Render(g);
 }
 
 std::shared_ptr<Texture2D> Model::GetTexture(Graphics& g, const aiMaterial* mat, aiTextureType type, UINT slot)
@@ -128,3 +126,16 @@ const char* Model::ModelException::what() const
 	return m_What.c_str();
 }
 
+Model::ModelConstantBuffer::ModelConstantBuffer(Graphics& g, ModelTransform& transformRef, SHADER_TYPE type, SIZE_T size)
+    :ConstantBuffer(g, type, size), m_TransformRef(transformRef)
+{
+}
+
+void Model::ModelConstantBuffer::Bind(Graphics& g) const
+{
+    m_TransformRef.ModelView = g.LookAt();
+    m_TransformRef.MVP = XMMatrixTranspose(m_TransformRef.ModelView * g.Projection());
+    m_TransformRef.ModelView = XMMatrixTranspose(m_TransformRef.ModelView);
+    Update(g, sizeof(ModelTransform), &m_TransformRef);
+    ConstantBuffer::Bind(g);
+}

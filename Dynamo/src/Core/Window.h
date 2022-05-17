@@ -18,6 +18,7 @@ public:
 	inline UINT GetWidth() const { return m_Width; }
 	inline UINT GetHeight() const { return m_Height; }
 	inline Graphics& GetGraphics() const { return *m_Graphics; }
+	void ToggleCursor();
 public:
 	class WindowException : public DynamoException {
 	public:

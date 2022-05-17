@@ -13,16 +13,29 @@ public:
 
 class Skybox : public Renderable {
 public:
-	Skybox(Graphics& g, const std::wstring& texDir, std::shared_ptr<Shader> shader);
+	Skybox(Graphics& g, const std::wstring& texDir);
 	virtual void Render(Graphics& g) const override;
 private:
-	std::unique_ptr<Cubemap> m_Cubemap;
-	std::shared_ptr<Shader> m_Shader;
+	std::vector<std::shared_ptr<Bindable>> m_Bindables;
 
 	struct CubeVertex {
 		XMFLOAT3 Pos;
 		XMFLOAT2 Tex;
 	};
 
-	Mesh<XMFLOAT3> m_Cube;
+	std::unique_ptr<Mesh<XMFLOAT3>> m_Cube;
+
+private:
+	struct SkyboxTransform {
+		XMMATRIX VP;
+	} m_Transform;
+
+	class SkyboxConstantBuffer : public ConstantBuffer {
+	public:
+		SkyboxConstantBuffer(Graphics& g, SkyboxTransform& transformRef, SHADER_TYPE type, SIZE_T size);
+		virtual void Bind(Graphics& g) const override;
+
+	private:
+		SkyboxTransform& m_TransormRef;
+	};
 };

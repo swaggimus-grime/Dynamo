@@ -5,12 +5,6 @@ void Buffer::Make(Graphics& g, D3D11_USAGE usage, D3D11_CPU_ACCESS_FLAG cpuAcces
 {
 	m_Stride = stride;
 
-	D3D11_SUBRESOURCE_DATA subResData;
-	SecureZeroMemory(&subResData, sizeof(D3D11_SUBRESOURCE_DATA));
-	subResData.pSysMem = data;
-	subResData.SysMemPitch = 0;
-	subResData.SysMemSlicePitch = 0;
-
 	D3D11_BUFFER_DESC buffDesc = { 0 };
 	buffDesc.Usage = usage;
 	buffDesc.ByteWidth = size;
@@ -18,7 +12,15 @@ void Buffer::Make(Graphics& g, D3D11_USAGE usage, D3D11_CPU_ACCESS_FLAG cpuAcces
 	buffDesc.CPUAccessFlags = cpuAccess;
 	buffDesc.MiscFlags = NULL;
 	buffDesc.StructureByteStride = m_Stride;
-	HRESULT hr = g.Device().CreateBuffer(&buffDesc, &subResData, &m_Buffer);
+
+	D3D11_SUBRESOURCE_DATA subResData{};
+	if (data) {
+		subResData.pSysMem = data;
+		subResData.SysMemPitch = 0;
+		subResData.SysMemSlicePitch = 0;
+	}
+
+	HRESULT hr = g.Device().CreateBuffer(&buffDesc, data ? &subResData : nullptr, &m_Buffer);
 }
 
 IndexBuffer::IndexBuffer(Graphics& g, const std::vector<UINT>& indices)
@@ -49,7 +51,7 @@ ConstantBuffer::ConstantBuffer(Graphics& g, SHADER_TYPE type, SIZE_T size, const
 	Make(g, D3D11_USAGE_DYNAMIC, D3D11_CPU_ACCESS_WRITE, D3D11_BIND_CONSTANT_BUFFER, size, data, 0);
 }
 
-void ConstantBuffer::Update(Graphics& g, SIZE_T size, const void* data)
+void ConstantBuffer::Update(Graphics& g, SIZE_T size, const void* data) const
 {
 	D3D11_MAPPED_SUBRESOURCE subData{};
 	g.DC().Map(m_Buffer.Get(), NULL, D3D11_MAP_WRITE_DISCARD, NULL, &subData);

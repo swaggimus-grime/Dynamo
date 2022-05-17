@@ -2,6 +2,9 @@
 #include "Skybox.h"
 #include "Texture.h"
 #include <DirectXTex.h>
+#include "Sampler.h"
+#include "DSState.h"
+#include "Rasterizer.h"
 
 #define CUBEMAP_NUM_FACES 6
 
@@ -67,21 +70,41 @@ std::vector<UINT> inds = {
 	0,4,2, 2,4,6,
 	0,1,4, 1,5,4
 };
-Skybox::Skybox(Graphics& g, const std::wstring& texDir, std::shared_ptr<Shader> shader)
-	:m_Shader(shader)
+
+Skybox::Skybox(Graphics& g, const std::wstring& texDir)
 {
-	
+	//Shader
+	auto shader = std::make_shared<Shader>(g, L"res/shaders/Skyboxvs.cso", L"res/shaders/Skyboxps.cso");
+
 	VertexLayout layout;
 	layout.AddAttrib("Pos", DXGI_FORMAT_R32G32B32_FLOAT);
-	m_Cube.VBuff = std::make_shared<VertexBuffer<XMFLOAT3>>(g, verts, m_Shader->GetVSCode(), layout);
-	m_Cube.IBuff = std::make_shared<IndexBuffer>(g, inds);
-	m_Cube.Textures.push_back(std::make_shared<Cubemap>(g, texDir, 0));
+	m_Cube = std::make_unique<Mesh<XMFLOAT3>>(std::make_shared<VertexBuffer<XMFLOAT3>>(g, verts, shader->GetVSCode(), layout),
+		std::make_shared<IndexBuffer>(g, inds));
+	m_Cube->AddTexture(std::make_shared<Cubemap>(g, texDir, 0));
+
+	m_Bindables.push_back(std::move(shader));
+	m_Bindables.push_back(std::move(std::make_shared<CubeSampler>(g)));
+	m_Bindables.push_back(std::move(std::make_shared<DSState>(g, DS_MODE::FIRST)));
+	m_Bindables.push_back(std::move(std::make_shared<Rasterizer>(g, RS_MODE::CULL_NONE)));
+	m_Bindables.push_back(std::move(std::make_shared<SkyboxConstantBuffer>(g, m_Transform, SHADER_TYPE::VS, sizeof(XMMATRIX))));
 }
 
 void Skybox::Render(Graphics& g) const
 {
-	m_Cube.VBuff->Bind(g);
-	m_Cube.IBuff->Bind(g);
-	m_Cube.Textures[0]->Bind(g);
-	g.DC().DrawIndexed(m_Cube.IBuff->Size(), 0, 0);
+	for (const auto& b : m_Bindables)
+		b->Bind(g);
+
+	m_Cube->Render(g);
+}
+
+Skybox::SkyboxConstantBuffer::SkyboxConstantBuffer(Graphics& g, SkyboxTransform& transformRef, SHADER_TYPE type, SIZE_T size)
+	:ConstantBuffer(g, type, size), m_TransormRef(transformRef)
+{
+}
+
+void Skybox::SkyboxConstantBuffer::Bind(Graphics& g) const
+{
+	m_TransormRef.VP = XMMatrixTranspose(g.LookAt() * g.Projection());
+	Update(g, sizeof(SkyboxTransform), &m_TransormRef);
+	ConstantBuffer::Bind(g);
 }

@@ -1,7 +1,7 @@
 #include "dynamopch.h"
 #include "Graphics.h"
 #include <d3d11.h>
-#include "Gui.h"
+#include "GUI/Gui.h"
 #include "Camera.h"
 #include <imgui_impl_dx11.h>
 #include "Camera.h"
@@ -22,7 +22,6 @@ Graphics::Graphics(HWND hWnd, UINT width, UINT height)
     m_GPU->SetViewport(viewport);
 
     ImGui_ImplDX11_Init(m_GPU->GetDevice(), m_GPU->GetDC());
-
 }
 
 Graphics::~Graphics()
@@ -30,8 +29,10 @@ Graphics::~Graphics()
     ImGui_ImplDX11_Shutdown();
 }
 
-void Graphics::BeginFrame()
+void Graphics::BeginFrame(Camera& camera)
 {
+    m_LookAt = std::move(camera.LookAt());
+    m_Projection = std::move(camera.Projection());
     Gui::BeginFrame();
 }
 

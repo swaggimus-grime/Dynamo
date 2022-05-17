@@ -15,9 +15,12 @@ public:
 	inline IDXGISwapChain& SC() const { return *m_GPU->GetSwapChain(); }
 	inline ID3D11Device& Device() const { return *m_GPU->GetDevice(); }
 	inline ID3D11DeviceContext& DC() const { return *m_GPU->GetDC(); }
-	void BeginFrame();
+	inline XMMATRIX LookAt() const { return m_LookAt; }
+	inline XMMATRIX Projection() const { return m_Projection; }
+	void BeginFrame(Camera& cam);
 	void EndFrame();
 private:
 	std::unique_ptr<GPU> m_GPU;
-
+	XMMATRIX m_LookAt;
+	XMMATRIX m_Projection;
 };

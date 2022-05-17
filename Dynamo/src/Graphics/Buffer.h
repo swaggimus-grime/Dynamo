@@ -61,8 +61,8 @@ enum class SHADER_TYPE {
 class ConstantBuffer : public Buffer {
 public:
 	ConstantBuffer() = delete;
-	ConstantBuffer(Graphics& g, SHADER_TYPE type, SIZE_T size, const void* data);
-	void Update(Graphics& g, SIZE_T size, const void* data);
+	ConstantBuffer(Graphics& g, SHADER_TYPE type, SIZE_T size, const void* data = nullptr);
+	void Update(Graphics& g, SIZE_T size, const void* data) const;
 	virtual void Bind(Graphics& g) const override;
 	inline ID3D11Buffer* GetBufferPointer() const { return m_Buffer.Get(); };
 

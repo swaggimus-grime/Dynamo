@@ -3,7 +3,6 @@
 #include <imgui_impl_dx11.h>
 #include <imgui_impl_win32.h>
 #include <comdef.h>
-#include "Graphics/Gui.h"
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -39,6 +38,10 @@ Window::Window(const std::string& name, unsigned int width, unsigned int height)
 	ShowWindow(m_Handle, SW_SHOW);
 
 	m_Graphics = std::make_unique<Graphics>(m_Handle, m_Width, m_Height);
+	RECT rect;
+	GetClientRect(m_Handle, &rect);
+	MapWindowPoints(m_Handle, nullptr, reinterpret_cast<LPPOINT>(&rect), 2);
+	ClipCursor(&rect);
 }
 
 Window::~Window()
@@ -47,7 +50,6 @@ Window::~Window()
 	UnregisterClass(m_Name.c_str(), m_Inst);
 	ImGui_ImplWin32_Shutdown();
 	DestroyWindow(m_Handle);
-	Gui::Shutdown();
 }
 
  std::optional<INT> Window::Update()
@@ -66,6 +68,13 @@ Window::~Window()
 	}
 
 	return {};
+}
+
+void Window::ToggleCursor()
+{
+	static bool showCursor = true;
+	showCursor = !showCursor;
+	ShowCursor(showCursor);
 }
 
 LRESULT Window::SetupMessageProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
