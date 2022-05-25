@@ -5,6 +5,8 @@
 #include "Sampler.h"
 #include "DSState.h"
 #include "Rasterizer.h"
+#include <imgui.h>
+#include "Core/Window.h"
 
 #define CUBEMAP_NUM_FACES 6
 
@@ -51,25 +53,6 @@ Cubemap::Cubemap(Graphics& g, const std::wstring& texDir, UINT slot)
 	g.Device().CreateShaderResourceView(cubemap.Get(), &mapViewDesc, &m_View);
 }
 
-std::vector<XMFLOAT3> verts = {
-	{ -.5f,-.5f,-.5f },
-	{ .5f,-.5f,-.5f },
-	{ -.5f,.5f,-.5f },
-	{ .5f,.5f,-.5f },
-	{ -.5f,-.5f,.5f },
-	{ .5f,-.5f,.5f },
-	{ -.5f,.5f,.5f },
-	{ .5f,.5f,.5f }
-};
-
-std::vector<UINT> inds = {
-	0,2,1, 2,3,1,
-	1,3,5, 3,7,5,
-	2,6,3, 3,6,7,
-	4,5,7, 4,7,6,
-	0,4,2, 2,4,6,
-	0,1,4, 1,5,4
-};
 
 Skybox::Skybox(Graphics& g, const std::wstring& texDir)
 {
@@ -78,18 +61,17 @@ Skybox::Skybox(Graphics& g, const std::wstring& texDir)
 
 	VertexLayout layout;
 	layout.AddAttrib("Pos", DXGI_FORMAT_R32G32B32_FLOAT);
-	m_Cube = std::make_unique<Mesh<XMFLOAT3>>(std::make_shared<VertexBuffer<XMFLOAT3>>(g, verts, shader->GetVSCode(), layout),
-		std::make_shared<IndexBuffer>(g, inds));
+	m_Cube = std::make_unique<Cube>(g, shader, XMFLOAT3(0.f, 0.f, 0.f));
 	m_Cube->AddTexture(std::make_shared<Cubemap>(g, texDir, 0));
 
 	m_Bindables.push_back(std::move(shader));
-	m_Bindables.push_back(std::move(std::make_shared<CubeSampler>(g)));
+	m_Bindables.push_back(std::move(std::make_shared<Sampler>(g, SAMPLER_MODE::LINEAR_WRAP)));
 	m_Bindables.push_back(std::move(std::make_shared<DSState>(g, DS_MODE::FIRST)));
 	m_Bindables.push_back(std::move(std::make_shared<Rasterizer>(g, RS_MODE::CULL_NONE)));
 	m_Bindables.push_back(std::move(std::make_shared<SkyboxConstantBuffer>(g, m_Transform, SHADER_TYPE::VS, sizeof(XMMATRIX))));
 }
 
-void Skybox::Render(Graphics& g) const
+void Skybox::Render(Graphics& g)
 {
 	for (const auto& b : m_Bindables)
 		b->Bind(g);
@@ -97,12 +79,20 @@ void Skybox::Render(Graphics& g) const
 	m_Cube->Render(g);
 }
 
+void Skybox::ShowGUI(Graphics& g)
+{
+	if (ImGui::Button("New Skybox")) {
+		m_Cube->GetTexture(0).reset();
+		m_Cube->GetTexture(0) = std::make_shared<Cubemap>(g, Window::FolderDialogBoxW(), 0);
+	}
+}
+
 Skybox::SkyboxConstantBuffer::SkyboxConstantBuffer(Graphics& g, SkyboxTransform& transformRef, SHADER_TYPE type, SIZE_T size)
 	:ConstantBuffer(g, type, size), m_TransormRef(transformRef)
 {
 }
 
-void Skybox::SkyboxConstantBuffer::Bind(Graphics& g) const
+void Skybox::SkyboxConstantBuffer::Bind(Graphics& g)
 {
 	m_TransormRef.VP = XMMatrixTranspose(g.LookAt() * g.Projection());
 	Update(g, sizeof(SkyboxTransform), &m_TransormRef);

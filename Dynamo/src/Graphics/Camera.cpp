@@ -4,7 +4,7 @@
 
 Camera::Camera(XMFLOAT3 pos)
 	:m_Pos(pos), 
-	m_Proj(XMMatrixPerspectiveLH(1, 9.f/16.f, 0.5f, 1000.0f)), 
+	m_Proj(XMMatrixPerspectiveFovLH(XMConvertToRadians(45.f), 16.f / 9.f, 0.5f, 4000.0f)),
 	m_Pitch(0.f), m_Yaw(0)
 {
 }
@@ -63,4 +63,15 @@ void Camera::Move(XMFLOAT3 translation)
 DirectX::XMFLOAT3 Camera::GetPos() const noexcept
 {
 	return m_Pos;
+}
+
+void Camera::ShowGUI()
+{
+	static bool open = true;
+	if (!open)
+		return;
+
+	ImGui::Begin("Camera Settings", &open);
+	ImGui::SliderFloat("Move Speed", &m_MoveSpeed, 5.f, 100.f);
+	ImGui::End();
 }

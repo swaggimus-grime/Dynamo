@@ -2,5 +2,5 @@
 
 class Renderable {
 protected:
-	virtual void Render(Graphics& g) const = 0;
+	virtual void Render(class Graphics& g) = 0;
 };

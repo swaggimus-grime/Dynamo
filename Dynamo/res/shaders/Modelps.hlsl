@@ -1,23 +1,42 @@
-Texture2D diffuseTex : register(t0);
-Texture2D specularTex : register(t1);
+Texture2D dmap : register(t0);
+Texture2D smap : register(t1);
+Texture2D nmap : register(t2);
 SamplerState samp;
 
-cbuffer Light
+cbuffer Light : register(b1)
 {
-    float4 LightColor;
     float3 LightPos;
+    float4 LightColor;
 };
 
-float4 main(float4 pos : Pos, float3 norm : Normal, float2 tex : TexCoord) : SV_Target
+struct PIn
 {
-    float4 ambient = LightColor * 0.1f * diffuseTex.Sample(samp, tex);
-    float4 lightDir = -normalize(float4(LightPos, 1.f) - pos);
-    float4 normal = normalize(float4(norm, 1.f));
-    float4 diffuse = LightColor * max(dot(lightDir, normal), 0.0) * diffuseTex.Sample(samp, tex);
-    float4 viewDir = normalize(-pos);
-    float4 reflectDir = reflect(lightDir, float4(norm, 1.f));
-    float4 specular = LightColor * pow(max(dot(viewDir, reflectDir), 0.0), 2) * specularTex.Sample(samp, tex);
-    return diffuseTex.Sample(samp, tex);
+    float4 pos : SV_POSITION;
+    float3 viewPos : POSITION;
+    float2 tex : TEXCOORD;
+    float3 norm : NORMAL;
+    float3 tan : TANGENT;
+    float3 bitan : BITANGENT;
+};
 
-    //return float4(1.f, 1.f, 1.f, 1.f);
+float4 main(PIn input) : SV_Target
+{
+    const float4 dtex = dmap.Sample(samp, input.tex);
+
+    if (dot(input.norm, input.viewPos) >= 0.0f)
+    {
+        input.norm = -input.norm;
+    }
+
+    input.norm = normalize(input.norm);
+    input.tan = normalize(input.tan);
+    input.bitan = normalize(input.bitan);
+    const float3x3 TBN = float3x3(input.tan, input.bitan, input.norm);
+    const float3 mappedNormal = normalize(mul((nmap.Sample(samp, input.tex).xyz * 2.f - 1.f), TBN));
+    input.norm = lerp(input.norm, mappedNormal, 0.f);
+    
+    float3 lightDir = normalize(LightPos - input.viewPos);
+    float4 diffuse = dtex * max(dot(lightDir, input.norm), 0.f);
+    // final color = attenuate diffuse & ambient by diffuse texture color and add specular reflected
+    return diffuse;
 }

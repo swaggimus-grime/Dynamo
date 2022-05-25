@@ -8,9 +8,8 @@ class Texture2D : public Bindable {
 public:
 	Texture2D() = default;
 	Texture2D(Graphics& g, LPCWSTR path, UINT slot);
-	virtual void Bind(Graphics& g) const override;
-	static DXGI_FORMAT GetFormat(UINT numComponents);
-	static UINT GetNumComponents(DXGI_FORMAT format);
+	virtual void Bind(Graphics& g) override;
+	virtual void Reload(Graphics& g, const std::wstring& newPath);
 
 	class Texture2DException : public DynamoException {
 	public:
@@ -22,6 +21,7 @@ public:
 protected:
 	UINT m_Slot;
 	ComPtr<ID3D11ShaderResourceView> m_View;
+	static const DXGI_FORMAT m_Format = DXGI_FORMAT_B8G8R8A8_UNORM;
 };
 
 #define TEX2D_PREV_EXCEP Texture2D::Texture2DException::Texture2DException(__FILE__, __LINE__, GetLastError())

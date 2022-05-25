@@ -9,12 +9,16 @@ public:
 	~App();
 	App(App&) = delete;
 	App& operator=(const App&) = delete;
-
-	void UserInput(float deltaTime);
 	INT Run();
+
+private:
+	void UserInput(float deltaTime);
+	void ShowGUI();
 private:
 	std::unique_ptr<Window> m_Window;
+	std::unique_ptr<class Scene> m_Scene;
 	std::shared_ptr<class Camera> m_Camera;
-	std::unique_ptr<class Skybox> m_Skybox;
-	std::unique_ptr<class Model> m_GF;
+	std::shared_ptr<class Skybox> m_Skybox;
+	std::shared_ptr<class Model> m_GF;
+	std::shared_ptr<class PointLight> m_PL;
 };

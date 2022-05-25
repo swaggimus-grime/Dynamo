@@ -1,8 +1,9 @@
 #include "dynamopch.h"
 #include "Window.h"
-#include <imgui_impl_dx11.h>
 #include <imgui_impl_win32.h>
 #include <comdef.h>
+#include <ShObjIdl.h>
+#include <shlobj.h>
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -35,13 +36,10 @@ Window::Window(const std::string& name, unsigned int width, unsigned int height)
 	if (!m_Handle)
 		throw WIN_PREV_EXCEP;
 	ImGui_ImplWin32_Init(m_Handle);
-	ShowWindow(m_Handle, SW_SHOW);
-
 	m_Graphics = std::make_unique<Graphics>(m_Handle, m_Width, m_Height);
-	RECT rect;
-	GetClientRect(m_Handle, &rect);
-	MapWindowPoints(m_Handle, nullptr, reinterpret_cast<LPPOINT>(&rect), 2);
-	ClipCursor(&rect);
+	ShowWindow(m_Handle, SW_SHOW);
+	m_Input.SetCursor(false);
+	GetClipCursor(&m_OrigClipRect);
 }
 
 Window::~Window()
@@ -70,11 +68,112 @@ Window::~Window()
 	return {};
 }
 
-void Window::ToggleCursor()
+std::wstring Window::OpenDialogBoxW()
+ {
+	 PWSTR pszFilePath;
+	 HRESULT hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED |
+		 COINIT_DISABLE_OLE1DDE);
+	 if (SUCCEEDED(hr))
+	 {
+		 IFileOpenDialog* pFileOpen;
+
+		 // Create the FileOpenDialog object.
+		 hr = CoCreateInstance(CLSID_FileOpenDialog, NULL, CLSCTX_ALL,
+			 IID_IFileOpenDialog, reinterpret_cast<void**>(&pFileOpen));
+
+		 if (SUCCEEDED(hr))
+		 {
+			 // Show the Open dialog box.
+			 hr = pFileOpen->Show(NULL);
+
+			 // Get the file name from the dialog box.
+			 if (SUCCEEDED(hr))
+			 {
+				 IShellItem* pItem;
+				 hr = pFileOpen->GetResult(&pItem);
+				 if (SUCCEEDED(hr))
+				 {
+					 hr = pItem->GetDisplayName(SIGDN_FILESYSPATH, &pszFilePath);
+
+					 // Display the file name to the user.
+					 if (SUCCEEDED(hr))
+					 {
+						 CoTaskMemFree(pszFilePath);
+					 }
+					 pItem->Release();
+				 }
+			 }
+			 pFileOpen->Release();
+		 }
+		 CoUninitialize();
+	 }
+
+	 return pszFilePath;
+ }
+
+static int CALLBACK BrowseFolderCallback(
+	HWND hwnd, UINT uMsg, LPARAM lParam, LPARAM lpData)
 {
-	static bool showCursor = true;
-	showCursor = !showCursor;
-	ShowCursor(showCursor);
+	if (uMsg == BFFM_INITIALIZED) {
+		LPCTSTR path = reinterpret_cast<LPCTSTR>(lpData);
+		::SendMessage(hwnd, BFFM_SETSELECTION, true, (LPARAM)path);
+	}
+	return 0;
+}
+
+std::string Window::FolderDialogBox()
+{
+	TCHAR path[MAX_PATH];
+
+	BROWSEINFO bi = { 0 };
+	bi.lpszTitle = ("Browse for folder...");
+	bi.ulFlags = BIF_RETURNONLYFSDIRS | BIF_NEWDIALOGSTYLE;
+	bi.lpfn = BrowseFolderCallback;
+
+	LPITEMIDLIST pidl = SHBrowseForFolder(&bi);
+
+	if (pidl != 0)
+	{
+		//get the name of the folder and put it in path
+		SHGetPathFromIDList(pidl, path);
+
+		//free memory used
+		IMalloc* imalloc = 0;
+		if (SUCCEEDED(SHGetMalloc(&imalloc)))
+		{
+			imalloc->Free(pidl);
+			imalloc->Release();
+		}
+
+		return path;
+	}
+
+	return "";
+}
+
+std::wstring Window::FolderDialogBoxW()
+{
+	const auto& folderPath = FolderDialogBox();
+	return std::wstring(folderPath.begin(), folderPath.end());
+}
+
+std::string Window::OpenDialogBox()
+{
+	const auto& wPath = OpenDialogBoxW();
+	return std::string(wPath.begin(), wPath.end());
+}
+
+void Window::ClipCursor(BOOL clip)
+{
+	if (!clip) {
+		::ClipCursor(&m_OrigClipRect);
+		return;
+	}
+
+	RECT rect;
+	GetClientRect(m_Handle, &rect);
+	MapWindowPoints(m_Handle, nullptr, reinterpret_cast<LPPOINT>(&rect), 2);
+	::ClipCursor(&rect);
 }
 
 LRESULT Window::SetupMessageProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
@@ -104,6 +203,11 @@ LRESULT Window::HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_CLOSE:
 		PostQuitMessage(0);
 		return 0;
+	case WM_SIZE:
+		m_Width = LOWORD(lParam);
+		m_Height = HIWORD(lParam);
+		m_Graphics->OnWindowResize(m_Width, m_Height);
+		ImGui::GetIO().DisplaySize = ImVec2((float)m_Width, (float)m_Height);
 	case WM_KEYDOWN:
 		if (guiIO.WantCaptureKeyboard)
 			break;
@@ -123,6 +227,9 @@ LRESULT Window::HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		m_Input.OnWheelDelta(wp.x, wp.y);
 		break;
 	case WM_INPUT:
+		if (!m_Input.m_RawDeltaEnabled)
+			break;
+
 		UINT buffSize = 0;
 		if (GetRawInputData(reinterpret_cast<HRAWINPUT>(lParam), RID_INPUT, nullptr, &buffSize, sizeof(RAWINPUTHEADER)) < 0)
 			break;

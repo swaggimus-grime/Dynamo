@@ -13,7 +13,7 @@ class DSState : public Bindable {
 public:
 	DSState(Graphics& g);
 	DSState(Graphics& g, DS_MODE mode);
-	virtual void Bind(Graphics& g) const override;
+	virtual void Bind(Graphics& g) override;
 private:
 	ComPtr<ID3D11DepthStencilState> m_State;
 };

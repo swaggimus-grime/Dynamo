@@ -9,6 +9,11 @@ public:
 	bool IsPressed(unsigned int key);
 	bool IsReleased(unsigned int key);
 	std::optional<XMFLOAT2> ReadMouseDelta();
+	std::optional<UINT> ReadKey();
+
+	inline void SetCursor(BOOL enabled) { SetRawDeltaEnabled(enabled); ShowCursor(!enabled); }
+	inline void SetRawDeltaEnabled(BOOL enabled) { m_RawDeltaEnabled = enabled; }
+	inline BOOL RawDeltaEnabled() const { return m_RawDeltaEnabled; }
 private:
 	friend class Window;
 	void OnKeyPressed(unsigned int key);
@@ -26,10 +31,12 @@ private:
 private:
 	static constexpr UINT numKeys = 256;
 	std::bitset<numKeys> m_Keys;
+	std::queue<UINT> m_KeyBuffer;
 
 	XMFLOAT2 m_MousePos;
 	XMFLOAT2 m_MouseDelta;
 	std::queue<XMFLOAT2> m_MouseDeltas;
+	BOOL m_RawDeltaEnabled = true;
 };
 
 #define INPUT_EXCEP(msg) Input::InputException(__FILE__, __LINE__, msg)

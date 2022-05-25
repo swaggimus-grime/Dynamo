@@ -3,10 +3,14 @@
 #include "Bindable.h"
 #include <d3d11.h>
 
-class CubeSampler : public Bindable {
+enum class SAMPLER_MODE {
+	LINEAR_WRAP, NEAREST_WRAP, LINEAR_MIRROR, LINEAR_CLAMP
+};
+
+class Sampler : public Bindable {
 public:
-	CubeSampler(Graphics& g);
-	virtual void Bind(Graphics& g) const override;
+	Sampler(Graphics& g, SAMPLER_MODE mode);
+	virtual void Bind(Graphics& g) override;
 
 private:
 	ComPtr<ID3D11SamplerState> m_State;

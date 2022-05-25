@@ -60,6 +60,7 @@ get_source_file_property(shadermodel ${FILE} VS_SHADER_MODEL)
 add_custom_command(TARGET Dynamo POST_BUILD
                      COMMAND fxc.exe /nologo /Emain /T${shadertype}_${shadermodel} $<$<CONFIG:DEBUG>:/Od> /Zi /Fo res/shaders/${FILE_WE}.cso ${FILE}
                      MAIN_DEPENDENCY ${FILE}
+                     DEPENDS ${FILE}
                      COMMENT "HLSL ${FILE}"
                      WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
                      VERBATIM)

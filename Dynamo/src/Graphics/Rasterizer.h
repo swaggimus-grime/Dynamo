@@ -11,7 +11,7 @@ class Rasterizer : public Bindable {
 public:
 	Rasterizer(Graphics& g);
 	Rasterizer(Graphics& g, RS_MODE mode);
-	virtual void Bind(Graphics& g) const override;
+	virtual void Bind(Graphics& g) override;
 private:
 	ComPtr<ID3D11RasterizerState> m_State;
 };

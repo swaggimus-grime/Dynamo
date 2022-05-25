@@ -27,7 +27,7 @@ Rasterizer::Rasterizer(Graphics& g, RS_MODE mode)
 	g.Device().CreateRasterizerState(&rastDesc, &m_State);
 }
 
-void Rasterizer::Bind(Graphics& g) const
+void Rasterizer::Bind(Graphics& g)
 {
 	g.DC().RSSetState(m_State.Get());
 }

@@ -29,7 +29,7 @@ DSState::DSState(Graphics& g, DS_MODE mode)
 	g.Device().CreateDepthStencilState(&dsDesc, m_State.GetAddressOf());
 }
 
-void DSState::Bind(Graphics& g) const
+void DSState::Bind(Graphics& g)
 {
 	g.DC().OMSetDepthStencilState(m_State.Get(), 0xFF);
 }

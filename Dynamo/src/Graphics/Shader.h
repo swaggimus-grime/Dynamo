@@ -9,7 +9,7 @@ class Shader : public Bindable {
 public:
 	Shader(Graphics& g, LPCWSTR vertPath, LPCWSTR pixPath);
 	~Shader();
-	virtual void Bind(Graphics& g) const override;
+	virtual void Bind(Graphics& g) override;
 	inline ID3D10Blob& GetVSCode() const { return *m_VSCode.Get(); }
 public:
 	class ShaderException : public DynamoException {

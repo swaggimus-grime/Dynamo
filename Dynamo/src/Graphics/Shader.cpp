@@ -17,7 +17,7 @@ Shader::~Shader()
 {
 }
 
-void Shader::Bind(Graphics& g) const
+void Shader::Bind(Graphics& g)
 {
 	g.DC().VSSetShader(m_VS.Get(), nullptr, 0);
 	g.DC().PSSetShader(m_PS.Get(), nullptr, 0);

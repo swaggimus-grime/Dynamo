@@ -18,7 +18,11 @@ public:
 	inline UINT GetWidth() const { return m_Width; }
 	inline UINT GetHeight() const { return m_Height; }
 	inline Graphics& GetGraphics() const { return *m_Graphics; }
-	void ToggleCursor();
+	static std::string OpenDialogBox();
+	static std::wstring OpenDialogBoxW();
+	static std::string FolderDialogBox();
+	static std::wstring FolderDialogBoxW();
+	void ClipCursor(BOOL clip);
 public:
 	class WindowException : public DynamoException {
 	public:
@@ -39,6 +43,8 @@ private:
 	UINT m_Width;
 	UINT m_Height;
 	std::unique_ptr<Graphics> m_Graphics;
+
+	RECT m_OrigClipRect;
 };
 
 #define WIN_EXCEP(r) Window::WindowException(__FILE__, __LINE__, r)

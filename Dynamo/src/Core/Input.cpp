@@ -8,11 +8,14 @@ Input::Input()
 	mouse.usUsage = 2;
 	if (RegisterRawInputDevices(&mouse, 1, sizeof(mouse)) == FALSE)
 		throw INPUT_EXCEP("Failed to register mouse");
+
+	SetCursor(true);
 }
 
 void Input::OnKeyPressed(unsigned int key)
 {
 	m_Keys[key] = true;
+	m_KeyBuffer.push(key);
 }
 
 void Input::OnKeyReleased(unsigned int key)
@@ -54,6 +57,16 @@ std::optional<XMFLOAT2> Input::ReadMouseDelta()
 	const auto delta = m_MouseDeltas.front();
 	m_MouseDeltas.pop();
 	return delta;
+}
+
+std::optional<UINT> Input::ReadKey()
+{
+	if (m_KeyBuffer.empty())
+		return {};
+
+	UINT key = m_KeyBuffer.front();
+	m_KeyBuffer.pop();
+	return key;
 }
 
 Input::InputException::InputException(const char* file, unsigned int line, const char* msg)
