@@ -16,16 +16,18 @@
 
 std::shared_ptr<Framebuffer> fb;
 
+Transform modelTransform(XMFLOAT3(0.f, 0.f, 0.f), XMFLOAT3(M_PI / 2, 0.f, 0.f));
+
 App::App(const std::string& name, UINT32 width, UINT32 height)
 {
 	Gui::Init();
 	m_Window = std::make_unique<Window>(name, width, height);
 
-	m_Camera = std::make_shared<Camera>(XMFLOAT3(0.f, -50.f, -100.f));
+	m_Camera = std::make_shared<Camera>(XMFLOAT3(0.f, 20.f, -100.f));
 	fb = std::make_shared<Framebuffer>(m_Window->GetGraphics(), m_Window->GetWidth(), m_Window->GetHeight(), true);
 	m_Skybox = std::make_shared<Skybox>(m_Window->GetGraphics(), L"res\\skyboxes\\yokohama");
-	m_GF = std::make_shared<Model>(m_Window->GetGraphics(), "res\\models\\golden_freddy\\scene.gltf");
-	m_PL = std::make_shared<PointLight>(m_Window->GetGraphics(), XMFLOAT3(0.f, 5.f, 10.f), XMFLOAT3(1.f, 1.f, 0.f));
+	m_GF = std::make_shared<Model>(m_Window->GetGraphics(), "res\\models\\golden_freddy\\scene.gltf", modelTransform);
+	m_PL = std::make_shared<PointLight>(m_Window->GetGraphics(), XMFLOAT3(0.f, 10.f, -10.f), XMFLOAT3(1.f, 1.f, 0.f));
 	m_Scene = std::make_unique<Scene>();
 
 	m_Scene->Submit(m_Skybox, "Skybox");
@@ -80,10 +82,8 @@ void App::ShowGUI()
 	static bool showCamera = false;
 	if (ImGui::BeginMainMenuBar()) {
 		if (ImGui::BeginMenu("File")) {
-			if (ImGui::MenuItem("Open File")) {
-				m_GF.reset();
-				m_GF = std::make_unique<Model>(m_Window->GetGraphics(), m_Window->OpenDialogBox());
-			}
+			if (ImGui::MenuItem("Open File")) 
+				m_GF->Reload(m_Window->GetGraphics(), Window::OpenDialogBox());
 
 			ImGui::EndMenu();
 		}

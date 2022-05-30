@@ -11,5 +11,7 @@
 #include <optional>
 #include <math.h>
 
+#include "Graphics/VectorOps.h"
+
 using Microsoft::WRL::ComPtr;
 using namespace DirectX;

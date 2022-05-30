@@ -2,7 +2,8 @@
 #include "Shapes.h"
 #include "Shader.h"
 
-Cube::Cube(Graphics& g, std::shared_ptr<Shader> shader, const XMFLOAT3& pos, const XMFLOAT3& rot, const XMFLOAT3& scale)
+Cube::Cube(Graphics& g, std::shared_ptr<Shader> shader, const Transform& t)
+	:Shape(t)
 {
 	m_Shader = std::move(shader);
 
@@ -15,4 +16,9 @@ void Cube::Render(Graphics& g)
 {
 	m_Shader->Bind(g);
 	m_Mesh->Render(g);
+}
+
+Shape::Shape(const Transform& t)
+	:Transformable(t)
+{
 }

@@ -15,14 +15,19 @@ public:
 	virtual void Bind(Graphics& g) override;
 private:
 	struct {
-		XMVECTOR Pos;
-		XMVECTOR Color;
+		alignas(16) XMFLOAT3 Pos;
+		alignas(16) XMFLOAT3 Color;
+		alignas(16) XMFLOAT3 Ambient;
+		float Intensity;
+		float QuadAtt;
+		float LinAtt;
+		float ConstAtt;
 	} m_Light;
 
 private:
 	struct {
 		XMMATRIX MVP;
-		XMVECTOR Color;
+		alignas(16) XMFLOAT3 Color;
 
 	} m_Buff;
 
@@ -35,6 +40,7 @@ private:
 	std::unique_ptr<Cube> m_Cube;
 	std::unique_ptr<PointLightBuffer> m_CBuff;
 	std::shared_ptr<Shader> m_Shader;
-	XMFLOAT3 m_Color;
+
+	XMFLOAT3 m_PrevPos;
 	XMFLOAT3 m_Pos;
 };

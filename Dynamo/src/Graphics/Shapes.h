@@ -6,6 +6,8 @@
 #include "Shader.h"
 
 class Shape : public Transformable, public Renderable {
+public:
+	Shape(const Transform& t);
 	virtual void Render(Graphics& g) = 0;
 protected:
 	std::shared_ptr<Shader> m_Shader;
@@ -13,7 +15,7 @@ protected:
 
 class Cube : public Shape {
 public:
-	Cube(Graphics& g, std::shared_ptr<Shader> shader, const XMFLOAT3& pos, const XMFLOAT3& rot = {0.f, 0.f, 0.f}, const XMFLOAT3& scale = {1.f, 1.f, 1.f});
+	Cube(Graphics& g, std::shared_ptr<Shader> shader, const Transform& t);
 	inline void AddTexture(std::shared_ptr<Texture2D> tex) { m_Mesh->AddTexture(std::move(tex)); }
 	virtual void Render(Graphics& g) override;
 	inline std::shared_ptr<Texture2D>& GetTexture(UINT slot) { return m_Mesh->GetTexture(slot); }

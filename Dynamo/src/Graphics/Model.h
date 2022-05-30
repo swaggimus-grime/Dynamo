@@ -24,8 +24,9 @@ struct Vertex {
 
 class Model : public Renderable, public Transformable, public GUIable {
 public:
-	Model(Graphics& g, const std::string& path);
+	Model(Graphics& g, const std::string& path, const Transform& t);
 	~Model();
+	void Reload(Graphics& g, const std::string& path);
 	virtual void Render(Graphics& g) override;
 	virtual void ShowGUI() override;
 public:
@@ -54,11 +55,23 @@ private:
 
 		XMMATRIX m_Model;
 	};
+
+	struct Material {
+		float SpecIntensity;
+		float SpecPower;
+	};
+
+	class MaterialBuffer : public ConstantBuffer {
+	public:
+		MaterialBuffer(Graphics& g, const Material& mat);
+
+	};
 private:
 	std::vector<Mesh<Vertex>> m_Meshes;
 	std::shared_ptr<Shader> m_Shader;
 	std::shared_ptr<DSState> m_DSState;
 	std::unique_ptr<ModelTransformBuffer> m_TransformCBuff;
+	std::unique_ptr<MaterialBuffer> m_MatCBuff;
 	UINT m_TotalVertices;
 	UINT m_TotalIndices;
 };

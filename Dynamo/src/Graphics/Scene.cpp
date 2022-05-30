@@ -10,12 +10,20 @@ Scene::Scene()
 
 void Scene::Submit(std::shared_ptr<GUIable> g, const std::string& name)
 {
-	m_GUIables.insert({ name, g });
+	auto& it = m_GUIables.find(name);
+	if (it != m_GUIables.end())
+		it->second = g;
+	else
+		m_GUIables.insert({ name, g });
 }
 
 void Scene::Submit(std::shared_ptr<D3DGUIable> g, const std::string& name)
 {
-	m_D3DGUIables.insert({ name, g });
+	auto& it = m_D3DGUIables.find(name);
+	if (it != m_D3DGUIables.end())
+		it->second = g;
+	else
+		m_D3DGUIables.insert({ name, g });
 }
 
 void Scene::ShowGUI(Graphics& g)
