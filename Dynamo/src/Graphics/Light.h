@@ -11,6 +11,7 @@ public:
 	PointLight(Graphics& g, const XMFLOAT3& pos, const XMFLOAT3& color = {1.f, 1.f, 1.f});
 	virtual void Translate(float x, float y, float z) override;
 	virtual void Render(Graphics& g) override;
+	virtual void RenderOutline(Graphics& g) override {}
 	virtual void ShowGUI() override;
 	virtual void Bind(Graphics& g) override;
 private:

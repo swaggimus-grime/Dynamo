@@ -28,6 +28,7 @@ public:
 	~Model();
 	void Reload(Graphics& g, const std::string& path);
 	virtual void Render(Graphics& g) override;
+	virtual void RenderOutline(Graphics& g) override;
 	virtual void ShowGUI() override;
 public:
 
@@ -69,7 +70,6 @@ private:
 private:
 	std::vector<Mesh<Vertex>> m_Meshes;
 	std::shared_ptr<Shader> m_Shader;
-	std::shared_ptr<DSState> m_DSState;
 	std::unique_ptr<ModelTransformBuffer> m_TransformCBuff;
 	std::unique_ptr<MaterialBuffer> m_MatCBuff;
 	UINT m_TotalVertices;

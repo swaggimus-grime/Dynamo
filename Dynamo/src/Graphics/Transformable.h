@@ -23,6 +23,8 @@ public:
 	virtual void Translate(const XMFLOAT3& t);
 	virtual void Rotate(const XMFLOAT3& r);
 	virtual void Scale(const XMFLOAT3& s);
+	virtual void ScaleDelta(const XMFLOAT3& sd);
+
 	virtual void ShowGUI() override;
 protected:
 	XMMATRIX GetModelMat() const { return m_Scale * m_Rot * m_Trans; }

@@ -18,6 +18,7 @@ public:
 	Cube(Graphics& g, std::shared_ptr<Shader> shader, const Transform& t);
 	inline void AddTexture(std::shared_ptr<Texture2D> tex) { m_Mesh->AddTexture(std::move(tex)); }
 	virtual void Render(Graphics& g) override;
+	virtual void RenderOutline(Graphics& g) override;
 	inline std::shared_ptr<Texture2D>& GetTexture(UINT slot) { return m_Mesh->GetTexture(slot); }
 private:
 	static struct Vertex {

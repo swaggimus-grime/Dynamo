@@ -16,6 +16,7 @@ private:
 	void ShowGUI();
 private:
 	std::unique_ptr<Window> m_Window;
+	std::unique_ptr<class Selector> m_Selector;
 	std::unique_ptr<class Scene> m_Scene;
 	std::shared_ptr<class Camera> m_Camera;
 	std::shared_ptr<class Skybox> m_Skybox;

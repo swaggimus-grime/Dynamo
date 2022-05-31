@@ -14,15 +14,27 @@ DSState::DSState(Graphics& g, DS_MODE mode)
 {
 	D3D11_DEPTH_STENCIL_DESC dsDesc = CD3D11_DEPTH_STENCIL_DESC{ CD3D11_DEFAULT{} };
 	switch (mode) {
-	case DS_MODE::FIRST:
+	case DS_MODE::DEPTH_FIRST:
 		dsDesc.DepthEnable = true;
 		dsDesc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;
 		dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
 		break;
-	case DS_MODE::DEFAULT:
+	case DS_MODE::DEPTH_DEFAULT:
 		dsDesc.DepthEnable = true;
 		dsDesc.DepthFunc = D3D11_COMPARISON_LESS;
 		dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+		break;
+	case DS_MODE::STENCIL_WRITE:
+		dsDesc.StencilEnable = TRUE;
+		dsDesc.StencilWriteMask = 0xFF;
+		dsDesc.FrontFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
+		dsDesc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_REPLACE;
+		break;
+	case DS_MODE::STENCIL_MASK:
+		dsDesc.StencilEnable = TRUE;
+		dsDesc.StencilReadMask = 0xFF;
+		dsDesc.FrontFace.StencilFunc = D3D11_COMPARISON_NOT_EQUAL;
+		dsDesc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
 		break;
 	}
 

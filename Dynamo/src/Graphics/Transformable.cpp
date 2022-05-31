@@ -41,6 +41,11 @@ void Transformable::Scale(const XMFLOAT3& s)
     Scale(s.x, s.y, s.z);
 }
 
+void Transformable::ScaleDelta(const XMFLOAT3& sd)
+{
+    Scale(m_SVec + sd);
+}
+
 void Transformable::ShowGUI()
 {
     if (ImGui::SliderFloat3("Position", reinterpret_cast<FLOAT*>(&m_PVec.x), -1000.f, 1000.f))

@@ -12,7 +12,7 @@ Framebuffer::Framebuffer(Graphics& g, UINT width, UINT height, BOOL depthEnable)
 void Framebuffer::Clear(Graphics& g)
 {
     g.DC().ClearRenderTargetView(m_ColorView.Get(), &m_ClearColor.x);
-    g.DC().ClearDepthStencilView(m_DSView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.f, 0.f);
+    g.DC().ClearDepthStencilView(m_DSView.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.f, 0);
 }
 
 void Framebuffer::Bind(Graphics& g)
@@ -34,7 +34,7 @@ void Framebuffer::Reset(Graphics& g, UINT width, UINT height)
         dsBufferDesc.Height = height;
         dsBufferDesc.MipLevels = 1;
         dsBufferDesc.ArraySize = 1;
-        dsBufferDesc.Format = DXGI_FORMAT_D32_FLOAT;
+        dsBufferDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
         dsBufferDesc.SampleDesc.Count = 1;
         dsBufferDesc.SampleDesc.Quality = 0;
         dsBufferDesc.Usage = D3D11_USAGE_DEFAULT;

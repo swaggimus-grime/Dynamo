@@ -5,8 +5,10 @@
 #include <d3d11.h>
 
 enum class DS_MODE {
-	FIRST,
-	DEFAULT
+	DEPTH_FIRST,
+	DEPTH_DEFAULT,
+	STENCIL_WRITE,
+	STENCIL_MASK
 };
 
 class DSState : public Bindable {

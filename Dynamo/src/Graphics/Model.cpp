@@ -11,7 +11,6 @@ Model::Model(Graphics& g, const std::string& path, const Transform& t)
     m_TransformCBuff = std::make_unique<ModelTransformBuffer>(g);
     Material mat = { .6f, 30.f };
     m_MatCBuff = std::make_unique<MaterialBuffer>(g, mat);
-    m_DSState = std::make_shared<DSState>(g);
 
     Reload(g, path);
 }
@@ -106,13 +105,22 @@ void Model::Reload(Graphics& g, const std::string& path)
 
 void Model::Render(Graphics& g)
 {
-    m_DSState->Bind(g);
     m_Shader->Bind(g);
     m_TransformCBuff->SetModel(GetModelMat());
     m_TransformCBuff->Bind(g);
     m_MatCBuff->Bind(g);
     for (auto& m : m_Meshes)
         m.Render(g);
+}
+
+void Model::RenderOutline(Graphics& g)
+{
+    ScaleDelta(XMFLOAT3(.01f, .01f, .01f));
+    m_TransformCBuff->SetModel(GetModelMat());
+    m_TransformCBuff->Bind(g);
+    for (auto& m : m_Meshes)
+        m.RenderOutline(g);
+    ScaleDelta(XMFLOAT3(-.01f, -.01f, -.01f));
 }
 
 void Model::ShowGUI()

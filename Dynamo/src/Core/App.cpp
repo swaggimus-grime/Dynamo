@@ -13,6 +13,7 @@
 #include <imgui.h>
 #include "Graphics/Light.h"
 #include "Graphics/Scene.h"
+#include "Graphics/Selector.h"
 
 std::shared_ptr<Framebuffer> fb;
 
@@ -29,10 +30,12 @@ App::App(const std::string& name, UINT32 width, UINT32 height)
 	m_GF = std::make_shared<Model>(m_Window->GetGraphics(), "res\\models\\golden_freddy\\scene.gltf", modelTransform);
 	m_PL = std::make_shared<PointLight>(m_Window->GetGraphics(), XMFLOAT3(0.f, 10.f, -10.f), XMFLOAT3(1.f, 1.f, 0.f));
 	m_Scene = std::make_unique<Scene>();
+	m_Selector = std::make_unique<Selector>(m_Window->GetGraphics());
 
 	m_Scene->Submit(m_Skybox, "Skybox");
 	m_Scene->Submit(m_PL, "Point Light");
 	m_Scene->Submit(m_GF, "Model");
+	m_Selector->Select(m_GF);
 }
 
 App::~App()
@@ -120,8 +123,10 @@ INT App::Run()
 		m_Window->GetGraphics().BeginFrame(*m_Camera);
 
 		m_PL->Bind(m_Window->GetGraphics());
+
 		m_Skybox->Render(m_Window->GetGraphics());
-		m_GF->Render(m_Window->GetGraphics());
+		m_Selector->Render(m_Window->GetGraphics());
+		//m_GF->Render(m_Window->GetGraphics());
 		m_PL->Render(m_Window->GetGraphics());
 
 		ShowGUI();

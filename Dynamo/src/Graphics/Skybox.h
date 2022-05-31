@@ -17,6 +17,7 @@ class Skybox : public Renderable, public D3DGUIable {
 public:
 	Skybox(Graphics& g, const std::wstring& texDir);
 	virtual void Render(Graphics& g) override;
+	virtual void RenderOutline(Graphics& g) {}
 	virtual void ShowGUI(Graphics& g) override;
 private:
 	std::vector<std::shared_ptr<Bindable>> m_Bindables;

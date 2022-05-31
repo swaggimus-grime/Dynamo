@@ -27,6 +27,13 @@ public:
 		g.DC().DrawIndexed(m_IBuff->Size(), 0, 0);
 	}
 
+	virtual void RenderOutline(Graphics& g) override
+	{
+		m_VBuff->Bind(g);
+		m_IBuff->Bind(g);
+		g.DC().DrawIndexed(m_IBuff->Size(), 0, 0);
+	}
+
 	inline UINT GetIndexCount() const { return m_IBuff->Size(); }
 	inline std::shared_ptr<Texture2D>& GetTexture(UINT slot) { return m_Textures[slot]; }
 private:

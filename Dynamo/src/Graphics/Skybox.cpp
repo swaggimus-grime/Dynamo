@@ -66,7 +66,7 @@ Skybox::Skybox(Graphics& g, const std::wstring& texDir)
 
 	m_Bindables.push_back(std::move(shader));
 	m_Bindables.push_back(std::move(std::make_shared<Sampler>(g, SAMPLER_MODE::LINEAR_WRAP)));
-	m_Bindables.push_back(std::move(std::make_shared<DSState>(g, DS_MODE::FIRST)));
+	m_Bindables.push_back(std::move(std::make_shared<DSState>(g, DS_MODE::DEPTH_FIRST)));
 	m_Bindables.push_back(std::move(std::make_shared<Rasterizer>(g, RS_MODE::CULL_NONE)));
 	m_Bindables.push_back(std::move(std::make_shared<SkyboxConstantBuffer>(g, m_Transform, SHADER_TYPE::VS, sizeof(XMMATRIX))));
 }

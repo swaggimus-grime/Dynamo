@@ -18,6 +18,11 @@ void Cube::Render(Graphics& g)
 	m_Mesh->Render(g);
 }
 
+void Cube::RenderOutline(Graphics& g)
+{
+	m_Mesh->RenderOutline(g);
+}
+
 Shape::Shape(const Transform& t)
 	:Transformable(t)
 {
