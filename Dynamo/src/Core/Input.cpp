@@ -2,6 +2,7 @@
 #include "Input.h"
 
 Input::Input()
+	:m_LPressed(false), m_RPressed(false)
 {
 	RAWINPUTDEVICE mouse{};
 	mouse.usUsagePage = 1;
@@ -39,6 +40,17 @@ void Input::OnWheelDelta(float dx, float dy)
 
 }
 
+void Input::OnMouseLPressed()
+{
+	m_LPressed = true;
+	m_MouseClicks.push(m_MousePos);
+}
+
+void Input::OnMouseLReleased()
+{
+	m_LPressed = false;
+}
+
 bool Input::IsPressed(unsigned int key)
 {
 	return m_Keys[key] & 1;
@@ -67,6 +79,16 @@ std::optional<UINT> Input::ReadKey()
 	UINT key = m_KeyBuffer.front();
 	m_KeyBuffer.pop();
 	return key;
+}
+
+std::optional<XMFLOAT2> Input::ReadMouseLPress()
+{
+	if (m_MouseClicks.empty())
+		return {};
+
+	XMFLOAT2 pos = m_MouseClicks.front();
+	m_MouseClicks.pop();
+	return pos;
 }
 
 Input::InputException::InputException(const char* file, unsigned int line, const char* msg)

@@ -10,9 +10,8 @@ class Mesh : public Renderable {
 public:
 	Mesh(Graphics& g, const std::vector<T>& vertices, ID3D10Blob& vsCode, VertexLayout& layout, const std::vector<UINT>& indices)
 	{
-		m_VBuff = std::make_shared<VertexBuffer<T>>(g, vertices, vsCode, layout);
-		m_IBuff = std::make_shared<IndexBuffer>(g, indices);
-		m_Sampler = std::make_shared<Sampler>(g, SAMPLER_MODE::LINEAR_CLAMP);
+		m_VBuff = std::make_shared<VertexBuffer<T>>(g, std::move(vertices), vsCode, layout);
+		m_IBuff = std::make_shared<IndexBuffer>(g, std::move(indices));
 	}
 
 	inline void AddTexture(std::shared_ptr<Texture2D> tex) { m_Textures.push_back(std::move(tex)); }
@@ -40,5 +39,4 @@ private:
 	std::shared_ptr<VertexBuffer<T>> m_VBuff;
 	std::shared_ptr<IndexBuffer> m_IBuff;
 	std::vector<std::shared_ptr<Texture2D>> m_Textures;
-	std::shared_ptr<Sampler> m_Sampler;
 };

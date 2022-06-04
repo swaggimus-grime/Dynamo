@@ -31,7 +31,7 @@ void PointLight::Translate(float x, float y, float z)
 
 void PointLight::Bind(Graphics& g)
 {
-	XMStoreFloat3(&m_Light.Pos, XMVector3Transform(XMLoadFloat3(&m_Pos), g.LookAt()));
+	XMStoreFloat3(&m_Light.Pos, XMVector3Transform(XMLoadFloat3(&m_Pos), GetModelMat() * g.LookAt()));
 	Update(g, sizeof(m_Light), &m_Light);
 	ConstantBuffer::Bind(g);
 }
@@ -47,9 +47,15 @@ void PointLight::Render(Graphics& g)
 
 void PointLight::ShowGUI()
 {
-	if(ImGui::SliderFloat3("Light Color", reinterpret_cast<FLOAT*>(&m_Light.Color), 0.f, 1.f, "%.1f"))
+	if(ImGui::ColorEdit3("Diffuse Color", &m_Light.Color.x))
 		m_Buff.Color = m_Light.Color;
-	ImGui::SliderFloat("Intensity", &m_Light.Intensity, 0.f, 10.f, "%.1f");
+	ImGui::SliderFloat("Intensity", &m_Light.Intensity, 0.f, 10.0f, "%.2f");
+	ImGui::ColorEdit3("Ambient", &m_Light.Ambient.x);
+
+	ImGui::Text("Attenuation");
+	ImGui::SliderFloat("Constant", &m_Light.ConstAtt, 0.05f, 10.0f, "%.2f");
+	ImGui::SliderFloat("Linear", &m_Light.LinAtt, 0.0001f, 4.0f, "%.4f");
+	ImGui::SliderFloat("Quadratic", &m_Light.QuadAtt, 0.00001f, 10.0f, "%.7f");
 	Transformable::ShowGUI();
 }
 

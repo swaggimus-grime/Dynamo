@@ -20,6 +20,7 @@ private:
 	std::unique_ptr<class Scene> m_Scene;
 	std::shared_ptr<class Camera> m_Camera;
 	std::shared_ptr<class Skybox> m_Skybox;
+	std::shared_ptr<class Model> m_Sponza;
 	std::shared_ptr<class Model> m_GF;
 	std::shared_ptr<class PointLight> m_PL;
 };

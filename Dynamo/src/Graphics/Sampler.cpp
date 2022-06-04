@@ -21,11 +21,16 @@ Sampler::Sampler(Graphics& g, SAMPLER_MODE mode)
 		sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_MIRROR;
 		sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_MIRROR;
 		break;
+	case SAMPLER_MODE::ANISO_WRAP:
+		sampDesc.Filter = D3D11_FILTER_ANISOTROPIC;
+		sampDesc.MaxAnisotropy = D3D11_REQ_MAXANISOTROPY;
+		sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+		sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
 	default:
 		break;
 	}
 	
-	sampDesc.MaxAnisotropy = D3D11_REQ_MAXANISOTROPY;
+	sampDesc.MipLODBias = 0.f;
 	sampDesc.MinLOD = 0;
 	sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
 	g.Device().CreateSamplerState(&sampDesc, &m_State);

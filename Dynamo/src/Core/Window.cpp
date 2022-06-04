@@ -226,8 +226,12 @@ LRESULT Window::HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		POINTS wp = MAKEPOINTS(lParam);
 		m_Input.OnWheelDelta(wp.x, wp.y);
 		break;
-	case WM_MBUTTONDOWN:
-
+	case WM_LBUTTONDOWN:
+		m_Input.OnMouseLPressed();
+		break;
+	case WM_LBUTTONUP:
+		m_Input.OnMouseLReleased();
+		break;
 	case WM_INPUT:
 		if (!m_Input.m_RawDeltaEnabled)
 			break;

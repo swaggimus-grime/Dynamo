@@ -11,7 +11,7 @@ Model::Model(Graphics& g, const std::string& path, const Transform& t)
     m_TransformCBuff = std::make_unique<ModelTransformBuffer>(g);
     Material mat = { .6f, 30.f };
     m_MatCBuff = std::make_unique<MaterialBuffer>(g, mat);
-
+    m_Samp = std::make_unique<Sampler>(g, SAMPLER_MODE::ANISO_WRAP);
     Reload(g, path);
 }
 
@@ -92,11 +92,11 @@ void Model::Reload(Graphics& g, const std::string& path)
             const aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
 
             if (std::shared_ptr<Texture2D> diffuse = GetTexture(g, material, aiTextureType_DIFFUSE, 0))
-                m.AddTexture(diffuse);
+                m.AddTexture(std::move(diffuse));
             if (std::shared_ptr<Texture2D> specular = GetTexture(g, material, aiTextureType_SPECULAR, 1))
-                m.AddTexture(specular);
+                m.AddTexture(std::move(specular));
             if (std::shared_ptr<Texture2D> normal = GetTexture(g, material, aiTextureType_HEIGHT, 2))
-                m.AddTexture(normal);
+                m.AddTexture(std::move(normal));
         }
 
         m_Meshes.push_back(std::move(m));
@@ -109,6 +109,7 @@ void Model::Render(Graphics& g)
     m_TransformCBuff->SetModel(GetModelMat());
     m_TransformCBuff->Bind(g);
     m_MatCBuff->Bind(g);
+    m_Samp->Bind(g);
     for (auto& m : m_Meshes)
         m.Render(g);
 }
@@ -137,10 +138,10 @@ std::shared_ptr<Texture2D> Model::GetTexture(Graphics& g, const aiMaterial* mat,
     if (texName.length == NULL)
         return nullptr;
     std::string texPath = std::string(texName.C_Str());
-    texPath = directory + '/' + texPath;
+    texPath = directory + "\\" + texPath;
     wchar_t wbuff[1000];
     mbstowcs(wbuff, texPath.c_str(), sizeof(wbuff));
-    return std::make_shared<Texture2D>(g, wbuff, slot);
+    return std::move(std::make_shared<Texture2D>(g, wbuff, slot));
 }
 
 Model::ModelException::ModelException(const char* file, unsigned int line, const char* msg)

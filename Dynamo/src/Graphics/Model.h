@@ -72,6 +72,7 @@ private:
 	std::shared_ptr<Shader> m_Shader;
 	std::unique_ptr<ModelTransformBuffer> m_TransformCBuff;
 	std::unique_ptr<MaterialBuffer> m_MatCBuff;
+	std::unique_ptr<Sampler> m_Samp;
 	UINT m_TotalVertices;
 	UINT m_TotalIndices;
 };

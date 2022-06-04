@@ -24,9 +24,7 @@ void Buffer::Make(Graphics& g, D3D11_USAGE usage, D3D11_CPU_ACCESS_FLAG cpuAcces
 		subResData.SysMemSlicePitch = 0;
 	}
 
-	HRESULT hr = g.Device().CreateBuffer(&buffDesc, data ? &subResData : nullptr, &m_Buffer);
-	_com_error err(hr);
-	;
+	g.Device().CreateBuffer(&buffDesc, data ? &subResData : nullptr, &m_Buffer);
 }
 
 IndexBuffer::IndexBuffer(Graphics& g, const std::vector<UINT>& indices)

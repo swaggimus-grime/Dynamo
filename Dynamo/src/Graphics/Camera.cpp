@@ -72,6 +72,6 @@ void Camera::ShowGUI()
 		return;
 
 	ImGui::Begin("Camera Settings", &open);
-	ImGui::SliderFloat("Move Speed", &m_MoveSpeed, 5.f, 100.f);
+	ImGui::SliderFloat("Move Speed", &m_MoveSpeed, 250.f, 1000.f);
 	ImGui::End();
 }
