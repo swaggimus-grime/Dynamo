@@ -4,6 +4,7 @@
 #include "Texture.h"
 #include "Renderable.h"
 #include "Sampler.h"
+#include "imgui.h"
 
 template<class T>
 class Mesh : public Renderable {
@@ -26,11 +27,10 @@ public:
 		g.DC().DrawIndexed(m_IBuff->Size(), 0, 0);
 	}
 
-	virtual void RenderOutline(Graphics& g) override
+	virtual void ShowGUI(Graphics& g) override
 	{
-		m_VBuff->Bind(g);
-		m_IBuff->Bind(g);
-		g.DC().DrawIndexed(m_IBuff->Size(), 0, 0);
+		ImGui::Text("Vertices: ", m_VBuff->Size());
+		ImGui::Text("Indices: ", m_IBuff->Size());
 	}
 
 	inline UINT GetIndexCount() const { return m_IBuff->Size(); }

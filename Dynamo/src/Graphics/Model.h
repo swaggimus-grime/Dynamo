@@ -12,6 +12,7 @@
 #include "Mesh.h"
 #include "Transformable.h"
 #include "DSState.h"
+#include "BlendState.h"
 #include "GUI/GUIable.h"
 
 struct Vertex {
@@ -22,14 +23,13 @@ struct Vertex {
 	XMFLOAT3 bitan;
 };
 
-class Model : public Renderable, public Transformable, public GUIable {
+class Model : public Renderable, public Transformable {
 public:
 	Model(Graphics& g, const std::string& path, const Transform& t);
 	~Model();
 	void Reload(Graphics& g, const std::string& path);
 	virtual void Render(Graphics& g) override;
-	virtual void RenderOutline(Graphics& g) override;
-	virtual void ShowGUI() override;
+	virtual void ShowGUI(Graphics& g) override;
 public:
 
 	class ModelException : public DynamoException {
@@ -73,6 +73,7 @@ private:
 	std::unique_ptr<ModelTransformBuffer> m_TransformCBuff;
 	std::unique_ptr<MaterialBuffer> m_MatCBuff;
 	std::unique_ptr<Sampler> m_Samp;
+	std::unique_ptr<BlendState> m_Blend;
 	UINT m_TotalVertices;
 	UINT m_TotalIndices;
 };

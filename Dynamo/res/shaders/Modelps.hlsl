@@ -34,6 +34,7 @@ struct PIn
 float4 main(PIn input) : SV_Target
 {
     const float4 dtex = dmap.Sample(samp, input.tex);
+    clip(dtex.a == 0.f ? -1 : 1);
     const float4 stex = smap.Sample(samp, input.tex);
 
     if (dot(input.norm, input.viewPos) >= 0.0f)
@@ -46,7 +47,7 @@ float4 main(PIn input) : SV_Target
     input.bitan = normalize(input.bitan);
     const float3x3 TBN = float3x3(input.tan, input.bitan, input.norm);
     const float3 mappedNormal = normalize(mul((nmap.Sample(samp, input.tex).xyz * 2.f - 1.f), TBN));
-    input.norm = lerp(input.norm, mappedNormal, 1.f);
+    input.norm = lerp(input.norm, mappedNormal, .2f);
     
     const float3 vToL = LightPos - input.viewPos;
     const float vToLMag = length(vToL);
@@ -60,6 +61,6 @@ float4 main(PIn input) : SV_Target
     const float specularPower = pow(2.0f, stex.a * SpecPower);
     const float3 specular = LightColor * Intensity * stex.rgb * att * SpecIntensity * pow(max(0.0f, dot(-r, viewCamToFrag)), specularPower);
 
-    return float4(saturate((diffuse + Ambient + specular) * dtex.rgb), 1.0f);
+    return float4(saturate((diffuse + Ambient + specular) * dtex.rgb), dtex.a);
     //return float4(SpecIntensity, SpecIntensity, SpecIntensity, 1.f);
 }

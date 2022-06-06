@@ -2,7 +2,7 @@
 
 #include <d3d11.h>
 #include "Camera.h"
-#include "Framebuffer.h"
+#include "Scene.h"
 
 class Graphics {
 public:
@@ -12,6 +12,8 @@ public:
 	Graphics& operator=(const Graphics&) = delete;
 	~Graphics();
 
+	inline Scene& GetScene() const { return *m_Scene; }
+	inline void SetScene(std::shared_ptr<Scene> s) { m_Scene = s; }
 	inline IDXGISwapChain& SC() const { return *m_SC.Get(); }
 	inline ID3D11Device& Device() const { return *m_Device.Get(); }
 	inline ID3D11DeviceContext& DC() const { return *m_DC.Get(); }
@@ -19,19 +21,23 @@ public:
 	inline XMMATRIX Projection() const { return m_Projection; }
 	void BeginFrame(Camera& cam);
 	void EndFrame();
-
-	inline void AddFramebuffer(std::shared_ptr<Framebuffer> fb) { m_FBs.push_back(std::move(fb)); }
+	void BindBackBuffer();
+	inline UINT Width() const { return m_Width; }
+	inline UINT Height() const { return m_Height; }
+	void SubmitRenderTarget(std::shared_ptr<class RenderTarget> r);
 private:
 	void OnWindowResize(UINT width, UINT height);
 
 private:
+	UINT m_Width;
+	UINT m_Height;
 	ComPtr<ID3D11Device> m_Device;
 	ComPtr<ID3D11DeviceContext> m_DC;
-
 	ComPtr<IDXGISwapChain> m_SC;
-	std::vector<std::shared_ptr<Framebuffer>> m_FBs;
-
+	std::unique_ptr<class RenderTarget> m_FinalOutput;
+	std::unique_ptr<class DSView> m_DepthStencil;
+	std::shared_ptr<Scene> m_Scene;
 	XMMATRIX m_LookAt;
 	XMMATRIX m_Projection;
-
+	std::vector<std::shared_ptr<RenderTarget>> m_Targets;
 };

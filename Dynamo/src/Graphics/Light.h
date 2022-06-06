@@ -6,13 +6,12 @@
 #include "Buffer.h"
 #include "GUI/GUIable.h"
 
-class PointLight : public Transformable, public Renderable, public ConstantBuffer, public GUIable {
+class PointLight : public Transformable, public Renderable, public ConstantBuffer {
 public:
 	PointLight(Graphics& g, const XMFLOAT3& pos, const XMFLOAT3& color = {1.f, 1.f, 1.f});
 	virtual void Translate(float x, float y, float z) override;
 	virtual void Render(Graphics& g) override;
-	virtual void RenderOutline(Graphics& g) override {}
-	virtual void ShowGUI() override;
+	virtual void ShowGUI(Graphics& g) override;
 	virtual void Bind(Graphics& g) override;
 private:
 	struct {
@@ -38,7 +37,7 @@ private:
 	};
 
 private:
-	std::unique_ptr<Cube> m_Cube;
+	std::unique_ptr<Shape3D> m_Shape;
 	std::unique_ptr<PointLightBuffer> m_CBuff;
 	std::shared_ptr<Shader> m_Shader;
 

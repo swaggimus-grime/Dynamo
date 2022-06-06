@@ -5,7 +5,6 @@
 #include "Graphics/Camera.h"
 #include "Graphics/Model.h"
 #include <chrono>
-#include "Graphics/Framebuffer.h"
 #include "Graphics/Buffer.h"
 #include "Graphics/Skybox.h"
 #include "Graphics/Sampler.h"
@@ -13,11 +12,10 @@
 #include <imgui.h>
 #include "Graphics/Light.h"
 #include "Graphics/Scene.h"
+#include "Graphics/Negativepass.h"
 #include "Graphics/Selector.h"
 
-std::shared_ptr<Framebuffer> fb;
-
-Transform modelTransform(XMFLOAT3(0.f, 0.f, 0.f));
+Transform modelTransform(XMFLOAT3(0.f, 0.f, 0.f), XMFLOAT3(M_PI / 2, 0.f, 0.f));
 
 App::App(const std::string& name, UINT32 width, UINT32 height)
 {
@@ -25,76 +23,25 @@ App::App(const std::string& name, UINT32 width, UINT32 height)
 	m_Window = std::make_unique<Window>(name, width, height);
 
 	m_Camera = std::make_shared<Camera>(XMFLOAT3(0.f, 20.f, -100.f));
-	fb = std::make_shared<Framebuffer>(m_Window->GetGraphics(), m_Window->GetWidth(), m_Window->GetHeight(), true);
 	m_Skybox = std::make_shared<Skybox>(m_Window->GetGraphics(), L"res\\skyboxes\\yokohama");
-	m_GF = std::make_shared<Model>(m_Window->GetGraphics(), "res\\models\\golden_freddy\\scene.gltf", XMFLOAT3(0.f, 0.f, 0.f));
-	m_Sponza = std::make_shared<Model>(m_Window->GetGraphics(), "res\\models\\sponza\\sponza.glb", XMFLOAT3(0.f, 0.f, 0.f));
-	m_PL = std::make_shared<PointLight>(m_Window->GetGraphics(), XMFLOAT3(0.f, 10.f, -10.f), XMFLOAT3(1.f, 1.f, 0.f));
-	m_Scene = std::make_unique<Scene>();
+	m_GF = std::make_shared<Model>(m_Window->GetGraphics(), "res\\models\\golden_freddy\\scene.gltf", modelTransform);
+	m_Sponza = std::make_shared<Model>(m_Window->GetGraphics(), "res\\models\\sponza\\Sponza.gltf", XMFLOAT3(0.f, 0.f, 0.f));
+	m_PL = std::make_shared<PointLight>(m_Window->GetGraphics(), XMFLOAT3(0.f, 10.f, -10.f), XMFLOAT3(10.f, 10.f, 5.f));
+	m_Scene = std::make_shared<Scene>();
+	m_NegPass = std::make_unique<Negativepass>(m_Window->GetGraphics());
 	m_Selector = std::make_unique<Selector>(m_Window->GetGraphics());
 
-	m_Scene->Submit(m_Skybox, "Skybox");
-	m_Scene->Submit(m_PL, "Point Light");
-	m_Scene->Submit(m_GF, "Model");
-	m_Scene->Submit(m_Sponza, "Sponza");
-	//m_Selector->Select(m_GF);
+	m_Scene->Submit("Skybox", m_Skybox);
+	m_Scene->Submit("Point Light", m_PL);
+	m_Scene->Submit("Model", m_GF);
+	m_Scene->Submit("Sponza", m_Sponza);
+	m_Window->GetGraphics().SetScene(m_Scene);
 }
 
 App::~App()
 {
 	m_Window.release();
 	Gui::Shutdown();
-}
-
-bool IntersectTriangle(const XMFLOAT3& orig, const XMFLOAT3& dir,
-	XMFLOAT3& v0, XMFLOAT3& v1, XMFLOAT3& v2,
-	FLOAT* t, FLOAT* u, FLOAT* v)
-{
-	// Find vectors for two edges sharing vert0
-	XMFLOAT3 edge1 = v1 - v0;
-	XMFLOAT3 edge2 = v2 - v0;
-
-	// Begin calculating determinant - also used to calculate U parameter
-	XMFLOAT3 pvec = cross(dir, edge2);
-
-	// If determinant is near zero, ray lies in plane of triangle
-	FLOAT det = dot(edge1, pvec);
-
-	XMFLOAT3 tvec;
-	if (det > 0)
-	{
-		tvec = orig - v0;
-	}
-	else
-	{
-		tvec = v0 - orig;
-		det = -det;
-	}
-
-	if (det < 0.0001f)
-		return FALSE;
-
-	// Calculate U parameter and test bounds
-	*u = dot(tvec, pvec);
-	if (*u < 0.0f || *u > det)
-		return FALSE;
-
-	// Prepare to test V parameter
-	XMFLOAT3 qvec = cross(tvec, edge1);
-
-	// Calculate V parameter and test bounds
-	*v = dot(dir, qvec);
-	if (*v < 0.0f || *u + *v > det)
-		return FALSE;
-
-	// Calculate t, scale parameters, ray intersects triangle
-	*t = dot(edge2, qvec);
-	FLOAT fInvDet = 1.0f / det;
-	*t *= fInvDet;
-	*u *= fInvDet;
-	*v *= fInvDet;
-
-	return TRUE;
 }
 
 void App::UserInput(float deltaTime)
@@ -169,7 +116,7 @@ void App::ShowGUI()
 	}
 
 	if(showCamera)
-		m_Camera->ShowGUI();
+		m_Camera->ShowGUI(m_Window->GetGraphics());
 
 	m_Scene->ShowGUI(m_Window->GetGraphics());
 }
@@ -186,18 +133,9 @@ INT App::Run()
 		prevTime = currentTime;
 
 		UserInput(deltaTime);
-		fb->Bind(m_Window->GetGraphics());
-		fb->Clear(m_Window->GetGraphics());
 		m_Window->GetGraphics().BeginFrame(*m_Camera);
-
 		m_PL->Bind(m_Window->GetGraphics());
-
-		m_Skybox->Render(m_Window->GetGraphics());
-		m_Sponza->Render(m_Window->GetGraphics());
-		//m_Selector->Render(m_Window->GetGraphics());
-		m_GF->Render(m_Window->GetGraphics());
-		m_PL->Render(m_Window->GetGraphics());
-
+		m_NegPass->Run(m_Window->GetGraphics());
 		ShowGUI();
 		m_Window->GetGraphics().EndFrame();
 	}

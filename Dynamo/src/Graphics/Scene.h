@@ -4,16 +4,13 @@
 #include <unordered_map>
 #include "GUI/GUIable.h"
 
-class Scene : public D3DGUIable, public GUIable {
+class Scene : public Renderable {
 public:
 	Scene();
-	void Submit(std::shared_ptr<D3DGUIable> g, const std::string& name);
-	void Submit(std::shared_ptr<GUIable> g, const std::string& name);
-	virtual void ShowGUI(class Graphics& g) override;
+	virtual void Render(Graphics& g) override;
+	void Submit(const std::string& name, std::shared_ptr<Renderable> r);
+	virtual void ShowGUI(Graphics& g) override;
 
 private:
-	virtual void ShowGUI() override;
-private:
-	std::unordered_map<std::string, std::shared_ptr<GUIable>> m_GUIables;
-	std::unordered_map<std::string, std::shared_ptr<D3DGUIable>> m_D3DGUIables;
+	std::unordered_map<std::string, std::shared_ptr<Renderable>> m_Objects;
 };

@@ -10,7 +10,7 @@ public:
 	void Rotate(float dx, float dy) noexcept;
 	void Move(XMFLOAT3 translation);
 	DirectX::XMFLOAT3 GetPos() const noexcept;
-	virtual void ShowGUI() override;
+	virtual void ShowGUI(Graphics& g) override;
 private:
 	XMMATRIX m_Proj;
 	float m_Pitch;

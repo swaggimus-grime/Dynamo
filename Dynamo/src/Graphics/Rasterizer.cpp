@@ -4,12 +4,14 @@
 Rasterizer::Rasterizer(Graphics& g)
 {
 	D3D11_RASTERIZER_DESC rastDesc = CD3D11_RASTERIZER_DESC(CD3D11_DEFAULT{});
+	rastDesc.MultisampleEnable = true;
 	g.Device().CreateRasterizerState(&rastDesc, &m_State);
 }
 
 Rasterizer::Rasterizer(Graphics& g, RS_MODE mode)
 {
 	D3D11_RASTERIZER_DESC rastDesc = CD3D11_RASTERIZER_DESC(CD3D11_DEFAULT{});
+	rastDesc.MultisampleEnable = true;
 	switch (mode) {
 	case RS_MODE::CULL_FRONT:
 		rastDesc.CullMode = D3D11_CULL_FRONT;

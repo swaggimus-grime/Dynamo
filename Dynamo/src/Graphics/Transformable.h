@@ -25,7 +25,7 @@ public:
 	virtual void Scale(const XMFLOAT3& s);
 	virtual void ScaleDelta(const XMFLOAT3& sd);
 
-	virtual void ShowGUI() override;
+	virtual void ShowGUI(Graphics& g) override;
 protected:
 	XMMATRIX GetModelMat() const { return m_Scale * m_Rot * m_Trans; }
 

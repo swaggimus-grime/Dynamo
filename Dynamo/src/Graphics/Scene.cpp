@@ -8,48 +8,33 @@ Scene::Scene()
 
 }
 
-void Scene::Submit(std::shared_ptr<GUIable> g, const std::string& name)
+void Scene::Render(Graphics& g)
 {
-	auto& it = m_GUIables.find(name);
-	if (it != m_GUIables.end())
-		it->second = g;
-	else
-		m_GUIables.insert({ name, g });
+	for (const auto& r : m_Objects)
+		r.second->Render(g);
 }
 
-void Scene::Submit(std::shared_ptr<D3DGUIable> g, const std::string& name)
+void Scene::Submit(const std::string& name, std::shared_ptr<Renderable> r)
 {
-	auto& it = m_D3DGUIables.find(name);
-	if (it != m_D3DGUIables.end())
-		it->second = g;
+	auto& it = m_Objects.find(name);
+	if (it != m_Objects.end())
+		it->second = r;
 	else
-		m_D3DGUIables.insert({ name, g });
+		m_Objects.insert({ name, r });
 }
+
 
 void Scene::ShowGUI(Graphics& g)
 {
 	ImGui::Begin("Scene");
-	for (const auto& d3dg : m_D3DGUIables) {
-		if (ImGui::TreeNode(d3dg.first.c_str()))
+	for (const auto& o : m_Objects) {
+		if (ImGui::TreeNode(o.first.c_str()))
 		{
-			d3dg.second->ShowGUI(g);
+			o.second->ShowGUI(g);
 			ImGui::TreePop();
 			ImGui::Separator();
 		}
 	}
 
-	ShowGUI();
 	ImGui::End();
-}
-
-void Scene::ShowGUI()
-{
-	for (const auto& g : m_GUIables) {
-		if (ImGui::TreeNode(g.first.c_str()))
-		{
-			g.second->ShowGUI();
-			ImGui::TreePop();
-			ImGui::Separator();
-		}
-	}
 }

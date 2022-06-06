@@ -13,7 +13,7 @@ public:
 	Cubemap(Graphics& g, const std::wstring& texDir, UINT slot);
 };
 
-class Skybox : public Renderable, public D3DGUIable {
+class Skybox : public Renderable {
 public:
 	Skybox(Graphics& g, const std::wstring& texDir);
 	virtual void Render(Graphics& g) override;

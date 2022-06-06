@@ -1,11 +1,13 @@
 #include "dynamopch.h"
 #include "Graphics.h"
+#include "RenderTarget.h"
 #include <dxgi.h>
 #include <d3d11.h>
 #include "GUI/Gui.h"
 #include "Camera.h"
 #include <imgui_impl_dx11.h>
 #include "Camera.h"
+#include "DSView.h"
 
 Graphics::Graphics(HWND hWnd, UINT width, UINT height)
 {
@@ -35,6 +37,11 @@ Graphics::Graphics(HWND hWnd, UINT width, UINT height)
         NULL,
         &m_DC);
 
+    ComPtr<ID3D11Texture2D> backbuff;
+    m_SC->GetBuffer(0, __uuidof(ID3D11Texture2D), &backbuff);
+    m_FinalOutput = std::make_unique<RenderTarget>(*this, *backbuff.Get());
+    m_DepthStencil = std::make_unique<DSView>(*this, width, height);
+
     m_DC->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
     D3D11_VIEWPORT viewport{};
@@ -58,6 +65,9 @@ void Graphics::BeginFrame(Camera& camera)
 {
     m_LookAt = std::move(camera.LookAt());
     m_Projection = std::move(camera.Projection());
+    BindBackBuffer();
+    m_FinalOutput->Clear(*this);
+    m_DepthStencil->Clear(*this);
     Gui::BeginFrame();
 }
 
@@ -67,10 +77,24 @@ void Graphics::EndFrame()
     m_SC->Present(0, 0);
 }
 
+void Graphics::BindBackBuffer()
+{
+    m_FinalOutput->Bind(*this, *m_DepthStencil);
+}
+
+void Graphics::SubmitRenderTarget(std::shared_ptr<RenderTarget> r)
+{
+    m_Targets.push_back(r);
+}
+
 void Graphics::OnWindowResize(UINT width, UINT height)
 {
-    for (const auto& fb : m_FBs)
-        fb->Reset(*this, width, height);
-
+    ComPtr<ID3D11Texture2D> tex;
+    m_SC->GetBuffer(0, __uuidof(ID3D11Texture2D), &tex);
+    m_FinalOutput.reset(new RenderTarget(*this, *tex.Get()));
     m_SC->ResizeBuffers(0, width, height, DXGI_FORMAT_R8G8B8A8_UNORM, 0);
+    for (auto& rt : m_Targets)
+        rt.reset(new RenderTarget(*this, width, height));
+    m_Width = width;
+    m_Height = height;
 }

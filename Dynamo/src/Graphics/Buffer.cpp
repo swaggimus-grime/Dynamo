@@ -38,6 +38,12 @@ void IndexBuffer::Bind(Graphics& g)
 	g.DC().IASetIndexBuffer(m_Buffer.Get(), DXGI_FORMAT_R32_UINT, 0);
 }
 
+VertexLayout::VertexLayout(const std::initializer_list<std::pair<LPCSTR, DXGI_FORMAT>>& list)
+{
+	for (const auto& a : list)
+		AddAttrib(a.first, a.second);
+}
+
 void VertexLayout::AddAttrib(LPCSTR name, DXGI_FORMAT format)
 {
 	D3D11_INPUT_ELEMENT_DESC attribDesc;

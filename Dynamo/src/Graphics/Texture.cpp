@@ -11,11 +11,11 @@ Texture2D::Texture2D(Graphics& g, LPCWSTR path, UINT slot)
 	if (!image.GetPixels())
 		throw TEX2D_PREV_EXCEP;
 
-	if (image.GetMetadata().format != m_Format) {
+	if (image.GetMetadata().format != Format) {
 		DirectX::ScratchImage converted;
 		DirectX::Convert(
 			*image.GetImage(0, 0, 0),
-			m_Format,
+			Format,
 			DirectX::TEX_FILTER_DEFAULT,
 			DirectX::TEX_THRESHOLD_DEFAULT,
 			converted
@@ -29,7 +29,7 @@ Texture2D::Texture2D(Graphics& g, LPCWSTR path, UINT slot)
 	texDesc.Height = image.GetMetadata().height;
 	texDesc.MipLevels = 0;
 	texDesc.ArraySize = 1;
-	texDesc.Format = m_Format;
+	texDesc.Format = Format;
 	texDesc.Usage = D3D11_USAGE_DEFAULT;
 	texDesc.SampleDesc.Count = 1;
 	texDesc.SampleDesc.Quality = 0;

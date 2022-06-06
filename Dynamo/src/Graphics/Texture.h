@@ -18,10 +18,11 @@ public:
 		virtual const char* what() const override;
 	};
 
+	static const DXGI_FORMAT Format = DXGI_FORMAT_B8G8R8A8_UNORM;
+
 protected:
 	UINT m_Slot;
 	ComPtr<ID3D11ShaderResourceView> m_View;
-	static const DXGI_FORMAT m_Format = DXGI_FORMAT_B8G8R8A8_UNORM;
 };
 
 #define TEX2D_PREV_EXCEP Texture2D::Texture2DException::Texture2DException(__FILE__, __LINE__, GetLastError())

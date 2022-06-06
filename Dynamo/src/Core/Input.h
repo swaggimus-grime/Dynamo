@@ -12,7 +12,7 @@ public:
 	std::optional<UINT> ReadKey();
 	std::optional<XMFLOAT2> ReadMouseLPress();
 
-	inline void SetCursor(BOOL enabled) { SetRawDeltaEnabled(enabled); ShowCursor(!enabled); }
+	void SetCursor(BOOL enabled);
 	inline void SetRawDeltaEnabled(BOOL enabled) { m_RawDeltaEnabled = enabled; }
 	inline BOOL RawDeltaEnabled() const { return m_RawDeltaEnabled; }
 	inline BOOL IsMouseLPressed() const { return m_LPressed; }

@@ -1,7 +1,9 @@
 #pragma once
 
-class Renderable {
+#include "GUI/GUIable.h"
+
+class Renderable : public GUIable {
 public:
-	virtual void RenderOutline(class Graphics& g) = 0;
 	virtual void Render(class Graphics& g) = 0;
+	//virtual void ShowGUI(class Graphics& g) = 0;
 };

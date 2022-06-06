@@ -1,5 +1,6 @@
 #include "dynamopch.h"
 #include "Input.h"
+#include "GUI/Gui.h"
 
 Input::Input()
 	:m_LPressed(false), m_RPressed(false)
@@ -89,6 +90,13 @@ std::optional<XMFLOAT2> Input::ReadMouseLPress()
 	XMFLOAT2 pos = m_MouseClicks.front();
 	m_MouseClicks.pop();
 	return pos;
+}
+
+void Input::SetCursor(BOOL enabled)
+{
+	SetRawDeltaEnabled(enabled); 
+	ShowCursor(!enabled); 
+	Gui::ActivateMouse(!enabled);
 }
 
 Input::InputException::InputException(const char* file, unsigned int line, const char* msg)

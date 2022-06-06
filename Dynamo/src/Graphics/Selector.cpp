@@ -25,6 +25,5 @@ void Selector::Render(Graphics& g)
 	m_Mask->Bind(g);
 	m_SolidBuff->Bind(g);
 	m_Shader->Bind(g);
-	m_Selected->RenderOutline(g);
 	m_Default->Bind(g);
 }

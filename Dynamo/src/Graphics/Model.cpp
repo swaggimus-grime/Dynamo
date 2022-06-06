@@ -12,6 +12,7 @@ Model::Model(Graphics& g, const std::string& path, const Transform& t)
     Material mat = { .6f, 30.f };
     m_MatCBuff = std::make_unique<MaterialBuffer>(g, mat);
     m_Samp = std::make_unique<Sampler>(g, SAMPLER_MODE::ANISO_WRAP);
+    m_Blend = std::make_unique<BlendState>(g);
     Reload(g, path);
 }
 
@@ -51,30 +52,11 @@ void Model::Reload(Graphics& g, const std::string& path)
         m_TotalVertices += mesh->mNumVertices;
         for (UINT vert = 0; vert < mesh->mNumVertices; vert++) {
             Vertex vertex = {};
-            vertex.pos.x = mesh->mVertices[vert].x;
-            vertex.pos.y = mesh->mVertices[vert].y;
-            vertex.pos.z = mesh->mVertices[vert].z;
-
-            if (mesh->HasNormals()) {
-                vertex.norm.x = mesh->mNormals[vert].x;
-                vertex.norm.y = mesh->mNormals[vert].y;
-                vertex.norm.z = mesh->mNormals[vert].z;
-            }
-
-            if (mesh->mTextureCoords[0]) {
-                vertex.tex.x = mesh->mTextureCoords[0][vert].x;
-                vertex.tex.y = mesh->mTextureCoords[0][vert].y;
-
-                if (mesh->HasTangentsAndBitangents()) {
-                    vertex.tan.x = mesh->mTangents[vert].x;
-                    vertex.tan.y = mesh->mTangents[vert].y;
-                    vertex.tan.z = mesh->mTangents[vert].z;
-
-                    vertex.bitan.x = mesh->mBitangents[vert].x;
-                    vertex.bitan.y = mesh->mBitangents[vert].y;
-                    vertex.bitan.z = mesh->mBitangents[vert].z;
-                }
-            }
+            vertex.pos = *reinterpret_cast<XMFLOAT3*>(&mesh->mVertices[vert].x);
+            vertex.norm = *reinterpret_cast<XMFLOAT3*>(&mesh->mNormals[vert].x);
+            vertex.tex = *reinterpret_cast<XMFLOAT2*>(&mesh->mTextureCoords[0][vert].x);
+            vertex.tan = *reinterpret_cast<XMFLOAT3*>(&mesh->mTangents[vert].x);
+            vertex.bitan = *reinterpret_cast<XMFLOAT3*>(&mesh->mBitangents[vert].x);
 
             vertices.push_back(vertex);
         }
@@ -110,25 +92,16 @@ void Model::Render(Graphics& g)
     m_TransformCBuff->Bind(g);
     m_MatCBuff->Bind(g);
     m_Samp->Bind(g);
+    m_Blend->Bind(g);
     for (auto& m : m_Meshes)
         m.Render(g);
 }
 
-void Model::RenderOutline(Graphics& g)
-{
-    ScaleDelta(XMFLOAT3(.01f, .01f, .01f));
-    m_TransformCBuff->SetModel(GetModelMat());
-    m_TransformCBuff->Bind(g);
-    for (auto& m : m_Meshes)
-        m.RenderOutline(g);
-    ScaleDelta(XMFLOAT3(-.01f, -.01f, -.01f));
-}
-
-void Model::ShowGUI()
+void Model::ShowGUI(Graphics& g)
 {
     ImGui::Text("Vertices: %d", m_TotalVertices);
     ImGui::Text("Indices: %d", m_TotalIndices);
-    Transformable::ShowGUI();
+    Transformable::ShowGUI(g);
 }
 
 std::shared_ptr<Texture2D> Model::GetTexture(Graphics& g, const aiMaterial* mat, aiTextureType type, UINT slot)

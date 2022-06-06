@@ -7,11 +7,21 @@ void Gui::Init()
 {
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
-	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	ImGuiIO& io = ImGui::GetIO();
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;   
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 	ImGui::StyleColorsDark();
+}
+
+void Gui::ActivateMouse(BOOL active)
+{
+	auto& io = ImGui::GetIO();
+
+	if(active)
+		io.ConfigFlags &= ~ImGuiConfigFlags_NoMouse;
+	else
+		io.ConfigFlags |= ImGuiConfigFlags_NoMouse;
 }
 
 void Gui::Shutdown()

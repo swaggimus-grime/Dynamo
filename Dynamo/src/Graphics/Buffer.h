@@ -22,6 +22,7 @@ protected:
 class VertexLayout {
 public:
 	VertexLayout() = default;
+	VertexLayout(const std::initializer_list<std::pair<LPCSTR, DXGI_FORMAT>>& list);
 	void AddAttrib(LPCSTR name, DXGI_FORMAT format);
 	SIZE_T size() const { return m_Layouts.size(); }
 	const D3D11_INPUT_ELEMENT_DESC* data() const { return m_Layouts.data(); }
@@ -35,7 +36,9 @@ template<class T>
 class VertexBuffer : public Buffer {
 public:
 	VertexBuffer() = delete;
+	inline UINT Size() const { return m_Count; }
 	VertexBuffer(Graphics& g, const std::vector<T>& vertices, ID3D10Blob& vsCode, VertexLayout& layout)
+		:m_Count(vertices.size())
 	{
 		Make(g, D3D11_USAGE_DEFAULT, (D3D11_CPU_ACCESS_FLAG)NULL, D3D11_BIND_VERTEX_BUFFER, vertices.size() * sizeof(T), vertices.data(), layout.GetStride());
 		g.Device().CreateInputLayout(layout.data(), layout.size(), vsCode.GetBufferPointer(), vsCode.GetBufferSize(), m_Layout.GetAddressOf());
@@ -50,6 +53,7 @@ public:
 
 private:
 	ComPtr<ID3D11InputLayout> m_Layout;
+	UINT m_Count;
 };
 
 class IndexBuffer : public Buffer {

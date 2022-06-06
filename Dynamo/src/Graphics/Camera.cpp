@@ -65,7 +65,7 @@ DirectX::XMFLOAT3 Camera::GetPos() const noexcept
 	return m_Pos;
 }
 
-void Camera::ShowGUI()
+void Camera::ShowGUI(Graphics& g)
 {
 	static bool open = true;
 	if (!open)
