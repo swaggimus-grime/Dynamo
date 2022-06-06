@@ -1,4 +1,9 @@
 # Dynamo
-3D model viewer using Direct3D
+3D model viewer using Direct3D.
+Able to support scenes.
 
-Uses Direct3D for rendering API, Windows library for window, Assimp for modeling, and Dear ImGui for GUI.
+# Libraries
+-Direct3D
+-Assimp
+-DirectXTex
+-Dear ImGUI
