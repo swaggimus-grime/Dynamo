@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\hunte\source\repos\Dynamo\build\CMakeFiles\b6959e8021c60013e6db83dac413975c\uninstall.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\hunte\source\repos\Dynamo\build\tools\assimp\CMakeFiles\uninstall" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{D2261CE9-D311-3AD5-9A2A-E1F02EFBBBE9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

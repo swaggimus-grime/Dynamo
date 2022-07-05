@@ -13,6 +13,12 @@ Graphics::Graphics(HWND hWnd, UINT width, UINT height)
 {
     DXGI_SWAP_CHAIN_DESC scd;
     SecureZeroMemory(&scd, sizeof(DXGI_SWAP_CHAIN_DESC));
+    scd.BufferDesc.Width = width;
+    scd.BufferDesc.Height = height;
+    scd.BufferDesc.RefreshRate.Numerator = 0;
+    scd.BufferDesc.RefreshRate.Denominator = 0;
+    scd.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
+    scd.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
     scd.BufferCount = 1;
     scd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
     scd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
@@ -39,7 +45,7 @@ Graphics::Graphics(HWND hWnd, UINT width, UINT height)
 
     ComPtr<ID3D11Texture2D> backbuff;
     m_SC->GetBuffer(0, __uuidof(ID3D11Texture2D), &backbuff);
-    m_FinalOutput = std::make_unique<RenderTarget>(*this, *backbuff.Get());
+    m_FinalOutput = std::make_unique<WriteRenderTarget>(*this, *backbuff.Get());
     m_DepthStencil = std::make_unique<DSView>(*this, width, height);
 
     m_DC->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
@@ -91,7 +97,7 @@ void Graphics::OnWindowResize(UINT width, UINT height)
 {
     ComPtr<ID3D11Texture2D> tex;
     m_SC->GetBuffer(0, __uuidof(ID3D11Texture2D), &tex);
-    m_FinalOutput.reset(new RenderTarget(*this, *tex.Get()));
+    m_FinalOutput.reset(new WriteRenderTarget(*this, *tex.Get()));
     m_SC->ResizeBuffers(0, width, height, DXGI_FORMAT_R8G8B8A8_UNORM, 0);
     for (auto& rt : m_Targets)
         rt.reset(new RenderTarget(*this, width, height));

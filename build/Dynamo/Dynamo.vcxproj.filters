@@ -1,0 +1,285 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\build\Dynamo\CMakeFiles\Dynamo.dir\cmake_pch.cxx">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Core\App.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Core\Input.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Core\Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Core\Window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Debug\DynamoException.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\GUI\Gui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\AnimModel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Animation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Animator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\BlendState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Bone.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Buffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\DSState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\DSView.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Graphics.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Light.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Model.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Negativepass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Rasterizer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\RenderTarget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Sampler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Selector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Shadowpass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Shapes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Skybox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Transformable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\tools\imgui\backends\imgui_impl_win32.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\tools\imgui\backends\imgui_impl_dx11.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\tools\imgui\imgui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\tools\imgui\imgui_draw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\tools\imgui\imgui_demo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\tools\imgui\imgui_tables.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\tools\imgui\imgui_widgets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Core\App.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Core\Input.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Core\Window.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Debug\DynamoException.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\GUI\GUIable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\GUI\Gui.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\AnimModel.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Animation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Animator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\AssimpGLMHelpers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Bindable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\BlendState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Bone.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Buffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\DSState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\DSView.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Graphics.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\GraphicsCore.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Light.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Mesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Negativepass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Rasterizer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\RenderTarget.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Renderable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Renderpass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Sampler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Selector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Shadowpass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Shapes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Skybox.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Transformable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\VectorOps.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\dynamopch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\build\Dynamo\CMakeFiles\Dynamo.dir\Debug\cmake_pch.hxx">
+      <Filter>Precompile Header File</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\build\Dynamo\CMakeFiles\Dynamo.dir\Release\cmake_pch.hxx">
+      <Filter>Precompile Header File</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\build\Dynamo\CMakeFiles\Dynamo.dir\MinSizeRel\cmake_pch.hxx">
+      <Filter>Precompile Header File</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\build\Dynamo\CMakeFiles\Dynamo.dir\RelWithDebInfo\cmake_pch.hxx">
+      <Filter>Precompile Header File</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\AnimModelvs.hlsl" />
+    <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\Flatvs.hlsl" />
+    <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\Modelvs.hlsl" />
+    <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\Negativevs.hlsl" />
+    <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\PointLightvs.hlsl" />
+    <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\Posvs.hlsl" />
+    <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\ShadowMapvs.hlsl" />
+    <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\Skyboxvs.hlsl" />
+    <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\Solidvs.hlsl" />
+    <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\AnimModelps.hlsl" />
+    <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\Flatps.hlsl" />
+    <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\Modelps.hlsl" />
+    <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\Negativeps.hlsl" />
+    <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\PointLightps.hlsl" />
+    <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\Posps.hlsl" />
+    <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\Skyboxps.hlsl" />
+    <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\Solidps.hlsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\dynamo.rc">
+      <Filter>Source Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{E9BEFBFF-15CB-3061-8F52-39240582A42C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Precompile Header File">
+      <UniqueIdentifier>{5D299AAD-25A2-3BF3-A598-6E7336EFC363}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{D1038B05-A71E-34E1-9B40-847D48FD0E42}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

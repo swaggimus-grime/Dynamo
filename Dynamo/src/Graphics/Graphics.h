@@ -21,7 +21,9 @@ public:
 	inline XMMATRIX Projection() const { return m_Projection; }
 	void BeginFrame(Camera& cam);
 	void EndFrame();
+	class WriteRenderTarget& BackBuffer() const { return *m_FinalOutput; }
 	void BindBackBuffer();
+	inline void SetCamera(Camera& cam) { m_LookAt = cam.LookAt(); m_Projection = cam.Projection(); }
 	inline UINT Width() const { return m_Width; }
 	inline UINT Height() const { return m_Height; }
 	void SubmitRenderTarget(std::shared_ptr<class RenderTarget> r);
@@ -34,7 +36,7 @@ private:
 	ComPtr<ID3D11Device> m_Device;
 	ComPtr<ID3D11DeviceContext> m_DC;
 	ComPtr<IDXGISwapChain> m_SC;
-	std::unique_ptr<class RenderTarget> m_FinalOutput;
+	std::unique_ptr<class WriteRenderTarget> m_FinalOutput;
 	std::unique_ptr<class DSView> m_DepthStencil;
 	std::shared_ptr<Scene> m_Scene;
 	XMMATRIX m_LookAt;

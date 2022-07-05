@@ -1,6 +1,6 @@
 #pragma once
 
-class Renderpass {
+class RenderPass {
 public:
 	virtual void Run(class Graphics& g) = 0;
 };

@@ -10,6 +10,8 @@
 #include <queue>
 #include <optional>
 #include <math.h>
+#include <map>
+#include <comdef.h>
 
 #include "Graphics/VectorOps.h"
 

@@ -1,6 +1,7 @@
 #include "dynamopch.h"
 #include "Light.h"
 #include <imgui.h>
+#include "Camera.h"
 
 PointLight::PointLight(Graphics& g, const XMFLOAT3& pos, const XMFLOAT3& color)
 	:Transformable({ pos }),
@@ -18,6 +19,7 @@ PointLight::PointLight(Graphics& g, const XMFLOAT3& pos, const XMFLOAT3& color)
 	m_Shader = std::make_shared<Shader>(g, L"res/shaders/PointLightvs.cso", L"res/shaders/PointLightps.cso");
 	m_Shape = std::make_unique<Sphere>(g, m_Shader, pos, 5.f);
 	m_CBuff = std::make_unique<PointLightBuffer>(g);
+	m_Camera = std::make_unique<Camera>(m_Pos);
 }
 
 void PointLight::Translate(float x, float y, float z)
@@ -25,6 +27,7 @@ void PointLight::Translate(float x, float y, float z)
 	m_Pos.x += x - m_PrevPos.x;
 	m_Pos.y += y - m_PrevPos.y;
 	m_Pos.z += z - m_PrevPos.z;
+	m_Camera->Move({ x - m_PrevPos.x, y - m_PrevPos.y, z - m_PrevPos.z });
 	m_PrevPos = m_Pos;
 	Transformable::Translate(x, y, z);
 }

@@ -61,6 +61,12 @@ void VertexLayout::AddAttrib(LPCSTR name, DXGI_FORMAT format)
 	case DXGI_FORMAT_R32G32B32_FLOAT:
 		m_Offset += 3 * sizeof(FLOAT);
 		break;
+	case DXGI_FORMAT_R32G32B32A32_FLOAT:
+		m_Offset += 4 * sizeof(FLOAT);
+		break;
+	case DXGI_FORMAT_R32G32B32A32_SINT:
+		m_Offset += 4 * sizeof(INT);
+		break;
 	default:
 		//TODO: Add exception for unknown format
 		break;

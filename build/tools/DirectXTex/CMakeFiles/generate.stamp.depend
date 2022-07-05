@@ -1,0 +1,7 @@
+# CMake generation dependency list for this directory.
+C:/Program Files/CMake/share/cmake-3.22/Modules/BasicConfigVersion-AnyNewerVersion.cmake.in
+C:/Program Files/CMake/share/cmake-3.22/Modules/CMakePackageConfigHelpers.cmake
+C:/Program Files/CMake/share/cmake-3.22/Modules/WriteBasicConfigVersionFile.cmake
+C:/Users/hunte/source/repos/Dynamo/build/CMakeFiles/cmake.verify_globs
+C:/Users/hunte/source/repos/Dynamo/tools/DirectXTex/.nuget/DirectXTex-config.cmake.in
+C:/Users/hunte/source/repos/Dynamo/tools/DirectXTex/CMakeLists.txt

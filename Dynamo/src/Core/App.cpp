@@ -12,8 +12,13 @@
 #include <imgui.h>
 #include "Graphics/Light.h"
 #include "Graphics/Scene.h"
-#include "Graphics/Negativepass.h"
+#include "Graphics/NegativePass.h"
+#include "Graphics/ShadowPass.h"
 #include "Graphics/Selector.h"
+#include "Graphics/Animation.h"
+#include "Graphics/Animator.h"
+#include "Graphics/AnimModel.h"
+#include "Graphics/NoShadowPass.h"
 
 Transform modelTransform(XMFLOAT3(0.f, 0.f, 0.f), XMFLOAT3(M_PI / 2, 0.f, 0.f));
 
@@ -28,13 +33,19 @@ App::App(const std::string& name, UINT32 width, UINT32 height)
 	m_Sponza = std::make_shared<Model>(m_Window->GetGraphics(), "res\\models\\sponza\\Sponza.gltf", XMFLOAT3(0.f, 0.f, 0.f));
 	m_PL = std::make_shared<PointLight>(m_Window->GetGraphics(), XMFLOAT3(0.f, 10.f, -10.f), XMFLOAT3(10.f, 10.f, 5.f));
 	m_Scene = std::make_shared<Scene>();
-	m_NegPass = std::make_unique<Negativepass>(m_Window->GetGraphics());
+	//m_ShadowPass = std::make_unique<Shadowpass>(m_Window->GetGraphics(), m_PL);
+	//m_NegPass = std::make_unique<NegativePass>(m_Window->GetGraphics());
+	m_Pass = std::make_unique<NoShadowPass>();
 	m_Selector = std::make_unique<Selector>(m_Window->GetGraphics());
+	m_Dragon = std::make_shared<AnimModel>(m_Window->GetGraphics(), "res\\models\\chica\\scene.gltf", XMFLOAT3(-80.f, 0.f, 0.f));
+	m_Animation = std::make_unique<Animation>("res\\models\\chica\\scene.gltf", m_Dragon.get());
+	m_Animator = std::make_unique<Animator>(m_Animation.get());
 
 	m_Scene->Submit("Skybox", m_Skybox);
 	m_Scene->Submit("Point Light", m_PL);
 	m_Scene->Submit("Model", m_GF);
 	m_Scene->Submit("Sponza", m_Sponza);
+	m_Scene->Submit("Dragon", m_Dragon);
 	m_Window->GetGraphics().SetScene(m_Scene);
 }
 
@@ -133,9 +144,15 @@ INT App::Run()
 		prevTime = currentTime;
 
 		UserInput(deltaTime);
+		m_Animator->UpdateAnimation(deltaTime);
+
 		m_Window->GetGraphics().BeginFrame(*m_Camera);
 		m_PL->Bind(m_Window->GetGraphics());
-		m_NegPass->Run(m_Window->GetGraphics());
+		//m_ShadowPass->Run(m_Window->GetGraphics());
+
+		m_Dragon->Animate(m_Window->GetGraphics(), *m_Animator);
+		
+		m_Pass->Run(m_Window->GetGraphics());
 		ShowGUI();
 		m_Window->GetGraphics().EndFrame();
 	}

@@ -1,0 +1,6 @@
+# CMake generation dependency list for this directory.
+C:/Program Files/CMake/share/cmake-3.22/Modules/FindPackageHandleStandardArgs.cmake
+C:/Program Files/CMake/share/cmake-3.22/Modules/FindPackageMessage.cmake
+C:/Users/hunte/source/repos/Dynamo/build/CMakeFiles/cmake.verify_globs
+C:/Users/hunte/source/repos/Dynamo/tools/assimp/cmake-modules/FindRT.cmake
+C:/Users/hunte/source/repos/Dynamo/tools/assimp/code/CMakeLists.txt

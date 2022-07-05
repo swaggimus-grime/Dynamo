@@ -7,3 +7,6 @@
 [submodule "tools/DirectXTex"]
 	path = tools/DirectXTex
 	url = https://github.com/microsoft/DirectXTex.git
+[submodule "tools/glm"]
+	path = tools/glm
+	url = https://github.com/g-truc/glm

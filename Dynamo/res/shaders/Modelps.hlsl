@@ -7,7 +7,6 @@ cbuffer Model : register(b0)
 {
     float SpecIntensity;
     float SpecPower;
-
 }
 
 cbuffer Light : register(b1)

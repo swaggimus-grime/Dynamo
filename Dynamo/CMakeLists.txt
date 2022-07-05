@@ -8,6 +8,8 @@ find_package(assimp)
 
 set(IMGUI_DIR ../tools/imgui)
 
+set(GLM_DIR ../tools/glm)
+
 set(DXTEX_DIR ../tools/DirectXTex)
 
 file(GLOB_RECURSE VERTEX_SHADER_FILES CONFIGURE_DEPENDS
@@ -27,6 +29,7 @@ file(GLOB_RECURSE SRC CONFIGURE_DEPENDS "src/*.h" "src/*.cpp")
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src 
                     ${IMGUI_DIR} 
                     ${IMGUI_DIR}/backends 
+                    ${GLM_DIR}
                     ${ASSIMP_DIR}/include
                     ${DXTEX_DIR}/DirectXTex)
 set(IMGUI_SRC

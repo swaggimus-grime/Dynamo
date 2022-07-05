@@ -1,0 +1,11 @@
+Model Information:
+* title:	Gangnam Style (withered chica
+* source:	https://sketchfab.com/3d-models/gangnam-style-withered-chica-f868283cd277470e9374c62e670e972a
+* author:	Joebot The Robot (https://sketchfab.com/Joebot_the_robot)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Gangnam Style (withered chica" (https://sketchfab.com/3d-models/gangnam-style-withered-chica-f868283cd277470e9374c62e670e972a) by Joebot The Robot (https://sketchfab.com/Joebot_the_robot) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
