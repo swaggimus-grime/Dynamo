@@ -1,7 +1,5 @@
 #pragma once
 
-#include <glm/glm.hpp>
-
 class Animator
 {
 public:
@@ -10,7 +8,7 @@ public:
 	void UpdateAnimation(float dt);
 	void PlayAnimation(Animation* pAnimation);
 
-	void CalculateBoneTransform(const struct AssimpNodeData* node, glm::mat4 parentTransform);
+	void CalculateBoneTransform(const struct AssimpNodeData* node, XMMATRIX parentTransform);
 
 	XMMATRIX* GetFinalBoneMatrices()
 	{

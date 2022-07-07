@@ -24,23 +24,7 @@ cbuffer Bones : register(b1)
 };
 
 VOut main(float3 pos : Pos, float2 tex : Tex, float3 norm : Norm, float3 tan : Tan, float3 bitan : Bitan, int4 bones : Bones, float4 weights : Weights)
-{
-    //float4 totalPosition = float4(0.f, 0.f, 0.f, 0.f);
-    //for (int i = 0; i < MAX_BONE_INFLUENCE; i++)
-    //{
-    //    if (bones[i] == -1)
-    //        continue;
-    //    if (bones[i] >= MAX_BONES)
-    //    {
-    //        totalPosition = float4(pos, 1.0f);
-    //        break;
-    //    }
-
-    //    float4 localPosition = mul(float4(pos, 1.0f), finalBonesMatrices[bones[i]]);
-    //    totalPosition += localPosition * weights[i];
-    //    //vec3 localNormal = mat3(finalBonesMatrices[bones[i]]) * norm;
-    //}
-    
+{   
     matrix BoneTransform = finalBonesMatrices[bones[0]] * weights[0];
     BoneTransform += finalBonesMatrices[bones[1]] * weights[1];
     BoneTransform += finalBonesMatrices[bones[2]] * weights[2];

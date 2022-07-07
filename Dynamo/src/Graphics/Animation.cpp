@@ -4,8 +4,6 @@
 #include "Bone.h"
 #include "AnimModel.h"
 #include <assimp/postprocess.h>
-#include "AssimpGLMHelpers.h"
-#include <glm/gtc/type_ptr.hpp>
 
 Animation::Animation(const std::string& animationPath, AnimModel* model)
 {
@@ -15,8 +13,6 @@ Animation::Animation(const std::string& animationPath, AnimModel* model)
     auto animation = scene->mAnimations[0];
     m_Duration = animation->mDuration;
     m_TicksPerSecond = animation->mTicksPerSecond;
-    aiMatrix4x4 globalTransformation = scene->mRootNode->mTransformation;
-    globalTransformation = globalTransformation.Inverse();
     ReadHeirarchyData(m_RootNode, scene->mRootNode);
     ReadMissingBones(animation, *model);
 }
@@ -67,7 +63,7 @@ void Animation::ReadHeirarchyData(AssimpNodeData& dest, const aiNode* src)
     assert(src);
 
     dest.name = src->mName.data;
-    dest.transformation = AssimpGLMHelpers::ConvertMatrixToGLMFormat(src->mTransformation);
+    dest.transformation = aiToXMMat4(src->mTransformation);
     dest.childrenCount = src->mNumChildren;
 
     for (int i = 0; i < src->mNumChildren; i++)

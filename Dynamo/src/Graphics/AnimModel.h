@@ -14,6 +14,8 @@
 #include "DSState.h"
 #include "BlendState.h"
 #include "GUI/GUIable.h"
+#include "Animation.h"
+#include "Animator.h"
 
 struct SkinVertex {
 	XMFLOAT3 pos;
@@ -32,7 +34,7 @@ public:
 	void Reload(Graphics& g, const std::string& path);
 	virtual void Render(Graphics& g) override;
 	virtual void ShowGUI(Graphics& g) override;
-	void Animate(Graphics& g, class Animator& animator);
+	void Animate(Graphics& g, float deltaTime);
 	auto& GetBoneInfoMap() { return m_Bones; }
 	int& GetBoneCount() { return m_BoneCounter; }
 public:
@@ -87,6 +89,8 @@ private:
 
 	std::map<std::string, struct BoneInfo> m_Bones;
 	int m_BoneCounter = 0;
+	std::unique_ptr<Animator> m_Animator;
+	std::unique_ptr<Animation> m_Animation;
 };
 
 #define ANIM_MODEL_EXCEP(msg) AnimModel::ModelException(__FILE__, __LINE__, msg)

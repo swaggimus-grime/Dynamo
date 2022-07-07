@@ -1,10 +1,7 @@
 #include "dynamopch.h"
 #include "AnimModel.h"
 
-#include "Animator.h"
 #include "Bone.h"
-#include "AssimpGLMHelpers.h"
-#include <glm/gtc/type_ptr.hpp>
 
 static std::string directory = "";
 
@@ -19,6 +16,8 @@ AnimModel::AnimModel(Graphics& g, const std::string& path, const Transform& t)
     m_Blend = std::make_unique<BlendState>(g);
     m_BoneBuff = std::make_unique<ConstantBuffer>(g, SHADER_TYPE::VS, sizeof(XMMATRIX) * 100, 1);
     Reload(g, path);
+    m_Animation = std::make_unique<Animation>(path, this);
+    m_Animator = std::make_unique<Animator>(m_Animation.get());
 }
 
 AnimModel::~AnimModel()
@@ -92,7 +91,7 @@ void AnimModel::Reload(Graphics& g, const std::string& path)
             {
                 BoneInfo bone;
                 bone.id = m_BoneCounter;
-                bone.offset = AssimpGLMHelpers::ConvertMatrixToGLMFormat(mesh->mBones[boneIndex]->mOffsetMatrix);
+                bone.offset = XMMatrixTranspose(aiToXMMat4(mesh->mBones[boneIndex]->mOffsetMatrix));
                 m_Bones[boneName] = bone;
                 boneID = m_BoneCounter;
                 m_BoneCounter++;
@@ -150,20 +149,16 @@ void AnimModel::ShowGUI(Graphics& g)
     Transformable::ShowGUI(g);
 }
 
-void AnimModel::Animate(Graphics& g, Animator& animator)
+void AnimModel::Animate(Graphics& g, float deltaTime)
 {
-    XMMATRIX* mats = animator.GetFinalBoneMatrices();
-    //std::vector<XMMATRIX> mats;
-    //std::for_each(finalMats.begin(), finalMats.end(), [](glm::mat4& m) {m = glm::transpose(m); });
-    /*for (int i = 0; i < finalMats.size(); i++) {
-        mats.push_back(XMMATRIX(glm::value_ptr(finalMats[i])));
-    }*/
+    m_Animator->UpdateAnimation(deltaTime);
+    XMMATRIX* mats = m_Animator->GetFinalBoneMatrices();
     m_BoneBuff->Update(g, sizeof(XMMATRIX) * 100, mats); 
 }
 
 void AnimModel::SetVertexBoneData(SkinVertex& vertex, int boneID, float weight)
 {
-    for (int i = 0; i < 16; i += 4)
+    for (SIZE_T i = 0; i < sizeof(XMINT4) / sizeof(INT); i++)
     {
         if (*(&vertex.bones.x + i) < 0)
         {

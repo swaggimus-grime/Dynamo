@@ -3,17 +3,11 @@
 
 #include "Animation.h"
 #include "Bone.h"
-#include <glm/gtc/type_ptr.hpp>
 
 Animator::Animator(Animation* animation)
 {
 	m_CurrentTime = 0.0;
 	m_CurrentAnimation = animation;
-
-	//m_FinalBoneMatrices.resize(100);
-
-	/*for (int i = 0; i < 100; i++)
-		m_FinalBoneMatrices.push_back(glm::mat4(1.0f));*/
 }
 
 void Animator::UpdateAnimation(float dt)
@@ -23,7 +17,7 @@ void Animator::UpdateAnimation(float dt)
 	{
 		m_CurrentTime += m_CurrentAnimation->GetTicksPerSecond() * dt;
 		m_CurrentTime = fmod(m_CurrentTime, m_CurrentAnimation->GetDuration());
-		CalculateBoneTransform(&m_CurrentAnimation->GetRootNode(), glm::mat4(1.0f));
+		CalculateBoneTransform(&m_CurrentAnimation->GetRootNode(), XMMatrixIdentity());
 	}
 }
 
@@ -33,10 +27,10 @@ void Animator::PlayAnimation(Animation* pAnimation)
 	m_CurrentTime = 0.0f;
 }
 
-void Animator::CalculateBoneTransform(const AssimpNodeData* node, glm::mat4 parentTransform)
+void Animator::CalculateBoneTransform(const AssimpNodeData* node, XMMATRIX parentTransform)
 {
 	std::string nodeName = node->name;
-	glm::mat4 nodeTransform = node->transformation;
+	XMMATRIX nodeTransform = node->transformation;
 
 	Bone* Bone = m_CurrentAnimation->FindBone(nodeName);
 
@@ -46,16 +40,14 @@ void Animator::CalculateBoneTransform(const AssimpNodeData* node, glm::mat4 pare
 		nodeTransform = Bone->GetLocalTransform();
 	}
 
-	glm::mat4 globalTransformation = parentTransform * nodeTransform;
+	XMMATRIX globalTransformation = nodeTransform * parentTransform;
 
 	auto boneInfoMap = m_CurrentAnimation->GetBoneIDMap();
 	if (boneInfoMap.find(nodeName) != boneInfoMap.end())
 	{
 		int index = boneInfoMap[nodeName].id;
-		glm::mat4 offset = boneInfoMap[nodeName].offset;
-		//m_FinalBoneMatrices[index] = XMMatrixIdentity();
-		auto& finalMat = glm::transpose(globalTransformation * offset);
-		auto& m = XMMATRIX(glm::value_ptr(finalMat));
+		XMMATRIX& offset = boneInfoMap[nodeName].offset;
+		XMMATRIX& m = XMMatrixTranspose(offset * globalTransformation);
 		m_FinalBoneMatrices[index] = std::move(m);
 	}
 

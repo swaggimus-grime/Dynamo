@@ -26,7 +26,10 @@ private:
 	//std::unique_ptr<class Shadowpass> m_ShadowPass;
 	//std::unique_ptr<class NegativePass> m_NegPass;
 	std::unique_ptr<class RenderPass> m_Pass;
-	std::shared_ptr<class AnimModel> m_Dragon;
-	std::unique_ptr<class Animation> m_Animation;
-	std::unique_ptr<class Animator> m_Animator;
+
+	std::shared_ptr<class AnimModel> m_Freddy;
+	std::shared_ptr<class AnimModel> m_Marionette;
+	std::shared_ptr<class AnimModel> m_Springtrap;
+	std::shared_ptr<class AnimModel> m_Chica;
+	std::shared_ptr<class AnimModel> m_Mangle;
 };

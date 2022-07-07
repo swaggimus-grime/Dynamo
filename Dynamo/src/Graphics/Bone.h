@@ -1,29 +1,27 @@
 #pragma once
 
-#include <glm/glm.hpp>
-#include <glm/gtx/quaternion.hpp>
 #include <assimp/anim.h>
 
 struct BoneInfo {
     int id;
-    glm::mat4 offset;
+    XMMATRIX offset;
 };
 
 struct KeyPosition
 {
-    glm::vec3 position;
+    XMVECTOR position;
     float timeStamp;
 };
 
 struct KeyRotation
 {
-    glm::quat orientation;
+    XMVECTOR orientation;
     float timeStamp;
 };
 
 struct KeyScale
 {
-    glm::vec3 scale;
+    XMVECTOR scale;
     float timeStamp;
 };
 
@@ -37,7 +35,7 @@ private:
     int m_NumRotations;
     int m_NumScalings;
 
-    glm::mat4 m_LocalTransform;
+    XMMATRIX m_LocalTransform;
     std::string m_Name;
     int m_ID;
 
@@ -51,7 +49,7 @@ public:
     tranformations*/
     void Update(float animationTime);
 
-    glm::mat4 GetLocalTransform() { return m_LocalTransform; }
+    XMMATRIX GetLocalTransform() { return m_LocalTransform; }
     std::string GetBoneName() const { return m_Name; }
     int GetBoneID() { return m_ID; }
 
@@ -75,14 +73,14 @@ private:
 
     /*figures out which position keys to interpolate b/w and performs the interpolation
     and returns the translation matrix*/
-    glm::mat4 InterpolatePosition(float animationTime);
+    XMMATRIX InterpolatePosition(float animationTime);
 
     /*figures out which rotations keys to interpolate b/w and performs the interpolation
     and returns the rotation matrix*/
-    glm::mat4 InterpolateRotation(float animationTime);
+    XMMATRIX InterpolateRotation(float animationTime);
 
     /*figures out which scaling keys to interpolate b/w and performs the interpolation
     and returns the scale matrix*/
-    glm::mat4 Bone::InterpolateScaling(float animationTime);
+    XMMATRIX Bone::InterpolateScaling(float animationTime);
 
 };

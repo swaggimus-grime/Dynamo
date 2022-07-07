@@ -28,6 +28,7 @@ struct PIn
     float3 norm : NORMAL;
     float3 tan : TANGENT;
     float3 bitan : BITANGENT;
+    //float4 weights : WEIGHTS;
 };
 
 float4 main(PIn input) : SV_Target
@@ -60,7 +61,7 @@ float4 main(PIn input) : SV_Target
     const float specularPower = pow(2.0f, stex.a * SpecPower);
     const float3 specular = LightColor * Intensity * stex.rgb * att * SpecIntensity * pow(max(0.0f, dot(-r, viewCamToFrag)), specularPower);
 
-    //return float4(1.f, 1.f, 1.f, 1.f);
+    //return float4(input.weights.xyz, 1);
     return float4(saturate((diffuse + Ambient + specular) * dtex.rgb), dtex.a);
     //return float4(SpecIntensity, SpecIntensity, SpecIntensity, 1.f);
 }
