@@ -1,16 +1,10 @@
 #include "dynamopch.h"
 #include "DSState.h"
 
-DSState::DSState(Graphics& g)
-{
-	D3D11_DEPTH_STENCIL_DESC dsDesc{};
-	dsDesc.DepthEnable = true;
-	dsDesc.DepthFunc = D3D11_COMPARISON_LESS;
-	dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
-	g.Device().CreateDepthStencilState(&dsDesc, m_State.GetAddressOf());
-}
+#include "Binds.h"
 
 DSState::DSState(Graphics& g, DS_MODE mode)
+	:Bindable(CreateHash(mode))
 {
 	D3D11_DEPTH_STENCIL_DESC dsDesc = CD3D11_DEPTH_STENCIL_DESC{ CD3D11_DEFAULT{} };
 	switch (mode) {
@@ -44,4 +38,14 @@ DSState::DSState(Graphics& g, DS_MODE mode)
 void DSState::Bind(Graphics& g)
 {
 	g.DC().OMSetDepthStencilState(m_State.Get(), 0xFF);
+}
+
+std::string DSState::CreateHash(DS_MODE mode)
+{
+	return typeid(DSState).name() + "#"s + std::to_string(static_cast<UINT>(mode));
+}
+
+Shared<DSState> DSState::Evaluate(Graphics& g, DS_MODE mode)
+{
+	return Binds::Evaluate<DSState>(g, mode);
 }

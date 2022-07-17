@@ -2,42 +2,49 @@
 #include "Shader.h"
 #include <d3dcompiler.h>
 #include <comdef.h>
+#include "Binds.h"
 
-Shader::Shader(Graphics& g, LPCWSTR vertPath, LPCWSTR pixPath)
+VertexShader::VertexShader(Graphics& g, const std::string& path)
+	:Bindable(CreateHash(path))
 {
-	ID3D10Blob *pixCode;
-	SHADER_CHECK(D3DReadFileToBlob(vertPath, m_VSCode.GetAddressOf()));
-	SHADER_CHECK(D3DReadFileToBlob(pixPath, &pixCode));
-	SHADER_CHECK(g.Device().CreateVertexShader(m_VSCode->GetBufferPointer(), m_VSCode->GetBufferSize(), nullptr, m_VS.GetAddressOf()));
-	SHADER_CHECK(g.Device().CreatePixelShader(pixCode->GetBufferPointer(), pixCode->GetBufferSize(), nullptr, m_PS.GetAddressOf()));
-	pixCode->Release();
+	DYNAMO_ASSERT(D3DReadFileToBlob(NarrowToWide(path), &m_Code));
+	DYNAMO_ASSERT(g.Device().CreateVertexShader(m_Code->GetBufferPointer(), m_Code->GetBufferSize(), nullptr, &m_Shader));
 }
 
-Shader::~Shader()
+void VertexShader::Bind(Graphics& g)
 {
+	g.DC().VSSetShader(m_Shader.Get(), nullptr, 0);
 }
 
-void Shader::Bind(Graphics& g)
+std::string VertexShader::CreateHash(const std::string& path)
 {
-	g.DC().VSSetShader(m_VS.Get(), nullptr, 0);
-	g.DC().PSSetShader(m_PS.Get(), nullptr, 0);
+	return typeid(VertexShader).name() + "#"s + path;
 }
 
-Shader::ShaderException::ShaderException(const char* file, unsigned int line, HRESULT result)
-	:DynamoException(file, line)
+Shared<VertexShader> VertexShader::Evaluate(Graphics& g, const std::string& path)
 {
-	_com_error err(result);
-	std::stringstream s;
-	s << __super::what() << std::endl << err.ErrorMessage();
-	m_What = s.str();
+	return Binds::Evaluate<VertexShader>(g, path);
 }
 
-const char* Shader::ShaderException::GetType() const
+PixelShader::PixelShader(Graphics& g, const std::string& path)
+	:Bindable(CreateHash(path))
 {
-	return "Shader Exception";
+	ComPtr<ID3D10Blob> code;
+	DYNAMO_ASSERT(D3DReadFileToBlob(NarrowToWide(path), &code));
+	DYNAMO_ASSERT(g.Device().CreatePixelShader(code->GetBufferPointer(), code->GetBufferSize(), nullptr, &m_Shader));
 }
 
-const char* Shader::ShaderException::what() const
+void PixelShader::Bind(Graphics& g)
 {
-	return m_What.c_str();
+	g.DC().PSSetShader(m_Shader.Get(), nullptr, 0);
+}
+
+std::string PixelShader::CreateHash(const std::string& path)
+{
+	return typeid(PixelShader).name() + "#"s + path;
+}
+
+Shared<PixelShader> PixelShader::Evaluate(Graphics& g, const std::string& path)
+{
+	return Binds::Evaluate<PixelShader>(g, path);
 }

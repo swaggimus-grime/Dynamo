@@ -13,9 +13,10 @@ enum class DS_MODE {
 
 class DSState : public Bindable {
 public:
-	DSState(Graphics& g);
-	DSState(Graphics& g, DS_MODE mode);
+	DSState(Graphics& g, DS_MODE mode = DS_MODE::DEPTH_DEFAULT);
 	virtual void Bind(Graphics& g) override;
+	static std::string CreateHash(DS_MODE mode);
+	static Shared<DSState> Evaluate(Graphics& g, DS_MODE mode = DS_MODE::DEPTH_DEFAULT);
 private:
 	ComPtr<ID3D11DepthStencilState> m_State;
 };

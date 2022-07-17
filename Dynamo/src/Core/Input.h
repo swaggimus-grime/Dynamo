@@ -28,13 +28,6 @@ private:
 	void OnMouseLPressed();
 	void OnMouseLReleased();
 private:
-	class InputException : public DynamoException {
-	public:
-		InputException(const char* file, unsigned int line, const char* msg);
-		virtual const char* GetType() const override;
-		virtual const char* what() const override;
-	};
-private:
 	static constexpr UINT numKeys = 256;
 	std::bitset<numKeys> m_Keys;
 	std::queue<UINT> m_KeyBuffer;
@@ -47,5 +40,3 @@ private:
 	BOOL m_LPressed;
 	BOOL m_RPressed;
 };
-
-#define INPUT_EXCEP(msg) Input::InputException(__FILE__, __LINE__, msg)

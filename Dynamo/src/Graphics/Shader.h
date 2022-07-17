@@ -5,25 +5,24 @@
 #include <unordered_map>
 #include "Bindable.h"
 
-class Shader : public Bindable {
+class VertexShader : public Bindable {
 public:
-	Shader(Graphics& g, LPCWSTR vertPath, LPCWSTR pixPath);
-	~Shader();
+	VertexShader(Graphics& g, const std::string& path);
+	ID3D10Blob& Code() const { return *(m_Code.Get()); }
 	virtual void Bind(Graphics& g) override;
-	inline ID3D10Blob& GetVSCode() const { return *m_VSCode.Get(); }
-public:
-	class ShaderException : public DynamoException {
-	public:
-		ShaderException(const char* file, unsigned int line, HRESULT result);
-		virtual const char* GetType() const override;
-		virtual const char* what() const override;
-	};
-
+	static std::string CreateHash(const std::string& path);
+	static Shared<VertexShader> Evaluate(Graphics& g, const std::string& path);
 private:
-	ComPtr<ID3D11VertexShader> m_VS;
-	ComPtr<ID3D11PixelShader> m_PS;
-	ComPtr<ID3D10Blob> m_VSCode;
+	ComPtr<ID3D11VertexShader> m_Shader;
+	ComPtr<ID3D10Blob> m_Code;
 };
 
-#define SHADER_EXCEP(result) Shader::ShaderException(__FILE__, __LINE__, result)
-#define SHADER_CHECK(result) { if(result) throw SHADER_EXCEP(result); }
+class PixelShader : public Bindable {
+public:
+	PixelShader(Graphics& g, const std::string& path);
+	virtual void Bind(Graphics& g) override;
+	static std::string CreateHash(const std::string& path);
+	static Shared<PixelShader> Evaluate(Graphics& g, const std::string& path);
+private:
+	ComPtr<ID3D11PixelShader> m_Shader;
+};

@@ -7,17 +7,12 @@
 class Texture2D : public Bindable {
 public:
 	Texture2D() = default;
-	Texture2D(Graphics& g, LPCWSTR path, UINT slot);
+	Texture2D(Graphics& g, const std::string& path, UINT slot);
 	virtual void Bind(Graphics& g) override;
 	virtual void Reload(Graphics& g, const std::wstring& newPath);
-
-	class Texture2DException : public DynamoException {
-	public:
-		Texture2DException(const char* file, unsigned int line, HRESULT result);
-		virtual const char* GetType() const override;
-		virtual const char* what() const override;
-	};
-
+	static std::string CreateHash(const std::string& path, UINT slot);
+	static Shared<Texture2D> Evaluate(Graphics& g, const std::string& path, UINT slot);
+private:
 	static const DXGI_FORMAT Format = DXGI_FORMAT_B8G8R8A8_UNORM;
 
 protected:
@@ -25,6 +20,14 @@ protected:
 	ComPtr<ID3D11ShaderResourceView> m_View;
 };
 
-#define TEX2D_PREV_EXCEP Texture2D::Texture2DException::Texture2DException(__FILE__, __LINE__, GetLastError())
-#define TEX2D_EXCEP(res) Texture2D::Texture2DException::Texture2DException(__FILE__, __LINE__, res)
-#define TEX2D_ASSERT(hr) { if(hr != S_OK) throw TEX2D_EXCEP(hr); }
+class Cubemap : public Bindable {
+public:
+	Cubemap(Graphics& g, const std::string& texDir, UINT slot = 0);
+	virtual void Bind(Graphics& g) override;
+	static std::string CreateHash(const std::string& texDir, UINT slot);
+	static Shared<Cubemap> Evaluate(Graphics& g, const std::string& texDir, UINT slot = 0);
+
+private:
+	UINT m_Slot;
+	ComPtr<ID3D11ShaderResourceView> m_View;
+};

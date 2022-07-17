@@ -5,12 +5,12 @@ struct VOut
 
 cbuffer Transform
 {
-    matrix mvp;
+    matrix mlp;
 };
 
 VOut main(float3 pos : Pos)
 {
     VOut vertex;
-    vertex.pos = mul(float4(pos, 1.f), mvp);
+    vertex.pos = mul(float4(pos, 1.f), mlp);
     return vertex;
 }

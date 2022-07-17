@@ -34,7 +34,7 @@ Window::Window(const std::string& name, unsigned int width, unsigned int height)
 		nullptr, nullptr,
 		hInst, this);
 	if (!m_Handle)
-		throw WIN_PREV_EXCEP;
+		throw DYNAMO_PREV_EXCEP;
 	ImGui_ImplWin32_Init(m_Handle);
 	m_Graphics = std::make_unique<Graphics>(m_Handle, m_Width, m_Height);
 	ShowWindow(m_Handle, SW_SHOW);
@@ -257,23 +257,4 @@ LRESULT Window::HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	}
 
 	return DefWindowProc(hWnd, msg, wParam, lParam);
-}
-
-Window::WindowException::WindowException(const char* file, unsigned int line, HRESULT result)
-	:DynamoException(file, line)
-{
-	_com_error err(result);
-	std::stringstream s;
-	s << __super::what() << std::endl << err.ErrorMessage();
-	m_What = s.str();
-}
-
-const char* Window::WindowException::GetType() const 
-{
-	return "Window Exception";
-}
-
-const char* Window::WindowException::what() const
-{
-	return m_What.c_str();
 }

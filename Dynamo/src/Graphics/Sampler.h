@@ -9,9 +9,10 @@ enum class SAMPLER_MODE {
 
 class Sampler : public Bindable {
 public:
-	Sampler(Graphics& g, SAMPLER_MODE mode);
+	Sampler(Graphics& g, SAMPLER_MODE mode = SAMPLER_MODE::LINEAR_WRAP);
 	virtual void Bind(Graphics& g) override;
-
+	static std::string CreateHash(SAMPLER_MODE mode);
+	static Shared<Sampler> Evaluate(Graphics& g, SAMPLER_MODE mode = SAMPLER_MODE::LINEAR_WRAP);
 private:
 	ComPtr<ID3D11SamplerState> m_State;
 };

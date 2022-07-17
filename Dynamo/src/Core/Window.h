@@ -24,12 +24,6 @@ public:
 	static std::wstring FolderDialogBoxW();
 	void ClipCursor(BOOL clip);
 public:
-	class WindowException : public DynamoException {
-	public:
-		WindowException(const char* file, unsigned int line, HRESULT result);
-		virtual const char* GetType() const override;
-		virtual const char* what() const override;
-	};
 
 private:
 	static LRESULT CALLBACK SetupMessageProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -46,6 +40,3 @@ private:
 
 	RECT m_OrigClipRect;
 };
-
-#define WIN_EXCEP(r) Window::WindowException(__FILE__, __LINE__, r)
-#define WIN_PREV_EXCEP Window::WindowException(__FILE__, __LINE__, GetLastError())

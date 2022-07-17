@@ -9,7 +9,7 @@ Input::Input()
 	mouse.usUsagePage = 1;
 	mouse.usUsage = 2;
 	if (RegisterRawInputDevices(&mouse, 1, sizeof(mouse)) == FALSE)
-		throw INPUT_EXCEP("Failed to register mouse");
+		throw DYNAMO_EXCEP("Failed to register mouse");
 
 	SetCursor(true);
 }
@@ -97,22 +97,4 @@ void Input::SetCursor(BOOL enabled)
 	SetRawDeltaEnabled(enabled); 
 	ShowCursor(!enabled); 
 	Gui::ActivateMouse(!enabled);
-}
-
-Input::InputException::InputException(const char* file, unsigned int line, const char* msg)
-	:DynamoException(file, line)
-{
-	std::stringstream s;
-	s << __super::what() << std::endl << msg;
-	m_What = s.str();
-}
-
-const char* Input::InputException::GetType() const
-{
-	return "Input Exception";
-}
-
-const char* Input::InputException::what() const
-{
-	return m_What.c_str();
 }

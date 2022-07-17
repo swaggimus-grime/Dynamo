@@ -1,14 +1,10 @@
 #include "dynamopch.h"
 #include "Rasterizer.h"
 
-Rasterizer::Rasterizer(Graphics& g)
-{
-	D3D11_RASTERIZER_DESC rastDesc = CD3D11_RASTERIZER_DESC(CD3D11_DEFAULT{});
-	rastDesc.MultisampleEnable = true;
-	g.Device().CreateRasterizerState(&rastDesc, &m_State);
-}
+#include "Binds.h"
 
 Rasterizer::Rasterizer(Graphics& g, RS_MODE mode)
+	:Bindable(CreateHash(mode))
 {
 	D3D11_RASTERIZER_DESC rastDesc = CD3D11_RASTERIZER_DESC(CD3D11_DEFAULT{});
 	rastDesc.MultisampleEnable = true;
@@ -32,4 +28,14 @@ Rasterizer::Rasterizer(Graphics& g, RS_MODE mode)
 void Rasterizer::Bind(Graphics& g)
 {
 	g.DC().RSSetState(m_State.Get());
+}
+
+std::string Rasterizer::CreateHash(RS_MODE mode)
+{
+	return typeid(Rasterizer).name() + std::to_string(static_cast<UINT>(mode));
+}
+
+Shared<Rasterizer> Rasterizer::Evaluate(Graphics& g, RS_MODE mode)
+{
+	return Binds::Evaluate<Rasterizer>(g, mode);
 }

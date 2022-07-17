@@ -9,9 +9,10 @@ enum class RS_MODE {
 
 class Rasterizer : public Bindable {
 public:
-	Rasterizer(Graphics& g);
-	Rasterizer(Graphics& g, RS_MODE mode);
+	Rasterizer(Graphics& g, RS_MODE mode = RS_MODE::CULL_BACK);
 	virtual void Bind(Graphics& g) override;
+	static std::string CreateHash(RS_MODE mode);
+	static Shared<Rasterizer> Evaluate(Graphics& g, RS_MODE mode = RS_MODE::CULL_BACK);
 private:
 	ComPtr<ID3D11RasterizerState> m_State;
 };

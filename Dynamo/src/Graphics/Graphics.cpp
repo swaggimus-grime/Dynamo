@@ -1,13 +1,13 @@
 #include "dynamopch.h"
 #include "Graphics.h"
+
 #include "RenderTarget.h"
-#include <dxgi.h>
-#include <d3d11.h>
 #include "GUI/Gui.h"
 #include "Camera.h"
 #include <imgui_impl_dx11.h>
 #include "Camera.h"
 #include "DSView.h"
+#include "Renderable.h"
 
 Graphics::Graphics(HWND hWnd, UINT width, UINT height)
 {
@@ -45,8 +45,8 @@ Graphics::Graphics(HWND hWnd, UINT width, UINT height)
 
     ComPtr<ID3D11Texture2D> backbuff;
     m_SC->GetBuffer(0, __uuidof(ID3D11Texture2D), &backbuff);
-    m_FinalOutput = std::make_unique<WriteRenderTarget>(*this, *backbuff.Get());
-    m_DepthStencil = std::make_unique<DSView>(*this, width, height);
+    m_FinalOutput = std::make_unique<RenderTarget>(*this, *backbuff.Get());
+    m_DepthStencil = std::make_unique<DepthStencilView>(*this, width, height);
 
     m_DC->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
@@ -93,11 +93,21 @@ void Graphics::SubmitRenderTarget(std::shared_ptr<RenderTarget> r)
     m_Targets.push_back(r);
 }
 
+void Graphics::Assign(UINT passIdx, const Work& work)
+{
+    m_Passes[passIdx].AddWork(work);
+}
+
+void Graphics::Run()
+{
+    m_Passes[0].Run(*this);
+}
+
 void Graphics::OnWindowResize(UINT width, UINT height)
 {
     ComPtr<ID3D11Texture2D> tex;
     m_SC->GetBuffer(0, __uuidof(ID3D11Texture2D), &tex);
-    m_FinalOutput.reset(new WriteRenderTarget(*this, *tex.Get()));
+    m_FinalOutput.reset(new RenderTarget(*this, *tex.Get()));
     m_SC->ResizeBuffers(0, width, height, DXGI_FORMAT_R8G8B8A8_UNORM, 0);
     for (auto& rt : m_Targets)
         rt.reset(new RenderTarget(*this, width, height));

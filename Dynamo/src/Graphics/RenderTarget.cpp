@@ -2,7 +2,7 @@
 #include "RenderTarget.h"
 
 RenderTarget::RenderTarget(Graphics& g, UINT width, UINT height, UINT slot)
-    :m_Format(DXGI_FORMAT_R8G8B8A8_UNORM)
+    :Bindable(CreateHash(width, height, slot)), m_Format(DXGI_FORMAT_R8G8B8A8_UNORM)
 {
     D3D11_TEXTURE2D_DESC texDesc = {};
     texDesc.Width = width;
@@ -17,16 +17,17 @@ RenderTarget::RenderTarget(Graphics& g, UINT width, UINT height, UINT slot)
     texDesc.CPUAccessFlags = 0;
     texDesc.MiscFlags = 0;
     ComPtr<ID3D11Texture2D> texture;
-    RT_CHECK(g.Device().CreateTexture2D(&texDesc, nullptr, &texture));
+    DYNAMO_ASSERT(g.Device().CreateTexture2D(&texDesc, nullptr, &texture));
 
     D3D11_RENDER_TARGET_VIEW_DESC viewDesc = {};
     viewDesc.Format = texDesc.Format;
     viewDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
     viewDesc.Texture2D = D3D11_TEX2D_RTV{ 0 };
-    RT_CHECK(g.Device().CreateRenderTargetView(texture.Get(), &viewDesc, &m_RTV));
+    DYNAMO_ASSERT(g.Device().CreateRenderTargetView(texture.Get(), &viewDesc, &m_RTV));
 }
 
 RenderTarget::RenderTarget(Graphics& g, ID3D11Texture2D& texture, UINT slot)
+    :Bindable(CreateHash(texture, slot))
 {
     D3D11_TEXTURE2D_DESC texDesc;
     texture.GetDesc(&texDesc);
@@ -36,7 +37,7 @@ RenderTarget::RenderTarget(Graphics& g, ID3D11Texture2D& texture, UINT slot)
     viewDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
     viewDesc.Texture2D = D3D11_TEX2D_RTV{ 0 };
     
-    RT_CHECK(g.Device().CreateRenderTargetView(&texture, &viewDesc, &m_RTV));
+    DYNAMO_ASSERT(g.Device().CreateRenderTargetView(&texture, &viewDesc, &m_RTV));
 }
 
 void RenderTarget::Bind(Graphics& g)
@@ -44,7 +45,7 @@ void RenderTarget::Bind(Graphics& g)
     g.DC().OMSetRenderTargets(1, m_RTV.GetAddressOf(), nullptr);
 }
 
-void RenderTarget::Bind(Graphics& g, DSView& ds)
+void RenderTarget::Bind(Graphics& g, DepthStencilView& ds)
 {
     g.DC().OMSetRenderTargets(1, m_RTV.GetAddressOf(), ds.m_DSV.Get());
 }
@@ -54,31 +55,19 @@ void RenderTarget::Clear(Graphics& g)
     g.DC().ClearRenderTargetView(m_RTV.Get(), &m_ClearColor.x);
 }
 
-RenderTarget::RenderTargetException::RenderTargetException(const char* file, unsigned int line, HRESULT result)
-    :DynamoException(file, line)
+std::string RenderTarget::CreateHash(ID3D11Texture2D& texture, UINT slot)
 {
-    _com_error err(result);
-    std::stringstream s;
-    s << __super::what() << std::endl << err.ErrorMessage();
-    m_What = s.str();
+    D3D11_TEXTURE2D_DESC d;
+    texture.GetDesc(&d);
+    return typeid(RenderTarget).name() + "#"s + std::to_string(d.Width) + std::to_string(d.Height) + std::to_string(slot);
 }
 
-const char* RenderTarget::RenderTargetException::GetType() const
+std::string RenderTarget::CreateHash(UINT width, UINT height, UINT slot)
 {
-    return "Render Target Exception";
+    return typeid(RenderTarget).name() + "#"s + std::to_string(width) + std::to_string(height) + std::to_string(slot);
 }
 
-const char* RenderTarget::RenderTargetException::what() const
-{
-    return m_What.c_str();
-}
-
-WriteRenderTarget::WriteRenderTarget(Graphics& g, ID3D11Texture2D& texture, UINT slot)
-    :RenderTarget(g, texture, slot)
-{
-}
-
-ReadWriteRenderTarget::ReadWriteRenderTarget(Graphics& g, UINT width, UINT height, UINT slot)
+ReadableRenderTarget::ReadableRenderTarget(Graphics& g, UINT width, UINT height, UINT slot)
     :RenderTarget(g, width, height, slot), m_Slot(slot)
 {
     ComPtr<ID3D11Resource> tex;
@@ -88,10 +77,10 @@ ReadWriteRenderTarget::ReadWriteRenderTarget(Graphics& g, UINT width, UINT heigh
     srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
     srvDesc.Texture2D.MostDetailedMip = 0;
     srvDesc.Texture2D.MipLevels = 1;
-    RT_CHECK(g.Device().CreateShaderResourceView(tex.Get(), &srvDesc, &m_View));
+    DYNAMO_ASSERT(g.Device().CreateShaderResourceView(tex.Get(), &srvDesc, &m_View));
 }
 
-void ReadWriteRenderTarget::BindTexture(Graphics& g)
+void ReadableRenderTarget::BindTexture(Graphics& g)
 {
     g.DC().PSSetShaderResources(m_Slot, 1, m_View.GetAddressOf());
 }

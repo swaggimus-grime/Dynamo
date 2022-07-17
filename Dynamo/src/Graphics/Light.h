@@ -4,13 +4,14 @@
 #include "Renderable.h"
 #include "Shapes.h"
 #include "Buffer.h"
-#include "GUI/GUIable.h"
+#include "Entity.h"
 
-class PointLight : public Transformable, public Renderable, public ConstantBuffer {
+class PointLight : public Entity, public ConstantBuffer {
 public:
 	PointLight(Graphics& g, const XMFLOAT3& pos, const XMFLOAT3& color = {1.f, 1.f, 1.f});
 	virtual void Translate(float x, float y, float z) override;
 	virtual void Render(Graphics& g) override;
+	virtual void RenderPos(Graphics& g) override;
 	virtual void ShowGUI(Graphics& g) override;
 	virtual void Bind(Graphics& g) override;
 	inline Camera& GetCamera() const { return *m_Camera; }

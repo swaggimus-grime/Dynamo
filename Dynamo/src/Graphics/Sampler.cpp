@@ -1,8 +1,11 @@
 #include "dynamopch.h"
 #include "Sampler.h"
+
 #include "Graphics.h"
+#include "Binds.h"
 
 Sampler::Sampler(Graphics& g, SAMPLER_MODE mode)
+	:Bindable(CreateHash(mode))
 {
 	D3D11_SAMPLER_DESC sampDesc = CD3D11_SAMPLER_DESC(CD3D11_DEFAULT{});
 	switch (mode) {
@@ -39,5 +42,15 @@ Sampler::Sampler(Graphics& g, SAMPLER_MODE mode)
 void Sampler::Bind(Graphics& g)
 {
 	g.DC().PSSetSamplers(0, 1, m_State.GetAddressOf());
+}
+
+std::string Sampler::CreateHash(SAMPLER_MODE mode)
+{
+	return typeid(Sampler).name() + "#"s + std::to_string((static_cast<UINT>(mode)));
+}
+
+Shared<Sampler> Sampler::Evaluate(Graphics& g, SAMPLER_MODE mode)
+{
+	return Binds::Evaluate<Sampler>(g, mode);
 }
 

@@ -5,7 +5,6 @@
 #include "Graphics/Camera.h"
 #include "Graphics/Model.h"
 #include <chrono>
-#include "Graphics/Buffer.h"
 #include "Graphics/Skybox.h"
 #include "Graphics/Sampler.h"
 #include "Graphics/DSState.h"
@@ -14,48 +13,25 @@
 #include "Graphics/Scene.h"
 #include "Graphics/NegativePass.h"
 #include "Graphics/ShadowPass.h"
-#include "Graphics/Selector.h"
 #include "Graphics/Animation.h"
 #include "Graphics/Animator.h"
 #include "Graphics/AnimModel.h"
 #include "Graphics/NoShadowPass.h"
 
-Transform modelTransform(XMFLOAT3(80.f, 0.f, 0.f), XMFLOAT3(M_PI / 2, 0.f, 0.f));
+#include "Graphics/TestCube.h"
 
 App::App(const std::string& name, UINT32 width, UINT32 height)
 {
 	Gui::Init();
 	m_Window = std::make_unique<Window>(name, width, height);
+	auto& g = m_Window->GetGraphics();
 
 	m_Camera = std::make_shared<Camera>(XMFLOAT3(0.f, 20.f, -100.f));
-	m_Skybox = std::make_shared<Skybox>(m_Window->GetGraphics(), L"res\\skyboxes\\yokohama");
-	m_GF = std::make_shared<Model>(m_Window->GetGraphics(), "res\\models\\golden_freddy\\scene.gltf", modelTransform);
-	m_Sponza = std::make_shared<Model>(m_Window->GetGraphics(), "res\\models\\sponza\\Sponza.gltf", XMFLOAT3(160.f, 0.f, 0.f));
-	m_PL = std::make_shared<PointLight>(m_Window->GetGraphics(), XMFLOAT3(0.f, 10.f, -10.f), XMFLOAT3(10.f, 10.f, 5.f));
-	m_Scene = std::make_shared<Scene>();
-	//m_ShadowPass = std::make_unique<Shadowpass>(m_Window->GetGraphics(), m_PL);
-	//m_NegPass = std::make_unique<NegativePass>(m_Window->GetGraphics());
-	m_Pass = std::make_unique<NoShadowPass>();
-	m_Selector = std::make_unique<Selector>(m_Window->GetGraphics());
+	m_Cube = MakeUnique<TestCube>(g, 4.f);
+	m_Skybox = MakeUnique<Skybox>(g, "res\\skyboxes\\yokohama");
 
-	m_Freddy = std::make_shared<AnimModel>(m_Window->GetGraphics(), "res\\models\\freddy\\scene.gltf",         Transform{ {   0.f, 0.f, 0.f}, {}, {10.f, 10.f, 10.f} });
-	m_Chica = std::make_shared<AnimModel>(m_Window->GetGraphics(), "res\\models\\chica\\scene.gltf",           Transform{ {- 80.f, 0.f, 0.f}, {}, {.1f, .1f, .1f} });
-	m_Springtrap = std::make_shared<AnimModel>(m_Window->GetGraphics(), "res\\models\\springtrap\\scene.gltf", Transform{ {-160.f, 0.f, 0.f}, {}, {.2f, .2f, .2f} });
-	m_Mangle     = std::make_shared<AnimModel>(m_Window->GetGraphics(), "res\\models\\mangle\\scene.gltf",     Transform{ {-240.f, 0.f, 0.f}, {}, {20.f, 20.f, 20.f} });
-	m_Marionette = std::make_shared<AnimModel>(m_Window->GetGraphics(), "res\\models\\marionette\\scene.gltf", Transform{ {-320.f, 0.f, 0.f}, {}, {20.f, 20.f, 20.f} });
-
-	m_Scene->Submit("Skybox", m_Skybox);
-	m_Scene->Submit("Point Light", m_PL);
-	m_Scene->Submit("Model", m_GF);
-	m_Scene->Submit("Sponza", m_Sponza);
-
-	m_Scene->Submit("Freddy", m_Freddy);
-	m_Scene->Submit("Chica", m_Chica);
-	m_Scene->Submit("Springtrap", m_Springtrap);
-	m_Scene->Submit("Mangle", m_Mangle);
-	m_Scene->Submit("Marionette", m_Marionette);
-
-	m_Window->GetGraphics().SetScene(m_Scene);
+	m_Cube->Submit(g);
+	m_Skybox->Submit(g);
 }
 
 App::~App()
@@ -121,7 +97,7 @@ void App::ShowGUI()
 	if (ImGui::BeginMainMenuBar()) {
 		if (ImGui::BeginMenu("File")) {
 			if (ImGui::MenuItem("Open File")) 
-				m_GF->Reload(m_Window->GetGraphics(), Window::OpenDialogBox());
+				//m_GF->Reload(m_Window->GetGraphics(), Window::OpenDialogBox());
 
 			ImGui::EndMenu();
 		}
@@ -138,7 +114,7 @@ void App::ShowGUI()
 	if(showCamera)
 		m_Camera->ShowGUI(m_Window->GetGraphics());
 
-	m_Scene->ShowGUI(m_Window->GetGraphics());
+	//m_Scene->ShowGUI(m_Window->GetGraphics());
 }
 
 INT App::Run()
@@ -155,16 +131,7 @@ INT App::Run()
 		UserInput(deltaTime);
 
 		m_Window->GetGraphics().BeginFrame(*m_Camera);
-		m_PL->Bind(m_Window->GetGraphics());
-		//m_ShadowPass->Run(m_Window->GetGraphics());
-
-		m_Freddy->Animate(m_Window->GetGraphics(), deltaTime);
-		m_Marionette->Animate(m_Window->GetGraphics(), deltaTime);
-		m_Springtrap->Animate(m_Window->GetGraphics(), deltaTime);
-		m_Chica->Animate(m_Window->GetGraphics(), deltaTime);
-		m_Mangle->Animate(m_Window->GetGraphics(), deltaTime);
-		
-		m_Pass->Run(m_Window->GetGraphics());
+		m_Window->GetGraphics().Run();
 		ShowGUI();
 		m_Window->GetGraphics().EndFrame();
 	}

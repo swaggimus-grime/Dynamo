@@ -1,100 +1,55 @@
 #include "dynamopch.h"
 #include "Skybox.h"
+
+#include "InputLayout.h"
+#include "Shader.h"
+#include "Shapes.h"
 #include "Texture.h"
-#include <DirectXTex.h>
 #include "Sampler.h"
 #include "DSState.h"
 #include "Rasterizer.h"
-#include <imgui.h>
-#include "Core/Window.h"
 
-#define CUBEMAP_NUM_FACES 6
-
-Cubemap::Cubemap(Graphics& g, const std::wstring& texDir, UINT slot)
+Skybox::Skybox(Graphics& g, const std::string& texDir)
 {
-	m_Slot = slot;
-	std::vector<DirectX::ScratchImage> images;
-	images.resize(CUBEMAP_NUM_FACES);
-	for (UINT i = 0; i < CUBEMAP_NUM_FACES; i++) {
-		std::wstring path = texDir + L"/" + std::to_wstring(i) + L".jpg";
-		DirectX::ScratchImage image;
-		TEX2D_ASSERT(DirectX::LoadFromWICFile(path.c_str(), DirectX::WIC_FLAGS_IGNORE_SRGB, nullptr, image));
-		images[i] = std::move(image);
-	}
-	
-	D3D11_TEXTURE2D_DESC mapDesc = {};
-	mapDesc.Width = images[0].GetMetadata().width;
-	mapDesc.Height = images[0].GetMetadata().height;
-	mapDesc.MipLevels = 1;
-	mapDesc.ArraySize = CUBEMAP_NUM_FACES;
-	mapDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
-	mapDesc.SampleDesc.Count = 1;
-	mapDesc.SampleDesc.Quality = 0;
-	mapDesc.Usage = D3D11_USAGE_DEFAULT;
-	mapDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
-	mapDesc.CPUAccessFlags = 0;
-	mapDesc.MiscFlags = D3D11_RESOURCE_MISC_TEXTURECUBE;
+	auto& cube = Cube::Make();
+	m_VBuff = MakeUnique<VertexBuffer>(g, cube.Vertices);
+	m_IBuff = MakeUnique<IndexBuffer>(g, cube.Indices);
+	m_Top = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 
-	D3D11_SUBRESOURCE_DATA data[CUBEMAP_NUM_FACES];
-	for (UINT i = 0; i < CUBEMAP_NUM_FACES; i++) {
-		data[i].pSysMem = images[i].GetPixels();
-		data[i].SysMemPitch = images[i].GetImage(0, 0, 0)->rowPitch;
-		data[i].SysMemSlicePitch = 0;
-	}
+	{
+		Technique lambertian;
+		{
+			Step only(0);
+			auto& vs = VertexShader::Evaluate(g, "res\\shaders\\Skyboxvs.cso");
+			only.AddBind(InputLayout::Evaluate(g, cube.Vertices, *vs));
+			only.AddBind(vs);
+			only.AddBind(PixelShader::Evaluate(g, "res\\shaders\\Skyboxps.cso"));
+			only.AddBind(MakeShared<SkyboxCbuff>(g));
+			only.AddBind(Cubemap::Evaluate(g, texDir));
+			only.AddBind(Sampler::Evaluate(g));
+			only.AddBind(DSState::Evaluate(g, DS_MODE::DEPTH_FIRST));
+			only.AddBind(Rasterizer::Evaluate(g, RS_MODE::CULL_NONE));
 
-	ComPtr<ID3D11Texture2D> cubemap;
-	TEX2D_ASSERT(g.Device().CreateTexture2D(&mapDesc, data, &cubemap));
+			lambertian.AddStep(only);
+		}
 
-	D3D11_SHADER_RESOURCE_VIEW_DESC mapViewDesc = {};
-	mapViewDesc.Format = mapDesc.Format;
-	mapViewDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURECUBE;
-	mapViewDesc.Texture2D.MostDetailedMip = 0;
-	mapViewDesc.Texture2D.MipLevels = 1;
-	g.Device().CreateShaderResourceView(cubemap.Get(), &mapViewDesc, &m_View);
-}
-
-
-Skybox::Skybox(Graphics& g, const std::wstring& texDir)
-{
-	//Shader
-	auto shader = std::make_shared<Shader>(g, L"res/shaders/Skyboxvs.cso", L"res/shaders/Skyboxps.cso");
-
-	VertexLayout layout;
-	layout.AddAttrib("Pos", DXGI_FORMAT_R32G32B32_FLOAT);
-	m_Cube = std::make_unique<Cube>(g, shader, XMFLOAT3(0.f, 0.f, 0.f));
-	m_Cube->AddTexture(std::make_shared<Cubemap>(g, texDir, 0));
-
-	m_Bindables.push_back(std::move(shader));
-	m_Bindables.push_back(std::move(std::make_shared<Sampler>(g, SAMPLER_MODE::LINEAR_WRAP)));
-	m_Bindables.push_back(std::move(std::make_shared<DSState>(g, DS_MODE::DEPTH_FIRST)));
-	m_Bindables.push_back(std::move(std::make_shared<Rasterizer>(g, RS_MODE::CULL_NONE)));
-	m_Bindables.push_back(std::move(std::make_shared<SkyboxConstantBuffer>(g, m_Transform, SHADER_TYPE::VS, sizeof(XMMATRIX))));
-}
-
-void Skybox::Render(Graphics& g)
-{
-	for (const auto& b : m_Bindables)
-		b->Bind(g);
-
-	m_Cube->Render(g);
-}
-
-void Skybox::ShowGUI(Graphics& g)
-{
-	if (ImGui::Button("New Skybox")) {
-		m_Cube->GetTexture(0).reset();
-		m_Cube->GetTexture(0) = std::make_shared<Cubemap>(g, Window::FolderDialogBoxW(), 0);
+		AddTechnique(lambertian);
 	}
 }
 
-Skybox::SkyboxConstantBuffer::SkyboxConstantBuffer(Graphics& g, SkyboxTransform& transformRef, SHADER_TYPE type, SIZE_T size)
-	:ConstantBuffer(g, type, size), m_TransormRef(transformRef)
+XMMATRIX Skybox::ModelMat() const
+{
+	return XMMatrixIdentity();
+}
+
+Skybox::SkyboxCbuff::SkyboxCbuff(Graphics& g)
+	:VertexConstantBuffer(g, 0)
 {
 }
 
-void Skybox::SkyboxConstantBuffer::Bind(Graphics& g)
+void Skybox::SkyboxCbuff::Bind(Graphics& g)
 {
-	m_TransormRef.VP = XMMatrixTranspose(g.LookAt() * g.Projection());
-	Update(g, sizeof(SkyboxTransform), &m_TransormRef);
-	ConstantBuffer::Bind(g);
+	m_VP = XMMatrixTranspose(g.LookAt() * g.Projection());
+	Update(g, &m_VP);
+	__super::Bind(g);
 }

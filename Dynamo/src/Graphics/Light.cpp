@@ -4,7 +4,7 @@
 #include "Camera.h"
 
 PointLight::PointLight(Graphics& g, const XMFLOAT3& pos, const XMFLOAT3& color)
-	:Transformable({ pos }),
+	:Entity(),
 	ConstantBuffer(g, SHADER_TYPE::PS, sizeof(m_Light), 1)
 {
 	m_Pos = m_PrevPos = pos;
@@ -45,6 +45,11 @@ void PointLight::Render(Graphics& g)
 	m_CBuff->Update(g, sizeof(m_Buff), &m_Buff);
 	m_CBuff->Bind(g);
 	m_Shader->Bind(g);
+	m_Shape->Render(g);
+}
+
+void PointLight::RenderPos(Graphics& g)
+{
 	m_Shape->Render(g);
 }
 

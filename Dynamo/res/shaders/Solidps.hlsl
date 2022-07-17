@@ -5,5 +5,5 @@ cbuffer Color : register(b0)
 
 float4 main() : SV_Target
 {
-    return float4(color, 1.f);
+    return float4(1, 1, 1, 1.f);
 }
