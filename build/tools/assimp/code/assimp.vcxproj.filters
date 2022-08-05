@@ -702,6 +702,9 @@
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\CApi\CInterfaceIOWrapper.h">
       <Filter>CApi</Filter>
     </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\Common\StbCommon.h">
+      <Filter>Common</Filter>
+    </ClInclude>
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\Common\Compression.h">
       <Filter>Common</Filter>
     </ClInclude>
@@ -718,6 +721,9 @@
       <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\Common\PolyTools.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\Common\Maybe.h">
       <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\Common\IFF.h">

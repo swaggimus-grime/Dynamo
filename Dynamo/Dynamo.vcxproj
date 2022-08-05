@@ -59,24 +59,28 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <LocalDebuggerWorkingDirectory Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/hunte/source/repos/Dynamo</LocalDebuggerWorkingDirectory>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\hunte\source\repos\Dynamo\Dynamo\Debug\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Dynamo.dir\Debug\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Dynamo</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
+    <LocalDebuggerWorkingDirectory Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/hunte/source/repos/Dynamo</LocalDebuggerWorkingDirectory>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\hunte\source\repos\Dynamo\Dynamo\Release\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Dynamo.dir\Release\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Dynamo</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
+    <LocalDebuggerWorkingDirectory Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:/Users/hunte/source/repos/Dynamo</LocalDebuggerWorkingDirectory>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\hunte\source\repos\Dynamo\Dynamo\MinSizeRel\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Dynamo.dir\MinSizeRel\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Dynamo</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
+    <LocalDebuggerWorkingDirectory Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/hunte/source/repos/Dynamo</LocalDebuggerWorkingDirectory>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\hunte\source\repos\Dynamo\Dynamo\RelWithDebInfo\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Dynamo.dir\RelWithDebInfo\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Dynamo</TargetName>
@@ -117,230 +121,9 @@
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message>	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/AnimModelvs.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Flatvs.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Modelvs.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Negativevs.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/PointLightvs.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Posvs.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/ShadowMapvs.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Skyboxvs.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Solidvs.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/AnimModelps.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Flatps.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Modelps.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Negativeps.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/PointLightps.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Posps.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Skyboxps.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Solidps.hlsl</Message>
+      <Message></Message>
       <Command>setlocal
 "C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/Users/hunte/source/repos/Dynamo/tools/assimp/bin/Debug/assimp-vc143-mtd.dll C:/Users/hunte/source/repos/Dynamo/Dynamo/Debug
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tvs_5_0 /Od /Zi /Fo res/shaders/AnimModelvs.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/AnimModelvs.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tvs_5_0 /Od /Zi /Fo res/shaders/Flatvs.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Flatvs.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tvs_5_0 /Od /Zi /Fo res/shaders/Modelvs.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Modelvs.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tvs_5_0 /Od /Zi /Fo res/shaders/Negativevs.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Negativevs.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tvs_5_0 /Od /Zi /Fo res/shaders/PointLightvs.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/PointLightvs.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tvs_5_0 /Od /Zi /Fo res/shaders/Posvs.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Posvs.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tvs_5_0 /Od /Zi /Fo res/shaders/ShadowMapvs.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/ShadowMapvs.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tvs_5_0 /Od /Zi /Fo res/shaders/Skyboxvs.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Skyboxvs.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tvs_5_0 /Od /Zi /Fo res/shaders/Solidvs.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Solidvs.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tps_5_0 /Od /Zi /Fo res/shaders/AnimModelps.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/AnimModelps.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tps_5_0 /Od /Zi /Fo res/shaders/Flatps.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Flatps.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tps_5_0 /Od /Zi /Fo res/shaders/Modelps.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Modelps.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tps_5_0 /Od /Zi /Fo res/shaders/Negativeps.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Negativeps.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tps_5_0 /Od /Zi /Fo res/shaders/PointLightps.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/PointLightps.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tps_5_0 /Od /Zi /Fo res/shaders/Posps.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Posps.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tps_5_0 /Od /Zi /Fo res/shaders/Skyboxps.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Skyboxps.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tps_5_0 /Od /Zi /Fo res/shaders/Solidps.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Solidps.hlsl
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -396,230 +179,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message>	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/AnimModelvs.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Flatvs.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Modelvs.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Negativevs.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/PointLightvs.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Posvs.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/ShadowMapvs.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Skyboxvs.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Solidvs.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/AnimModelps.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Flatps.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Modelps.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Negativeps.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/PointLightps.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Posps.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Skyboxps.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Solidps.hlsl</Message>
+      <Message></Message>
       <Command>setlocal
 "C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/Users/hunte/source/repos/Dynamo/tools/assimp/bin/Debug/assimp-vc143-mtd.dll C:/Users/hunte/source/repos/Dynamo/Dynamo/Release
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tvs_5_0 "" /Zi /Fo res/shaders/AnimModelvs.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/AnimModelvs.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tvs_5_0 "" /Zi /Fo res/shaders/Flatvs.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Flatvs.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tvs_5_0 "" /Zi /Fo res/shaders/Modelvs.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Modelvs.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tvs_5_0 "" /Zi /Fo res/shaders/Negativevs.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Negativevs.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tvs_5_0 "" /Zi /Fo res/shaders/PointLightvs.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/PointLightvs.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tvs_5_0 "" /Zi /Fo res/shaders/Posvs.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Posvs.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tvs_5_0 "" /Zi /Fo res/shaders/ShadowMapvs.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/ShadowMapvs.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tvs_5_0 "" /Zi /Fo res/shaders/Skyboxvs.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Skyboxvs.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tvs_5_0 "" /Zi /Fo res/shaders/Solidvs.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Solidvs.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tps_5_0 "" /Zi /Fo res/shaders/AnimModelps.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/AnimModelps.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tps_5_0 "" /Zi /Fo res/shaders/Flatps.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Flatps.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tps_5_0 "" /Zi /Fo res/shaders/Modelps.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Modelps.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tps_5_0 "" /Zi /Fo res/shaders/Negativeps.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Negativeps.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tps_5_0 "" /Zi /Fo res/shaders/PointLightps.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/PointLightps.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tps_5_0 "" /Zi /Fo res/shaders/Posps.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Posps.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tps_5_0 "" /Zi /Fo res/shaders/Skyboxps.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Skyboxps.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tps_5_0 "" /Zi /Fo res/shaders/Solidps.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Solidps.hlsl
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -675,230 +237,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message>	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/AnimModelvs.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Flatvs.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Modelvs.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Negativevs.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/PointLightvs.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Posvs.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/ShadowMapvs.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Skyboxvs.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Solidvs.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/AnimModelps.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Flatps.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Modelps.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Negativeps.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/PointLightps.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Posps.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Skyboxps.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Solidps.hlsl</Message>
+      <Message></Message>
       <Command>setlocal
 "C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/Users/hunte/source/repos/Dynamo/tools/assimp/bin/Debug/assimp-vc143-mtd.dll C:/Users/hunte/source/repos/Dynamo/Dynamo/MinSizeRel
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tvs_5_0 "" /Zi /Fo res/shaders/AnimModelvs.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/AnimModelvs.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tvs_5_0 "" /Zi /Fo res/shaders/Flatvs.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Flatvs.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tvs_5_0 "" /Zi /Fo res/shaders/Modelvs.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Modelvs.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tvs_5_0 "" /Zi /Fo res/shaders/Negativevs.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Negativevs.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tvs_5_0 "" /Zi /Fo res/shaders/PointLightvs.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/PointLightvs.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tvs_5_0 "" /Zi /Fo res/shaders/Posvs.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Posvs.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tvs_5_0 "" /Zi /Fo res/shaders/ShadowMapvs.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/ShadowMapvs.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tvs_5_0 "" /Zi /Fo res/shaders/Skyboxvs.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Skyboxvs.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tvs_5_0 "" /Zi /Fo res/shaders/Solidvs.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Solidvs.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tps_5_0 "" /Zi /Fo res/shaders/AnimModelps.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/AnimModelps.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tps_5_0 "" /Zi /Fo res/shaders/Flatps.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Flatps.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tps_5_0 "" /Zi /Fo res/shaders/Modelps.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Modelps.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tps_5_0 "" /Zi /Fo res/shaders/Negativeps.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Negativeps.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tps_5_0 "" /Zi /Fo res/shaders/PointLightps.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/PointLightps.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tps_5_0 "" /Zi /Fo res/shaders/Posps.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Posps.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tps_5_0 "" /Zi /Fo res/shaders/Skyboxps.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Skyboxps.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tps_5_0 "" /Zi /Fo res/shaders/Solidps.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Solidps.hlsl
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -953,230 +294,9 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ProxyFileName>%(Filename)_p.c</ProxyFileName>
     </Midl>
     <PostBuildEvent>
-      <Message>	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/AnimModelvs.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Flatvs.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Modelvs.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Negativevs.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/PointLightvs.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Posvs.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/ShadowMapvs.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Skyboxvs.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Solidvs.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/AnimModelps.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Flatps.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Modelps.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Negativeps.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/PointLightps.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Posps.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Skyboxps.hlsl	HLSL C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Solidps.hlsl</Message>
+      <Message></Message>
       <Command>setlocal
 "C:\Program Files\CMake\bin\cmake.exe" -E copy_if_different C:/Users/hunte/source/repos/Dynamo/tools/assimp/bin/Debug/assimp-vc143-mtd.dll C:/Users/hunte/source/repos/Dynamo/Dynamo/RelWithDebInfo
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tvs_5_0 "" /Zi /Fo res/shaders/AnimModelvs.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/AnimModelvs.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tvs_5_0 "" /Zi /Fo res/shaders/Flatvs.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Flatvs.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tvs_5_0 "" /Zi /Fo res/shaders/Modelvs.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Modelvs.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tvs_5_0 "" /Zi /Fo res/shaders/Negativevs.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Negativevs.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tvs_5_0 "" /Zi /Fo res/shaders/PointLightvs.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/PointLightvs.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tvs_5_0 "" /Zi /Fo res/shaders/Posvs.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Posvs.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tvs_5_0 "" /Zi /Fo res/shaders/ShadowMapvs.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/ShadowMapvs.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tvs_5_0 "" /Zi /Fo res/shaders/Skyboxvs.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Skyboxvs.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tvs_5_0 "" /Zi /Fo res/shaders/Solidvs.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Solidvs.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tps_5_0 "" /Zi /Fo res/shaders/AnimModelps.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/AnimModelps.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tps_5_0 "" /Zi /Fo res/shaders/Flatps.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Flatps.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tps_5_0 "" /Zi /Fo res/shaders/Modelps.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Modelps.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tps_5_0 "" /Zi /Fo res/shaders/Negativeps.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Negativeps.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tps_5_0 "" /Zi /Fo res/shaders/PointLightps.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/PointLightps.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tps_5_0 "" /Zi /Fo res/shaders/Posps.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Posps.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tps_5_0 "" /Zi /Fo res/shaders/Skyboxps.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Skyboxps.hlsl
-if %errorlevel% neq 0 goto :cmEnd
-:cmEnd
-endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
-:cmErrorLevel
-exit /b %1
-:cmDone
-if %errorlevel% neq 0 goto :VCEnd
-setlocal
-cd C:\Users\hunte\source\repos\Dynamo\Dynamo
-if %errorlevel% neq 0 goto :cmEnd
-C:
-if %errorlevel% neq 0 goto :cmEnd
-fxc.exe /nologo /Emain /Tps_5_0 "" /Zi /Fo res/shaders/Solidps.cso C:/Users/hunte/source/repos/Dynamo/Dynamo/res/shaders/Solidps.hlsl
 if %errorlevel% neq 0 goto :cmEnd
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -1338,7 +458,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/RelWithDebInfo/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Animator.h" />
-    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\AssimpGLMHelpers.h" />
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Bindable.h" />
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\BlendState.cpp">
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/Debug/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -1412,6 +531,13 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/RelWithDebInfo/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Negativepass.h" />
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\NoShadowPass.cpp">
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/Debug/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/Release/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/MinSizeRel/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/RelWithDebInfo/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\NoShadowPass.h" />
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Rasterizer.cpp">
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/Debug/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/Release/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -1456,13 +582,13 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/RelWithDebInfo/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Shader.h" />
-    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Shadowpass.cpp">
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\ShadowPass.cpp">
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/Debug/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/Release/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/MinSizeRel/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/RelWithDebInfo/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
-    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Shadowpass.h" />
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\ShadowPass.h" />
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Shapes.cpp">
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/Debug/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/Release/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -1542,72 +668,72 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">NotUsing</PrecompiledHeader>
     </ResourceCompile>
     <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\AnimModelvs.hlsl">
-      <ShaderType>vs</ShaderType>
-      <ShaderModel>5_0</ShaderModel>
+      <ShaderType>Vertex</ShaderType>
+      <ShaderModel>5.0</ShaderModel>
     </FXCompile>
     <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\Flatvs.hlsl">
-      <ShaderType>vs</ShaderType>
-      <ShaderModel>5_0</ShaderModel>
+      <ShaderType>Vertex</ShaderType>
+      <ShaderModel>5.0</ShaderModel>
     </FXCompile>
     <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\Modelvs.hlsl">
-      <ShaderType>vs</ShaderType>
-      <ShaderModel>5_0</ShaderModel>
+      <ShaderType>Vertex</ShaderType>
+      <ShaderModel>5.0</ShaderModel>
     </FXCompile>
     <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\Negativevs.hlsl">
-      <ShaderType>vs</ShaderType>
-      <ShaderModel>5_0</ShaderModel>
+      <ShaderType>Vertex</ShaderType>
+      <ShaderModel>5.0</ShaderModel>
     </FXCompile>
     <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\PointLightvs.hlsl">
-      <ShaderType>vs</ShaderType>
-      <ShaderModel>5_0</ShaderModel>
+      <ShaderType>Vertex</ShaderType>
+      <ShaderModel>5.0</ShaderModel>
     </FXCompile>
     <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\Posvs.hlsl">
-      <ShaderType>vs</ShaderType>
-      <ShaderModel>5_0</ShaderModel>
+      <ShaderType>Vertex</ShaderType>
+      <ShaderModel>5.0</ShaderModel>
     </FXCompile>
     <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\ShadowMapvs.hlsl">
-      <ShaderType>vs</ShaderType>
-      <ShaderModel>5_0</ShaderModel>
+      <ShaderType>Vertex</ShaderType>
+      <ShaderModel>5.0</ShaderModel>
     </FXCompile>
     <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\Skyboxvs.hlsl">
-      <ShaderType>vs</ShaderType>
-      <ShaderModel>5_0</ShaderModel>
+      <ShaderType>Vertex</ShaderType>
+      <ShaderModel>5.0</ShaderModel>
     </FXCompile>
     <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\Solidvs.hlsl">
-      <ShaderType>vs</ShaderType>
-      <ShaderModel>5_0</ShaderModel>
+      <ShaderType>Vertex</ShaderType>
+      <ShaderModel>5.0</ShaderModel>
     </FXCompile>
     <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\AnimModelps.hlsl">
-      <ShaderType>ps</ShaderType>
-      <ShaderModel>5_0</ShaderModel>
+      <ShaderType>Pixel</ShaderType>
+      <ShaderModel>5.0</ShaderModel>
     </FXCompile>
     <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\Flatps.hlsl">
-      <ShaderType>ps</ShaderType>
-      <ShaderModel>5_0</ShaderModel>
+      <ShaderType>Pixel</ShaderType>
+      <ShaderModel>5.0</ShaderModel>
     </FXCompile>
     <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\Modelps.hlsl">
-      <ShaderType>ps</ShaderType>
-      <ShaderModel>5_0</ShaderModel>
+      <ShaderType>Pixel</ShaderType>
+      <ShaderModel>5.0</ShaderModel>
     </FXCompile>
     <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\Negativeps.hlsl">
-      <ShaderType>ps</ShaderType>
-      <ShaderModel>5_0</ShaderModel>
+      <ShaderType>Pixel</ShaderType>
+      <ShaderModel>5.0</ShaderModel>
     </FXCompile>
     <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\PointLightps.hlsl">
-      <ShaderType>ps</ShaderType>
-      <ShaderModel>5_0</ShaderModel>
+      <ShaderType>Pixel</ShaderType>
+      <ShaderModel>5.0</ShaderModel>
     </FXCompile>
     <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\Posps.hlsl">
-      <ShaderType>ps</ShaderType>
-      <ShaderModel>5_0</ShaderModel>
+      <ShaderType>Pixel</ShaderType>
+      <ShaderModel>5.0</ShaderModel>
     </FXCompile>
     <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\Skyboxps.hlsl">
-      <ShaderType>ps</ShaderType>
-      <ShaderModel>5_0</ShaderModel>
+      <ShaderType>Pixel</ShaderType>
+      <ShaderModel>5.0</ShaderModel>
     </FXCompile>
     <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\Solidps.hlsl">
-      <ShaderType>ps</ShaderType>
-      <ShaderModel>5_0</ShaderModel>
+      <ShaderType>Pixel</ShaderType>
+      <ShaderModel>5.0</ShaderModel>
     </FXCompile>
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\CMakeFiles\Dynamo.dir\Debug\cmake_pch.hxx" />
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\CMakeFiles\Dynamo.dir\Release\cmake_pch.hxx" />

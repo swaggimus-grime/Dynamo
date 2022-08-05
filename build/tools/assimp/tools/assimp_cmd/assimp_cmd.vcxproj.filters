@@ -24,9 +24,6 @@
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\tools\assimp_cmd\Main.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\tools\assimp_cmd\resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\tools\assimp_cmd\CMakeLists.txt" />

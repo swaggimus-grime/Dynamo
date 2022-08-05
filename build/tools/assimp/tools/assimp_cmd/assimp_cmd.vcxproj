@@ -328,15 +328,14 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\tools\assimp_cmd\assimp_cmd.rc" />
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\tools\assimp_cmd\CompareDump.cpp" />
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\tools\assimp_cmd\ImageExtractor.cpp" />
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\tools\assimp_cmd\Main.cpp" />
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\tools\assimp_cmd\Main.h" />
-    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\tools\assimp_cmd\resource.h" />
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\tools\assimp_cmd\WriteDump.cpp" />
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\tools\assimp_cmd\Info.cpp" />
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\tools\assimp_cmd\Export.cpp" />
+    <ResourceCompile Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\tools\assimp_cmd\assimp_cmd.rc" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:\Users\hunte\source\repos\Dynamo\build\ZERO_CHECK.vcxproj">

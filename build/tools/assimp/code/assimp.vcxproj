@@ -102,11 +102,11 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level4</WarningLevel>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;_DEBUG;ASSIMP_BUILD_NO_M3D_IMPORTER;ASSIMP_BUILD_NO_M3D_EXPORTER;WIN32_LEAN_AND_MEAN;UNICODE;_UNICODE;ASSIMP_BUILD_NO_C4D_IMPORTER;MINIZ_USE_UNALIGNED_LOADS_AND_STORES=0;ASSIMP_IMPORTER_GLTF_USE_OPEN3DGC=1;RAPIDJSON_HAS_STDSTRING=1;RAPIDJSON_NOMEMBERITERATORCLASS;ASSIMP_BUILD_DLL_EXPORT;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;OPENDDLPARSER_BUILD;CMAKE_INTDIR="Debug";assimp_EXPORTS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;_DEBUG;ASSIMP_BUILD_DLL_EXPORT;ASSIMP_BUILD_NO_M3D_IMPORTER;ASSIMP_BUILD_NO_M3D_EXPORTER;WIN32_LEAN_AND_MEAN;UNICODE;_UNICODE;ASSIMP_BUILD_NO_C4D_IMPORTER;MINIZ_USE_UNALIGNED_LOADS_AND_STORES=0;ASSIMP_IMPORTER_GLTF_USE_OPEN3DGC=1;RAPIDJSON_HAS_STDSTRING=1;RAPIDJSON_NOMEMBERITERATORCLASS;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;OPENDDLPARSER_BUILD;CMAKE_INTDIR="Debug";assimp_EXPORTS</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;ASSIMP_BUILD_NO_M3D_IMPORTER;ASSIMP_BUILD_NO_M3D_EXPORTER;WIN32_LEAN_AND_MEAN;UNICODE;_UNICODE;ASSIMP_BUILD_NO_C4D_IMPORTER;MINIZ_USE_UNALIGNED_LOADS_AND_STORES=0;ASSIMP_IMPORTER_GLTF_USE_OPEN3DGC=1;RAPIDJSON_HAS_STDSTRING=1;RAPIDJSON_NOMEMBERITERATORCLASS;ASSIMP_BUILD_DLL_EXPORT;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;OPENDDLPARSER_BUILD;CMAKE_INTDIR=\"Debug\";assimp_EXPORTS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;ASSIMP_BUILD_DLL_EXPORT;ASSIMP_BUILD_NO_M3D_IMPORTER;ASSIMP_BUILD_NO_M3D_EXPORTER;WIN32_LEAN_AND_MEAN;UNICODE;_UNICODE;ASSIMP_BUILD_NO_C4D_IMPORTER;MINIZ_USE_UNALIGNED_LOADS_AND_STORES=0;ASSIMP_IMPORTER_GLTF_USE_OPEN3DGC=1;RAPIDJSON_HAS_STDSTRING=1;RAPIDJSON_NOMEMBERITERATORCLASS;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;OPENDDLPARSER_BUILD;CMAKE_INTDIR=\"Debug\";assimp_EXPORTS</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>C:\Users\hunte\source\repos\Dynamo\build\tools\assimp\include;C:\Users\hunte\source\repos\Dynamo\build\tools\assimp;C:\Users\hunte\source\repos\Dynamo\tools\assimp\include;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code;C:\Users\hunte\source\repos\Dynamo\tools\assimp\.;C:\Users\hunte\source\repos\Dynamo\tools\assimp\contrib\zlib;C:\Users\hunte\source\repos\Dynamo\build\tools\assimp\contrib\zlib;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\contrib\pugixml\src;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\contrib\rapidjson\include;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\contrib;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\contrib\unzip;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\contrib\openddlparser\include;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\include;C:\Users\hunte\source\repos\Dynamo\build\tools\assimp\code\..\include;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
@@ -148,11 +148,11 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level4</WarningLevel>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;ASSIMP_BUILD_NO_M3D_IMPORTER;ASSIMP_BUILD_NO_M3D_EXPORTER;WIN32_LEAN_AND_MEAN;UNICODE;_UNICODE;ASSIMP_BUILD_NO_C4D_IMPORTER;MINIZ_USE_UNALIGNED_LOADS_AND_STORES=0;ASSIMP_IMPORTER_GLTF_USE_OPEN3DGC=1;RAPIDJSON_HAS_STDSTRING=1;RAPIDJSON_NOMEMBERITERATORCLASS;ASSIMP_BUILD_DLL_EXPORT;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;OPENDDLPARSER_BUILD;CMAKE_INTDIR="Release";assimp_EXPORTS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;ASSIMP_BUILD_DLL_EXPORT;ASSIMP_BUILD_NO_M3D_IMPORTER;ASSIMP_BUILD_NO_M3D_EXPORTER;WIN32_LEAN_AND_MEAN;UNICODE;_UNICODE;ASSIMP_BUILD_NO_C4D_IMPORTER;MINIZ_USE_UNALIGNED_LOADS_AND_STORES=0;ASSIMP_IMPORTER_GLTF_USE_OPEN3DGC=1;RAPIDJSON_HAS_STDSTRING=1;RAPIDJSON_NOMEMBERITERATORCLASS;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;OPENDDLPARSER_BUILD;CMAKE_INTDIR="Release";assimp_EXPORTS</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;ASSIMP_BUILD_NO_M3D_IMPORTER;ASSIMP_BUILD_NO_M3D_EXPORTER;WIN32_LEAN_AND_MEAN;UNICODE;_UNICODE;ASSIMP_BUILD_NO_C4D_IMPORTER;MINIZ_USE_UNALIGNED_LOADS_AND_STORES=0;ASSIMP_IMPORTER_GLTF_USE_OPEN3DGC=1;RAPIDJSON_HAS_STDSTRING=1;RAPIDJSON_NOMEMBERITERATORCLASS;ASSIMP_BUILD_DLL_EXPORT;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;OPENDDLPARSER_BUILD;CMAKE_INTDIR=\"Release\";assimp_EXPORTS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;ASSIMP_BUILD_DLL_EXPORT;ASSIMP_BUILD_NO_M3D_IMPORTER;ASSIMP_BUILD_NO_M3D_EXPORTER;WIN32_LEAN_AND_MEAN;UNICODE;_UNICODE;ASSIMP_BUILD_NO_C4D_IMPORTER;MINIZ_USE_UNALIGNED_LOADS_AND_STORES=0;ASSIMP_IMPORTER_GLTF_USE_OPEN3DGC=1;RAPIDJSON_HAS_STDSTRING=1;RAPIDJSON_NOMEMBERITERATORCLASS;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;OPENDDLPARSER_BUILD;CMAKE_INTDIR=\"Release\";assimp_EXPORTS</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>C:\Users\hunte\source\repos\Dynamo\build\tools\assimp\include;C:\Users\hunte\source\repos\Dynamo\build\tools\assimp;C:\Users\hunte\source\repos\Dynamo\tools\assimp\include;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code;C:\Users\hunte\source\repos\Dynamo\tools\assimp\.;C:\Users\hunte\source\repos\Dynamo\tools\assimp\contrib\zlib;C:\Users\hunte\source\repos\Dynamo\build\tools\assimp\contrib\zlib;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\contrib\pugixml\src;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\contrib\rapidjson\include;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\contrib;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\contrib\unzip;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\contrib\openddlparser\include;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\include;C:\Users\hunte\source\repos\Dynamo\build\tools\assimp\code\..\include;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
@@ -195,13 +195,13 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level4</WarningLevel>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;ASSIMP_BUILD_NO_M3D_IMPORTER;ASSIMP_BUILD_NO_M3D_EXPORTER;WIN32_LEAN_AND_MEAN;UNICODE;_UNICODE;ASSIMP_BUILD_NO_C4D_IMPORTER;MINIZ_USE_UNALIGNED_LOADS_AND_STORES=0;ASSIMP_IMPORTER_GLTF_USE_OPEN3DGC=1;RAPIDJSON_HAS_STDSTRING=1;RAPIDJSON_NOMEMBERITERATORCLASS;ASSIMP_BUILD_DLL_EXPORT;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;OPENDDLPARSER_BUILD;CMAKE_INTDIR="MinSizeRel";assimp_EXPORTS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;ASSIMP_BUILD_DLL_EXPORT;ASSIMP_BUILD_NO_M3D_IMPORTER;ASSIMP_BUILD_NO_M3D_EXPORTER;WIN32_LEAN_AND_MEAN;UNICODE;_UNICODE;ASSIMP_BUILD_NO_C4D_IMPORTER;MINIZ_USE_UNALIGNED_LOADS_AND_STORES=0;ASSIMP_IMPORTER_GLTF_USE_OPEN3DGC=1;RAPIDJSON_HAS_STDSTRING=1;RAPIDJSON_NOMEMBERITERATORCLASS;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;OPENDDLPARSER_BUILD;CMAKE_INTDIR="MinSizeRel";assimp_EXPORTS</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <DebugInformationFormat>
       </DebugInformationFormat>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;ASSIMP_BUILD_NO_M3D_IMPORTER;ASSIMP_BUILD_NO_M3D_EXPORTER;WIN32_LEAN_AND_MEAN;UNICODE;_UNICODE;ASSIMP_BUILD_NO_C4D_IMPORTER;MINIZ_USE_UNALIGNED_LOADS_AND_STORES=0;ASSIMP_IMPORTER_GLTF_USE_OPEN3DGC=1;RAPIDJSON_HAS_STDSTRING=1;RAPIDJSON_NOMEMBERITERATORCLASS;ASSIMP_BUILD_DLL_EXPORT;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;OPENDDLPARSER_BUILD;CMAKE_INTDIR=\"MinSizeRel\";assimp_EXPORTS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;ASSIMP_BUILD_DLL_EXPORT;ASSIMP_BUILD_NO_M3D_IMPORTER;ASSIMP_BUILD_NO_M3D_EXPORTER;WIN32_LEAN_AND_MEAN;UNICODE;_UNICODE;ASSIMP_BUILD_NO_C4D_IMPORTER;MINIZ_USE_UNALIGNED_LOADS_AND_STORES=0;ASSIMP_IMPORTER_GLTF_USE_OPEN3DGC=1;RAPIDJSON_HAS_STDSTRING=1;RAPIDJSON_NOMEMBERITERATORCLASS;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;OPENDDLPARSER_BUILD;CMAKE_INTDIR=\"MinSizeRel\";assimp_EXPORTS</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>C:\Users\hunte\source\repos\Dynamo\build\tools\assimp\include;C:\Users\hunte\source\repos\Dynamo\build\tools\assimp;C:\Users\hunte\source\repos\Dynamo\tools\assimp\include;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code;C:\Users\hunte\source\repos\Dynamo\tools\assimp\.;C:\Users\hunte\source\repos\Dynamo\tools\assimp\contrib\zlib;C:\Users\hunte\source\repos\Dynamo\build\tools\assimp\contrib\zlib;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\contrib\pugixml\src;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\contrib\rapidjson\include;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\contrib;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\contrib\unzip;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\contrib\openddlparser\include;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\include;C:\Users\hunte\source\repos\Dynamo\build\tools\assimp\code\..\include;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
@@ -243,11 +243,11 @@
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseFullPaths>false</UseFullPaths>
       <WarningLevel>Level4</WarningLevel>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;ASSIMP_BUILD_NO_M3D_IMPORTER;ASSIMP_BUILD_NO_M3D_EXPORTER;WIN32_LEAN_AND_MEAN;UNICODE;_UNICODE;ASSIMP_BUILD_NO_C4D_IMPORTER;MINIZ_USE_UNALIGNED_LOADS_AND_STORES=0;ASSIMP_IMPORTER_GLTF_USE_OPEN3DGC=1;RAPIDJSON_HAS_STDSTRING=1;RAPIDJSON_NOMEMBERITERATORCLASS;ASSIMP_BUILD_DLL_EXPORT;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;OPENDDLPARSER_BUILD;CMAKE_INTDIR="RelWithDebInfo";assimp_EXPORTS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;ASSIMP_BUILD_DLL_EXPORT;ASSIMP_BUILD_NO_M3D_IMPORTER;ASSIMP_BUILD_NO_M3D_EXPORTER;WIN32_LEAN_AND_MEAN;UNICODE;_UNICODE;ASSIMP_BUILD_NO_C4D_IMPORTER;MINIZ_USE_UNALIGNED_LOADS_AND_STORES=0;ASSIMP_IMPORTER_GLTF_USE_OPEN3DGC=1;RAPIDJSON_HAS_STDSTRING=1;RAPIDJSON_NOMEMBERITERATORCLASS;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;OPENDDLPARSER_BUILD;CMAKE_INTDIR="RelWithDebInfo";assimp_EXPORTS</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)</ObjectFileName>
     </ClCompile>
     <ResourceCompile>
-      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;ASSIMP_BUILD_NO_M3D_IMPORTER;ASSIMP_BUILD_NO_M3D_EXPORTER;WIN32_LEAN_AND_MEAN;UNICODE;_UNICODE;ASSIMP_BUILD_NO_C4D_IMPORTER;MINIZ_USE_UNALIGNED_LOADS_AND_STORES=0;ASSIMP_IMPORTER_GLTF_USE_OPEN3DGC=1;RAPIDJSON_HAS_STDSTRING=1;RAPIDJSON_NOMEMBERITERATORCLASS;ASSIMP_BUILD_DLL_EXPORT;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;OPENDDLPARSER_BUILD;CMAKE_INTDIR=\"RelWithDebInfo\";assimp_EXPORTS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;ASSIMP_BUILD_DLL_EXPORT;ASSIMP_BUILD_NO_M3D_IMPORTER;ASSIMP_BUILD_NO_M3D_EXPORTER;WIN32_LEAN_AND_MEAN;UNICODE;_UNICODE;ASSIMP_BUILD_NO_C4D_IMPORTER;MINIZ_USE_UNALIGNED_LOADS_AND_STORES=0;ASSIMP_IMPORTER_GLTF_USE_OPEN3DGC=1;RAPIDJSON_HAS_STDSTRING=1;RAPIDJSON_NOMEMBERITERATORCLASS;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;OPENDDLPARSER_BUILD;CMAKE_INTDIR=\"RelWithDebInfo\";assimp_EXPORTS</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>C:\Users\hunte\source\repos\Dynamo\build\tools\assimp\include;C:\Users\hunte\source\repos\Dynamo\build\tools\assimp;C:\Users\hunte\source\repos\Dynamo\tools\assimp\include;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code;C:\Users\hunte\source\repos\Dynamo\tools\assimp\.;C:\Users\hunte\source\repos\Dynamo\tools\assimp\contrib\zlib;C:\Users\hunte\source\repos\Dynamo\build\tools\assimp\contrib\zlib;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\contrib\pugixml\src;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\contrib\rapidjson\include;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\contrib;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\contrib\unzip;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\contrib\openddlparser\include;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\include;C:\Users\hunte\source\repos\Dynamo\build\tools\assimp\code\..\include;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
@@ -285,7 +285,7 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-3.22\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\FindPackageMessage.cmake;C:\Users\hunte\source\repos\Dynamo\build\CMakeFiles\cmake.verify_globs;C:\Users\hunte\source\repos\Dynamo\tools\assimp\cmake-modules\FindRT.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\hunte\source\repos\Dynamo\build\CMakeFiles\cmake.verify_globs;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\hunte\source\repos\Dynamo\build\tools\assimp\code\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/hunte/source/repos/Dynamo/tools/assimp/code/CMakeLists.txt</Message>
@@ -298,7 +298,7 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-3.22\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\FindPackageMessage.cmake;C:\Users\hunte\source\repos\Dynamo\build\CMakeFiles\cmake.verify_globs;C:\Users\hunte\source\repos\Dynamo\tools\assimp\cmake-modules\FindRT.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\hunte\source\repos\Dynamo\build\CMakeFiles\cmake.verify_globs;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\hunte\source\repos\Dynamo\build\tools\assimp\code\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Users/hunte/source/repos/Dynamo/tools/assimp/code/CMakeLists.txt</Message>
@@ -311,7 +311,7 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\CMake\share\cmake-3.22\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\FindPackageMessage.cmake;C:\Users\hunte\source\repos\Dynamo\build\CMakeFiles\cmake.verify_globs;C:\Users\hunte\source\repos\Dynamo\tools\assimp\cmake-modules\FindRT.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\hunte\source\repos\Dynamo\build\CMakeFiles\cmake.verify_globs;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\hunte\source\repos\Dynamo\build\tools\assimp\code\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
       <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Users/hunte/source/repos/Dynamo/tools/assimp/code/CMakeLists.txt</Message>
@@ -324,7 +324,7 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\CMake\share\cmake-3.22\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.22\Modules\FindPackageMessage.cmake;C:\Users\hunte\source\repos\Dynamo\build\CMakeFiles\cmake.verify_globs;C:\Users\hunte\source\repos\Dynamo\tools\assimp\cmake-modules\FindRT.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\hunte\source\repos\Dynamo\build\CMakeFiles\cmake.verify_globs;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\hunte\source\repos\Dynamo\build\tools\assimp\code\CMakeFiles\generate.stamp</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
     </CustomBuild>
@@ -334,6 +334,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ResourceCompile Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\res\assimp.rc" />
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\CApi\CInterfaceIOWrapper.cpp" />
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\CApi\CInterfaceIOWrapper.h" />
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\Common\StbCommon.h" />
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\Common\Compression.cpp" />
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\Common\Compression.h" />
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\Common\BaseImporter.cpp" />
@@ -349,6 +350,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\Common\DefaultIOSystem.cpp" />
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\Common\ZipArchiveIOSystem.cpp" />
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\Common\PolyTools.h" />
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\Common\Maybe.h" />
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\Common\Importer.cpp" />
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\Common\IFF.h" />
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\Common\SGSpatialSort.cpp" />

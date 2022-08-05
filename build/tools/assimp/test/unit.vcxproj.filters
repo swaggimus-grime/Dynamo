@@ -46,6 +46,9 @@
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\test\unit\AssimpAPITest_aiVector3D.cpp">
       <Filter>UnitTests\Common</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\test\unit\Common\utHash.cpp">
+      <Filter>UnitTests\Common</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\tools\assimp\test\unit\MathTest.cpp">
       <Filter>UnitTests\Common</Filter>
     </ClCompile>

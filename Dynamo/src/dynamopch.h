@@ -12,6 +12,8 @@
 #include <math.h>
 #include <map>
 #include <comdef.h>
+#include <sstream>
+#include <iostream>
 
 #include "Graphics/VectorOps.h"
 
