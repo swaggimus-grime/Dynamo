@@ -52,19 +52,19 @@ add_custom_command(TARGET Dynamo POST_BUILD
         "${PROJECT_SOURCE_DIR}/tools/assimp/bin/Debug/assimp-vc143-mtd.dll"
         $<TARGET_FILE_DIR:Dynamo>)      
         
-set_source_files_properties(${VERTEX_SHADER_FILES} PROPERTIES VS_SHADER_TYPE "vs")
-set_source_files_properties(${PIXEL_SHADER_FILES} PROPERTIES VS_SHADER_TYPE "ps")
-set_source_files_properties(${SHADER_FILES} PROPERTIES VS_SHADER_MODEL "5_0")
+set_source_files_properties(${VERTEX_SHADER_FILES} PROPERTIES VS_SHADER_TYPE "Vertex")
+set_source_files_properties(${PIXEL_SHADER_FILES} PROPERTIES VS_SHADER_TYPE "Pixel")
+set_source_files_properties(${SHADER_FILES} PROPERTIES VS_SHADER_MODEL "5.0")
 
-foreach(FILE ${SHADER_FILES})
-get_filename_component(FILE_WE ${FILE} NAME_WE)
-get_source_file_property(shadertype ${FILE} VS_SHADER_TYPE)
-get_source_file_property(shadermodel ${FILE} VS_SHADER_MODEL)
-add_custom_command(TARGET Dynamo POST_BUILD
-                     COMMAND fxc.exe /nologo /Emain /T${shadertype}_${shadermodel} $<$<CONFIG:DEBUG>:/Od> /Zi /Fo res/shaders/${FILE_WE}.cso ${FILE}
-                     MAIN_DEPENDENCY ${FILE}
-                     DEPENDS ${FILE}
-                     COMMENT "HLSL ${FILE}"
-                     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-                     VERBATIM)
-endforeach(FILE)
+#foreach(FILE ${SHADER_FILES})
+#get_filename_component(FILE_WE ${FILE} NAME_WE)
+#get_source_file_property(shadertype ${FILE} VS_SHADER_TYPE)
+#get_source_file_property(shadermodel ${FILE} VS_SHADER_MODEL)
+#add_custom_command(TARGET Dynamo POST_BUILD
+#                     COMMAND dxc.exe /nologo /Emain /T${shadertype}_${shadermodel} $<$<CONFIG:DEBUG>:/Od> /Zi /Fo res/shaders/${FILE_WE}.cso ${FILE}
+#                     MAIN_DEPENDENCY ${FILE}
+#                     DEPENDS ${FILE}
+#                     COMMENT "HLSL ${FILE}"
+#                     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+#                     VERBATIM)
+#endforeach(FILE)
