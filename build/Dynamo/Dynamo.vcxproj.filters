@@ -37,10 +37,10 @@
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Bone.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Buffer.cpp">
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Camera.cpp">
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\ConstantBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\DSState.cpp">
@@ -52,7 +52,16 @@
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Graphics.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\IndexBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\InputLayout.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Light.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Mesh.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Model.cpp">
@@ -67,16 +76,19 @@
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Rasterizer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\RenderPass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\RenderTarget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Renderable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Sampler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Scene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Selector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Shader.cpp">
@@ -91,10 +103,25 @@
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Skybox.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Step.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Technique.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\TestCube.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Transformable.cpp">
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\TransformBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\VertexBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Work.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\tools\imgui\backends\imgui_impl_win32.cpp">
@@ -150,16 +177,19 @@
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Bindable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Binds.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\BlendState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Bone.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Buffer.h">
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Camera.h">
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\ConstantBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\DSState.h">
@@ -168,10 +198,19 @@
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\DSView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Entity.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Graphics.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\GraphicsCore.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\IndexBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\InputLayout.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Light.h">
@@ -207,9 +246,6 @@
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Scene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Selector.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -222,13 +258,28 @@
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Skybox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Step.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Technique.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\TestCube.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Transformable.h">
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\TransformBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\VectorOps.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\VertexBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Work.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\dynamopch.h">
@@ -252,6 +303,7 @@
   </ItemGroup>
   <ItemGroup>
     <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\AnimModelvs.hlsl" />
+    <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\DepthMapvs.hlsl" />
     <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\Flatvs.hlsl" />
     <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\Modelvs.hlsl" />
     <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\Negativevs.hlsl" />
@@ -261,6 +313,7 @@
     <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\Skyboxvs.hlsl" />
     <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\Solidvs.hlsl" />
     <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\AnimModelps.hlsl" />
+    <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\DepthMapps.hlsl" />
     <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\Flatps.hlsl" />
     <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\Modelps.hlsl" />
     <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\Negativeps.hlsl" />

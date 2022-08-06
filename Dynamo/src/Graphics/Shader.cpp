@@ -7,8 +7,8 @@
 VertexShader::VertexShader(Graphics& g, const std::string& path)
 	:Bindable(CreateHash(path))
 {
-	DYNAMO_ASSERT(D3DReadFileToBlob(NarrowToWide(path), &m_Code));
-	DYNAMO_ASSERT(g.Device().CreateVertexShader(m_Code->GetBufferPointer(), m_Code->GetBufferSize(), nullptr, &m_Shader));
+	DX_ASSERT(D3DReadFileToBlob(NarrowToWide(path), &m_Code));
+	DX_ASSERT(g.Device().CreateVertexShader(m_Code->GetBufferPointer(), m_Code->GetBufferSize(), nullptr, &m_Shader));
 }
 
 void VertexShader::Bind(Graphics& g)
@@ -30,8 +30,8 @@ PixelShader::PixelShader(Graphics& g, const std::string& path)
 	:Bindable(CreateHash(path))
 {
 	ComPtr<ID3D10Blob> code;
-	DYNAMO_ASSERT(D3DReadFileToBlob(NarrowToWide(path), &code));
-	DYNAMO_ASSERT(g.Device().CreatePixelShader(code->GetBufferPointer(), code->GetBufferSize(), nullptr, &m_Shader));
+	DX_ASSERT(D3DReadFileToBlob(NarrowToWide(path), &code));
+	DX_ASSERT(g.Device().CreatePixelShader(code->GetBufferPointer(), code->GetBufferSize(), nullptr, &m_Shader));
 }
 
 void PixelShader::Bind(Graphics& g)

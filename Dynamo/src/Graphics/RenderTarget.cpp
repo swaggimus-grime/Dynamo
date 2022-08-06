@@ -17,13 +17,13 @@ RenderTarget::RenderTarget(Graphics& g, UINT width, UINT height, UINT slot)
     texDesc.CPUAccessFlags = 0;
     texDesc.MiscFlags = 0;
     ComPtr<ID3D11Texture2D> texture;
-    DYNAMO_ASSERT(g.Device().CreateTexture2D(&texDesc, nullptr, &texture));
+    DX_ASSERT(g.Device().CreateTexture2D(&texDesc, nullptr, &texture));
 
     D3D11_RENDER_TARGET_VIEW_DESC viewDesc = {};
     viewDesc.Format = texDesc.Format;
     viewDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
     viewDesc.Texture2D = D3D11_TEX2D_RTV{ 0 };
-    DYNAMO_ASSERT(g.Device().CreateRenderTargetView(texture.Get(), &viewDesc, &m_RTV));
+    DX_ASSERT(g.Device().CreateRenderTargetView(texture.Get(), &viewDesc, &m_RTV));
 }
 
 RenderTarget::RenderTarget(Graphics& g, ID3D11Texture2D& texture, UINT slot)
@@ -37,7 +37,7 @@ RenderTarget::RenderTarget(Graphics& g, ID3D11Texture2D& texture, UINT slot)
     viewDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
     viewDesc.Texture2D = D3D11_TEX2D_RTV{ 0 };
     
-    DYNAMO_ASSERT(g.Device().CreateRenderTargetView(&texture, &viewDesc, &m_RTV));
+    DX_ASSERT(g.Device().CreateRenderTargetView(&texture, &viewDesc, &m_RTV));
 }
 
 void RenderTarget::Bind(Graphics& g)
@@ -77,7 +77,7 @@ ReadableRenderTarget::ReadableRenderTarget(Graphics& g, UINT width, UINT height,
     srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
     srvDesc.Texture2D.MostDetailedMip = 0;
     srvDesc.Texture2D.MipLevels = 1;
-    DYNAMO_ASSERT(g.Device().CreateShaderResourceView(tex.Get(), &srvDesc, &m_View));
+    DX_ASSERT(g.Device().CreateShaderResourceView(tex.Get(), &srvDesc, &m_View));
 }
 
 void ReadableRenderTarget::BindTexture(Graphics& g)

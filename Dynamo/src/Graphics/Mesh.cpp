@@ -2,6 +2,9 @@
 #include "Mesh.h"
 
 #include "Sampler.h"
+#include "Shader.h"
+#include "InputLayout.h"
+#include "TransformBuffer.h"
 
 VertexLayout Mesh::m_Layout = VertexLayout(ATTRIB_POS | ATTRIB_TEX | ATTRIB_NORM | ATTRIB_TAN | ATTRIB_BITAN);
 
@@ -45,7 +48,7 @@ Mesh::Mesh(Graphics& g, const std::string& directory, const aiMesh* mesh, const 
             only.AddBind(Texture2D::Evaluate(g, "res\\skyboxes\\ocean\\0.jpg", 0));
             only.AddBind(Sampler::Evaluate(g));
             auto& vs = VertexShader::Evaluate(g, "res\\shaders\\Solidvs.cso");
-            only.AddBind(InputLayout::Evaluate(g, shape.Vertices, *vs));
+            only.AddBind(InputLayout::Evaluate(g, vertices, *vs));
             only.AddBind(vs);
             only.AddBind(PixelShader::Evaluate(g, "res\\shaders\\Solidps.cso"));
             only.AddBind(MakeShared<TransformBuffer>(g, *this));

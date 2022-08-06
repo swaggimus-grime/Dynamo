@@ -59,28 +59,24 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
-    <LocalDebuggerWorkingDirectory Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo</LocalDebuggerWorkingDirectory>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\hunte\source\repos\Dynamo\build\Dynamo\Debug\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Dynamo.dir\Debug\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Dynamo</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
-    <LocalDebuggerWorkingDirectory Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo</LocalDebuggerWorkingDirectory>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\hunte\source\repos\Dynamo\build\Dynamo\Release\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Dynamo.dir\Release\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Dynamo</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
-    <LocalDebuggerWorkingDirectory Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo</LocalDebuggerWorkingDirectory>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\hunte\source\repos\Dynamo\build\Dynamo\MinSizeRel\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Dynamo.dir\MinSizeRel\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Dynamo</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.exe</TargetExt>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
-    <LocalDebuggerWorkingDirectory Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo</LocalDebuggerWorkingDirectory>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\hunte\source\repos\Dynamo\build\Dynamo\RelWithDebInfo\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Dynamo.dir\RelWithDebInfo\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Dynamo</TargetName>
@@ -459,6 +455,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </ClCompile>
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Animator.h" />
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Bindable.h" />
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Binds.h" />
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\BlendState.cpp">
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Debug/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Release/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -473,13 +470,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/RelWithDebInfo/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Bone.h" />
-    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Buffer.cpp">
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Debug/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Release/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/MinSizeRel/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/RelWithDebInfo/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
-    </ClCompile>
-    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Buffer.h" />
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Camera.cpp">
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Debug/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Release/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -487,6 +477,13 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/RelWithDebInfo/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Camera.h" />
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\ConstantBuffer.cpp">
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Debug/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Release/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/MinSizeRel/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/RelWithDebInfo/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\ConstantBuffer.h" />
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\DSState.cpp">
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Debug/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Release/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -501,6 +498,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/RelWithDebInfo/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\DSView.h" />
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Entity.h" />
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Graphics.cpp">
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Debug/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Release/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -509,6 +507,20 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </ClCompile>
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Graphics.h" />
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\GraphicsCore.h" />
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\IndexBuffer.cpp">
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Debug/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Release/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/MinSizeRel/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/RelWithDebInfo/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\IndexBuffer.h" />
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\InputLayout.cpp">
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Debug/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Release/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/MinSizeRel/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/RelWithDebInfo/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\InputLayout.h" />
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Light.cpp">
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Debug/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Release/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -516,6 +528,12 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/RelWithDebInfo/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Light.h" />
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Mesh.cpp">
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Debug/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Release/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/MinSizeRel/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/RelWithDebInfo/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Mesh.h" />
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Model.cpp">
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Debug/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -545,6 +563,12 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/RelWithDebInfo/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Rasterizer.h" />
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\RenderPass.cpp">
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Debug/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Release/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/MinSizeRel/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/RelWithDebInfo/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\RenderTarget.cpp">
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Debug/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Release/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -552,6 +576,12 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/RelWithDebInfo/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\RenderTarget.h" />
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Renderable.cpp">
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Debug/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Release/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/MinSizeRel/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/RelWithDebInfo/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Renderable.h" />
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Renderpass.h" />
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Sampler.cpp">
@@ -568,13 +598,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/RelWithDebInfo/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Scene.h" />
-    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Selector.cpp">
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Debug/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Release/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/MinSizeRel/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/RelWithDebInfo/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
-    </ClCompile>
-    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Selector.h" />
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Shader.cpp">
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Debug/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Release/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -603,6 +626,27 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/RelWithDebInfo/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Skybox.h" />
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Step.cpp">
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Debug/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Release/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/MinSizeRel/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/RelWithDebInfo/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Step.h" />
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Technique.cpp">
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Debug/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Release/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/MinSizeRel/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/RelWithDebInfo/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Technique.h" />
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\TestCube.cpp">
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Debug/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Release/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/MinSizeRel/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/RelWithDebInfo/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\TestCube.h" />
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Texture.cpp">
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Debug/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Release/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -610,14 +654,28 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/RelWithDebInfo/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Texture.h" />
-    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Transformable.cpp">
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\TransformBuffer.cpp">
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Debug/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Release/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/MinSizeRel/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/RelWithDebInfo/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
-    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Transformable.h" />
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\TransformBuffer.h" />
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\VectorOps.h" />
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\VertexBuffer.cpp">
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Debug/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Release/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/MinSizeRel/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/RelWithDebInfo/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\VertexBuffer.h" />
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Work.cpp">
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Debug/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Release/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/MinSizeRel/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/RelWithDebInfo/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\Work.h" />
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\dynamopch.h" />
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\tools\imgui\backends\imgui_impl_win32.cpp">
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/hunte/source/repos/Dynamo/build/Dynamo/CMakeFiles/Dynamo.dir/Debug/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -671,6 +729,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ShaderType>Vertex</ShaderType>
       <ShaderModel>5.0</ShaderModel>
     </FXCompile>
+    <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\DepthMapvs.hlsl">
+      <ShaderType>Vertex</ShaderType>
+      <ShaderModel>5.0</ShaderModel>
+    </FXCompile>
     <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\Flatvs.hlsl">
       <ShaderType>Vertex</ShaderType>
       <ShaderModel>5.0</ShaderModel>
@@ -704,6 +766,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ShaderModel>5.0</ShaderModel>
     </FXCompile>
     <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\AnimModelps.hlsl">
+      <ShaderType>Pixel</ShaderType>
+      <ShaderModel>5.0</ShaderModel>
+    </FXCompile>
+    <FXCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\res\shaders\DepthMapps.hlsl">
       <ShaderType>Pixel</ShaderType>
       <ShaderModel>5.0</ShaderModel>
     </FXCompile>

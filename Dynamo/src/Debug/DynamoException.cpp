@@ -15,10 +15,10 @@ DynamoException::DynamoException(const char* file, UINT line, const std::string&
 	m_What = oss.str();
 }
 
-DynamoException::DynamoException(const char* file, UINT line, HRESULT r)
+DynamoException::DynamoException(const char* file, UINT line, DWORD w)
 	:DynamoException(file, line)
 {
-	_com_error err(r);
+	_com_error err(w);
 	std::stringstream oss;
 	oss << m_File << "(" << m_Line << ")\n"
 		<< err.ErrorMessage() << std::endl;
