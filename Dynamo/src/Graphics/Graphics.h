@@ -1,10 +1,7 @@
 #pragma once
 
 #include <d3d11.h>
-#include "Camera.h"
-#include "Scene.h"
-#include <array>
-#include "RenderPass.h"
+#include "Entities/Camera.h"
 
 class Graphics {
 public:
@@ -18,22 +15,19 @@ public:
 	inline ID3D11Device& Device() const { return *m_Device.Get(); }
 	inline ID3D11DeviceContext& DC() const { return *m_DC.Get(); }
 
-	inline void SetCamera(Camera& cam) { m_LookAt = cam.LookAt(); m_Projection = cam.Projection(); }
+	inline void SetCamera(const Camera& cam) { m_LookAt = cam.LookAt(); m_Projection = cam.Projection(); }
 	inline XMMATRIX LookAt() const { return m_LookAt; }
 	inline XMMATRIX Projection() const { return m_Projection; }
 
-	void BeginFrame(Camera& cam);
+	void BeginFrame();
 	void EndFrame();
 
-	class RenderTarget& BackBuffer() const { return *m_FinalOutput; }
-	void BindBackBuffer();
+	Shared<class RenderTarget> BackBuffer() const { return m_FinalOutput; }
 
 	inline UINT Width() const { return m_Width; }
 	inline UINT Height() const { return m_Height; }
 	void SubmitRenderTarget(std::shared_ptr<class RenderTarget> r);
 
-	void Assign(UINT passIdx, const class Work& work);
-	void Run();
 private:
 	void OnWindowResize(UINT width, UINT height);
 
@@ -48,9 +42,6 @@ private:
 	XMMATRIX m_LookAt;
 	XMMATRIX m_Projection;
 
-	std::unique_ptr<class RenderTarget> m_FinalOutput;
-	std::unique_ptr<class DepthStencilView> m_DepthStencil;
+	Shared<RenderTarget> m_FinalOutput;
 	std::vector<std::shared_ptr<RenderTarget>> m_Targets;
-
-	std::array<RenderPass, 1> m_Passes;
 };

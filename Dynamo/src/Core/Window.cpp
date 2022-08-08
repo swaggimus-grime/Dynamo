@@ -35,8 +35,9 @@ Window::Window(const std::string& name, unsigned int width, unsigned int height)
 		hInst, this);
 	if (!m_Handle)
 		throw DYNAMO_PREV_EXCEP;
+
 	ImGui_ImplWin32_Init(m_Handle);
-	m_Graphics = std::make_unique<Graphics>(m_Handle, m_Width, m_Height);
+	m_Graphics = MakeUnique<Graphics>(m_Handle, m_Width, m_Height);
 	ShowWindow(m_Handle, SW_SHOW);
 	m_Input.SetCursor(false);
 	GetClipCursor(&m_OrigClipRect);

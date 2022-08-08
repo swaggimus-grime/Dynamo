@@ -1,15 +1,15 @@
 #include "dynamopch.h"
 #include "Graphics.h"
 
-#include "RenderTarget.h"
-#include "GUI/Gui.h"
-#include "Camera.h"
+#include <imgui.h>
 #include <imgui_impl_dx11.h>
-#include "Camera.h"
-#include "DSView.h"
-#include "Renderable.h"
+#include "Entities/Camera.h"
+#include "GUI/Gui.h"
+#include "Bindable/DepthStencil.h"
+#include "Bindable/RenderTarget.h"
 
 Graphics::Graphics(HWND hWnd, UINT width, UINT height)
+    :m_Width(width), m_Height(height)
 {
     DXGI_SWAP_CHAIN_DESC scd;
     SecureZeroMemory(&scd, sizeof(DXGI_SWAP_CHAIN_DESC));
@@ -45,8 +45,7 @@ Graphics::Graphics(HWND hWnd, UINT width, UINT height)
 
     ComPtr<ID3D11Texture2D> backbuff;
     m_SC->GetBuffer(0, __uuidof(ID3D11Texture2D), &backbuff);
-    m_FinalOutput = std::make_unique<RenderTarget>(*this, *backbuff.Get());
-    m_DepthStencil = std::make_unique<DepthStencilView>(*this, width, height);
+    m_FinalOutput = MakeShared<WriteOnlyRenderTarget>(*this, backbuff.Get());
 
     m_DC->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
@@ -67,25 +66,19 @@ Graphics::~Graphics()
     ImGui_ImplDX11_Shutdown();
 }
 
-void Graphics::BeginFrame(Camera& camera)
+void Graphics::BeginFrame()
 {
-    m_LookAt = std::move(camera.LookAt());
-    m_Projection = std::move(camera.Projection());
-    BindBackBuffer();
-    m_FinalOutput->Clear(*this);
-    m_DepthStencil->Clear(*this);
     Gui::BeginFrame();
+
+    ID3D11ShaderResourceView* const pNullTex = nullptr;
+    m_DC->PSSetShaderResources(0, 1, &pNullTex); // fullscreen input texture
+    m_DC->PSSetShaderResources(3, 1, &pNullTex); // shadow map texture
 }
 
 void Graphics::EndFrame()
 {
     Gui::EndFrame();
-    m_SC->Present(0, 0);
-}
-
-void Graphics::BindBackBuffer()
-{
-    m_FinalOutput->Bind(*this, *m_DepthStencil);
+    DX_ASSERT(m_SC->Present(1, 0));
 }
 
 void Graphics::SubmitRenderTarget(std::shared_ptr<RenderTarget> r)
@@ -93,24 +86,14 @@ void Graphics::SubmitRenderTarget(std::shared_ptr<RenderTarget> r)
     m_Targets.push_back(r);
 }
 
-void Graphics::Assign(UINT passIdx, const Work& work)
-{
-    m_Passes[passIdx].AddWork(work);
-}
-
-void Graphics::Run()
-{
-    m_Passes[0].Run(*this);
-}
-
 void Graphics::OnWindowResize(UINT width, UINT height)
 {
-    ComPtr<ID3D11Texture2D> tex;
+    /*ComPtr<ID3D11Texture2D> tex;
     m_SC->GetBuffer(0, __uuidof(ID3D11Texture2D), &tex);
     m_FinalOutput.reset(new RenderTarget(*this, *tex.Get()));
     m_SC->ResizeBuffers(0, width, height, DXGI_FORMAT_R8G8B8A8_UNORM, 0);
     for (auto& rt : m_Targets)
         rt.reset(new RenderTarget(*this, width, height));
     m_Width = width;
-    m_Height = height;
+    m_Height = height;*/
 }

@@ -36,7 +36,7 @@ private:
 	Input m_Input;
 	UINT m_Width;
 	UINT m_Height;
-	std::unique_ptr<Graphics> m_Graphics;
+	Unique<Graphics> m_Graphics;
 
 	RECT m_OrigClipRect;
 };

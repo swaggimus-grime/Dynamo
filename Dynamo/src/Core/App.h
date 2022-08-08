@@ -1,8 +1,9 @@
 #pragma once
 
 #include "Window.h"
-#include "Graphics/Graphics.h"
 
+#include "RDG/OutlineRDG.h"
+#include "Entities/TestCube.h"
 
 class App {
 public:
@@ -16,9 +17,8 @@ private:
 	void UserInput(float deltaTime);
 	void ShowGUI();
 private:
-	Unique<Window> m_Window;
-	Shared<class Camera> m_Camera;
-
-	Unique<class TestCube> m_Cube;
-	Unique<class Skybox> m_Skybox;
+	Window m_Wnd;
+	TestCube m_Cube;
+	Camera m_Camera;
+	OutlineRDG m_RDG;
 };

@@ -7,6 +7,8 @@ using namespace std::literals;
 
 #include <memory>
 #include <wrl.h>
+#include <d3d11.h>
+#include <array>
 #include <DirectXMath.h>
 #include <vector>
 #include <queue>
@@ -14,18 +16,30 @@ using namespace std::literals;
 #include <math.h>
 #include <map>
 #include <comdef.h>
+#include <type_traits>
+#include <unordered_map>
 #include <sstream>
-#include <iostream>
+#include "Debug/DynamoException.h"
 
-static LPWSTR NarrowToWide(const std::string& str)
+static std::wstring NarrowToWide(const std::string& str)
 {
 	wchar_t buff[1000];
 	mbstowcs_s(nullptr, buff, str.c_str(), 1000);
 	return buff;
 }
 
-#include "Graphics/VectorOps.h"
-#include "Debug/DynamoException.h"
+static std::vector<std::string> Parse(const std::string& s, char del)
+{
+    std::vector<std::string> tokens;
+    std::stringstream ss(s);
+    while (ss.good()) {
+        std::string sub;
+        std::getline(ss, sub, del);
+        tokens.push_back(std::move(sub));
+    }
+
+    return tokens;
+}
 
 using Microsoft::WRL::ComPtr;
 using namespace DirectX;

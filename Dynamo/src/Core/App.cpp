@@ -1,81 +1,59 @@
 #include "dynamopch.h"
 #include "App.h"
-#include "GUI/Gui.h"
-#include "Graphics/Shader.h"
-#include "Graphics/Camera.h"
-#include "Graphics/Model.h"
-#include <chrono>
-#include "Graphics/Skybox.h"
-#include "Graphics/Sampler.h"
-#include "Graphics/DSState.h"
-#include <imgui.h>
-#include "Graphics/Light.h"
-#include "Graphics/Scene.h"
-#include "Graphics/NegativePass.h"
-#include "Graphics/ShadowPass.h"
-#include "Graphics/Animation.h"
-#include "Graphics/Animator.h"
-#include "Graphics/AnimModel.h"
-#include "Graphics/NoShadowPass.h"
 
-#include "Graphics/TestCube.h"
+#include <imgui.h>
+#include <chrono>
+#include "GUI/Gui.h"
 
 App::App(const std::string& name, UINT32 width, UINT32 height)
+	:m_Wnd(name, width, height), 
+	m_RDG(m_Wnd.GetGraphics()), 
+	m_Cube(m_Wnd.GetGraphics(), 4.f),
+	m_Camera(XMFLOAT3(0.f, 20.f, -100.f))
 {
-	Gui::Init();
-	m_Window = std::make_unique<Window>(name, width, height);
-	auto& g = m_Window->GetGraphics();
-
-	m_Camera = std::make_shared<Camera>(XMFLOAT3(0.f, 20.f, -100.f));
-	m_Cube = MakeUnique<TestCube>(g, 4.f);
-	m_Skybox = MakeUnique<Skybox>(g, "res\\skyboxes\\yokohama");
-
-	m_Cube->Submit(g);
-	m_Skybox->Submit(g);
+	m_Cube.LinkToRDG(m_RDG);	
 }
 
 App::~App()
 {
-	m_Window.release();
-	Gui::Shutdown();
 }
 
 void App::UserInput(float deltaTime)
 {
-	if (m_Window->GetInput().IsPressed('W'))
-		m_Camera->Move(XMFLOAT3(0.f, 0.f, deltaTime));
-	if (m_Window->GetInput().IsPressed('S'))
-		m_Camera->Move(XMFLOAT3(0.f, 0.f, -deltaTime));
-	if (m_Window->GetInput().IsPressed('A'))
-		m_Camera->Move(XMFLOAT3(-deltaTime, 0.f, 0.f));
-	if (m_Window->GetInput().IsPressed('D'))
-		m_Camera->Move(XMFLOAT3(deltaTime, 0.f, 0.f));
-	if (m_Window->GetInput().IsPressed('Q'))
-		m_Camera->Move(XMFLOAT3(0.f, deltaTime, 0.f));
-	if (m_Window->GetInput().IsPressed('E'))
-		m_Camera->Move(XMFLOAT3(0.f, -deltaTime, 0.f));
-	if (m_Window->GetInput().IsPressed(VK_ESCAPE))
+	if (m_Wnd.GetInput().IsPressed('W'))
+		m_Camera.Move(XMFLOAT3(0.f, 0.f, deltaTime));
+	if (m_Wnd.GetInput().IsPressed('S'))
+		m_Camera.Move(XMFLOAT3(0.f, 0.f, -deltaTime));
+	if (m_Wnd.GetInput().IsPressed('A'))
+		m_Camera.Move(XMFLOAT3(-deltaTime, 0.f, 0.f));
+	if (m_Wnd.GetInput().IsPressed('D'))
+		m_Camera.Move(XMFLOAT3(deltaTime, 0.f, 0.f));
+	if (m_Wnd.GetInput().IsPressed('Q'))
+		m_Camera.Move(XMFLOAT3(0.f, deltaTime, 0.f));
+	if (m_Wnd.GetInput().IsPressed('E'))
+		m_Camera.Move(XMFLOAT3(0.f, -deltaTime, 0.f));
+	if (m_Wnd.GetInput().IsPressed(VK_ESCAPE))
 		PostQuitMessage(0);
 
-	while (const auto key = m_Window->GetInput().ReadKey()) {
+	while (const auto key = m_Wnd.GetInput().ReadKey()) {
 		switch (*key) {
 		case VK_TAB:
-			if (m_Window->GetInput().RawDeltaEnabled()) {
-				m_Window->ClipCursor(false);
-				m_Window->GetInput().SetCursor(false);
+			if (m_Wnd.GetInput().RawDeltaEnabled()) {
+				m_Wnd.ClipCursor(false);
+				m_Wnd.GetInput().SetCursor(false);
 			}
 			else {
-				m_Window->ClipCursor(true);
-				m_Window->GetInput().SetCursor(true);
+				m_Wnd.ClipCursor(true);
+				m_Wnd.GetInput().SetCursor(true);
 			}
 			break;
 		}
 	}
 
-	while (const auto delta = m_Window->GetInput().ReadMouseDelta())
-		m_Camera->Rotate((float)delta->x, (float)delta->y);
+	while (const auto delta = m_Wnd.GetInput().ReadMouseDelta())
+		m_Camera.Rotate((float)delta->x, (float)delta->y);
 
-	while (const auto mouse = m_Window->GetInput().ReadMouseLPress()) {
+	while (const auto mouse = m_Wnd.GetInput().ReadMouseLPress()) {
 		/*float x = (2.0f * mouse->x) / 1280.f - 1.0f;
 		float y = 1.0f - (2.0f * mouse->y) / 720.f;
 		float z = 1.0f;
@@ -111,10 +89,8 @@ void App::ShowGUI()
 		ImGui::EndMainMenuBar();
 	}
 
-	if(showCamera)
-		m_Camera->ShowGUI(m_Window->GetGraphics());
-
-	//m_Scene->ShowGUI(m_Window->GetGraphics());
+	//if(showCamera)
+		//m_Camera->ShowGUI(m_Window->GetGraphics());
 }
 
 INT App::Run()
@@ -123,17 +99,22 @@ INT App::Run()
 	using namespace std::chrono;
 	const auto startTime = steady_clock::now();
 	float prevTime = 0.f;
-	while (!(ret = m_Window->Update())) {
+	while (!(ret = m_Wnd.Update())) {
 		float currentTime = duration<float>(steady_clock::now() - startTime).count();
 		float deltaTime = currentTime - prevTime;
 		prevTime = currentTime;
 
 		UserInput(deltaTime);
 
-		m_Window->GetGraphics().BeginFrame(*m_Camera);
-		m_Window->GetGraphics().Run();
+		auto& g = m_Wnd.GetGraphics();
+		g.BeginFrame();
+		m_RDG.SetCamera(m_Camera);
+		m_Cube.Submit();
+		m_RDG.Run(g);
 		ShowGUI();
-		m_Window->GetGraphics().EndFrame();
+
+		m_Wnd.GetGraphics().EndFrame();
+		m_RDG.Clear();
 	}
 
 	return *ret;
