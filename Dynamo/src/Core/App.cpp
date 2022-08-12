@@ -1,17 +1,24 @@
 #include "dynamopch.h"
 #include "App.h"
 
-#include <imgui.h>
 #include <chrono>
 #include "GUI/Gui.h"
 
 App::App(const std::string& name, UINT32 width, UINT32 height)
-	:m_Wnd(name, width, height), 
-	m_RDG(m_Wnd.GetGraphics()), 
+	:m_Wnd(name, width, height),
+	m_RDG(m_Wnd.GetGraphics()),
 	m_Cube(m_Wnd.GetGraphics(), 4.f),
+	m_Light(m_Wnd.GetGraphics()),
+	m_GF(m_Wnd.GetGraphics(), "res/models/golden_freddy/scene.gltf"),
+	m_Sponza(m_Wnd.GetGraphics(), "res/models/sponza/Sponza.gltf"),
 	m_Camera(XMFLOAT3(0.f, 20.f, -100.f))
 {
-	m_Cube.LinkToRDG(m_RDG);	
+	m_Cube.LinkToRDG(m_RDG);
+	m_Cube.SetPos({ -5, -2, -1 });
+
+	m_Sponza.LinkToRDG(m_RDG);
+	m_GF.LinkToRDG(m_RDG);
+	m_Light.LinkToRDG(m_RDG);
 }
 
 App::~App()
@@ -71,23 +78,25 @@ void App::UserInput(float deltaTime)
 
 void App::ShowGUI()
 {
-	static bool showCamera = false;
 	if (ImGui::BeginMainMenuBar()) {
 		if (ImGui::BeginMenu("File")) {
-			if (ImGui::MenuItem("Open File")) 
-				//m_GF->Reload(m_Window->GetGraphics(), Window::OpenDialogBox());
-
-			ImGui::EndMenu();
-		}
-		if (ImGui::BeginMenu("View")) {
-			if (ImGui::MenuItem("Camera"))
-				showCamera = !showCamera;
+			if (ImGui::MenuItem("Exit"))
+				PostQuitMessage(0);
 
 			ImGui::EndMenu();
 		}
 
 		ImGui::EndMainMenuBar();
 	}
+
+	ImGui::Begin("Scene");
+	auto pos = ImGui::GetCursorScreenPos();
+	ImGui::GetWindowDrawList()->AddImage(
+		(void*)m_RDG.RTTexture(), pos, { pos.x + m_Wnd.GetWidth(), pos.y + m_Wnd.GetHeight() }, 
+		ImVec2(0, 0), ImVec2(1, 1));
+	ImGui::End();
+
+	m_RDG.ShowGUI();
 
 	//if(showCamera)
 		//m_Camera->ShowGUI(m_Window->GetGraphics());
@@ -108,11 +117,17 @@ INT App::Run()
 
 		auto& g = m_Wnd.GetGraphics();
 		g.BeginFrame();
+		m_Light.Bind(g);
 		m_RDG.SetCamera(m_Camera);
+		m_Sponza.Submit();
 		m_Cube.Submit();
+		m_GF.Submit();
+		m_Light.Submit();
 		m_RDG.Run(g);
 		ShowGUI();
 
+		g.BackBuffer()->BindBuffer(g);
+		g.BackBuffer()->Clear(g);
 		m_Wnd.GetGraphics().EndFrame();
 		m_RDG.Clear();
 	}

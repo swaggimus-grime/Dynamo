@@ -19,7 +19,7 @@ SkyboxPass::SkyboxPass(Graphics& g, const std::string& name)
 {
 	AddIn(BufferIn<RenderTarget>::Make("renderTarget", m_RT));
 	AddIn(BufferIn<DepthStencil>::Make("depthStencil", m_DS));
-	AddBind(MakeShared<Cubemap>(g, "res\\skyboxes\\ocean"));
+	AddBind(MakeShared<Cubemap>(g, "res\\skyboxes\\yokohama"));
 	AddBind(DSState::Evaluate(g, DS_MODE::DEPTH_FIRST));
 	AddBind(Sampler::Evaluate(g, SAMPLER_MODE::LINEAR_WRAP));
 	AddBind(Rasterizer::Evaluate(g, RS_MODE::CULL_NONE));

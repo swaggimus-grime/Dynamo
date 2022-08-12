@@ -34,6 +34,7 @@ struct Light {
 class PointLight : public Renderable, public Transformable {
 public:
 	PointLight(Graphics& g, const XMFLOAT3& color = {1.f, 1.f, 1.f});
+	void Bind(Graphics& g);
 	inline XMFLOAT3 Color() const { return m_Color; }
 	virtual XMMATRIX ModelMat() const { return TransformMat(); }
 
@@ -51,5 +52,6 @@ private:
 	};
 
 private:
-
+	Unique<PixelConstantBuffer<Light>> m_LightData;
+	Light m_Light;
 };

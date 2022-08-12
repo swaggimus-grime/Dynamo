@@ -45,7 +45,7 @@ Mesh::Mesh(Graphics& g, const std::string& directory, const aiMesh* mesh, const 
     {
         Technique lambertian("Shade");
         {
-            Step only("BasicDraw");
+            Step only("lambertian");
             only.AddBind(Sampler::Evaluate(g));
             auto& vs = VertexShader::Evaluate(g, "res\\shaders\\Modelvs.cso");
             only.AddBind(InputLayout::Evaluate(g, m_Layout, *vs));

@@ -10,6 +10,7 @@ public:
 	void SetPos(const XMFLOAT3& pos);
 	void SetRot(const XMFLOAT3& rot);
 	void SetScale(const XMFLOAT3& scale);
+	void ShowGUI();
 
 private:
 	std::vector<Unique<Mesh>> m_Meshes;

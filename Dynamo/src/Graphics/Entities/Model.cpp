@@ -24,7 +24,6 @@ Model::Model(Graphics& g, const std::string& path)
         const aiMaterial* mat = scene->mMaterials[mesh->mMaterialIndex];
         m_Meshes.push_back(MakeUnique<Mesh>(g, path.substr(0, path.find_last_of('/')), mesh, mat));
     }
-
 }
 
 void Model::Submit()
@@ -55,4 +54,9 @@ void Model::SetScale(const XMFLOAT3& s)
 {
     for (auto& m : m_Meshes)
         m->SetScale(s);
+}
+
+void Model::ShowGUI()
+{
+
 }

@@ -7,3 +7,6 @@
 [submodule "tools/DirectXTex"]
 	path = tools/DirectXTex
 	url = https://github.com/microsoft/DirectXTex.git
+[submodule "node-editor"]
+	path = tools/node-editor
+	url = https://github.com/thedmd/imgui-node-editor.git

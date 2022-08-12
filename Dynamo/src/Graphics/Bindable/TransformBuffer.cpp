@@ -11,7 +11,7 @@ TransformBuffer::TransformBuffer(Graphics& g, UINT slot)
 
 void TransformBuffer::Bind(Graphics& g)
 {
-	const auto modelView = m_Mats.Model * g.LookAt();
+	const auto modelView = m_Renderable->ModelMat() * g.LookAt();
 	m_Mats.Model = XMMatrixTranspose(m_Renderable->ModelMat());
 	m_Mats.ModelView = XMMatrixTranspose(modelView);
 	m_Mats.MVP = XMMatrixTranspose(modelView * g.Projection());

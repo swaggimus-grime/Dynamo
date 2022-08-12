@@ -3,6 +3,7 @@
 #include "Channel.h"
 #include "Bindable/Bindable.h"
 
+
 class Out;
 
 class In : public Channel {
@@ -12,9 +13,11 @@ public:
 	void Target(const std::string& pass, const std::string& out);
 	virtual void Link(Out& out) = 0;
 	virtual void ValidateLink() const;
+	
 protected:
 	In(const std::string& name);
 	bool m_Linked = false;
+
 private:
 	std::string m_PassName;
 	std::string m_OutName;

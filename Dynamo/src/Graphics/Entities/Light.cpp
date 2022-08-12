@@ -10,14 +10,15 @@
 PointLight::PointLight(Graphics& g, const XMFLOAT3& color)
 	:m_Color(color)
 {
-	Light light;
-	light.Pos = m_Pos;
-	light.Color =  color;
-	light.Ambient = { 0.5f,0.5f,0.5f };
-	light.Intensity = 3.f;
-	light.QuadAtt = 0.0030f;
-	light.LinAtt = 0.025f;
-	light.ConstAtt = 1.f;
+	m_Light.Pos = m_Pos;
+	m_Light.Color =  color;
+	m_Light.Ambient = { 0.5f,0.5f,0.5f };
+	m_Light.Intensity = 3.f;
+	m_Light.QuadAtt = 0.0030f;
+	m_Light.LinAtt = 0.025f;
+	m_Light.ConstAtt = 1.f;
+
+	m_LightData = MakeUnique<PixelConstantBuffer<Light>>(g, 1);
 
 	auto& shape = Cube::Make();
 	m_VBuff = MakeUnique<VertexBuffer>(g, shape.Vertices);
@@ -27,18 +28,24 @@ PointLight::PointLight(Graphics& g, const XMFLOAT3& color)
 	{
 		Technique lambertian("Shade");
 		{
-			Step only("BasicDraw");
-			auto& vs = VertexShader::Evaluate(g, "res/shaders/PointLightvs.cso");
+			Step only("lambertian");
+			auto& vs = VertexShader::Evaluate(g, "res/shaders/Solidvs.cso");
 			only.AddBind(InputLayout::Evaluate(g, shape.Vertices.Layout(), *vs));
 			only.AddBind(vs);
 			only.AddBind(MakeShared<LightColorBuff>(g, *this));
-			only.AddBind(PixelShader::Evaluate(g, "res/shaders/PointLightps.cso"));
+			only.AddBind(PixelShader::Evaluate(g, "res/shaders/Solidps.cso"));
 			only.AddBind(MakeShared<TransformBuffer>(g));
 			lambertian.AddStep(only);
 		}
 
 		AddTechnique(lambertian);
 	}
+}
+
+void PointLight::Bind(Graphics& g)
+{
+	m_LightData->Update(g, &m_Light);
+	m_LightData->Bind(g);
 }
 
 //void PointLight::ShowGUI(Graphics& g)

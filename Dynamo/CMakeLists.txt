@@ -5,11 +5,9 @@ cmake_minimum_required (VERSION 3.8)
 
 set(ASSIMP_DIR ../tools/assimp)
 find_package(assimp)
-
 set(IMGUI_DIR ../tools/imgui)
-
+set(NODE_EDITOR_DIR ../tools/node-editor)
 set(GLM_DIR ../tools/glm)
-
 set(DXTEX_DIR ../tools/DirectXTex)
 
 file(GLOB_RECURSE VERTEX_SHADER_FILES CONFIGURE_DEPENDS
@@ -30,6 +28,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src
                     ${CMAKE_CURRENT_SOURCE_DIR}/src/Graphics
                     ${IMGUI_DIR} 
                     ${IMGUI_DIR}/backends 
+                    ${NODE_EDITOR_DIR}
                     ${GLM_DIR}
                     ${ASSIMP_DIR}/include
                     ${DXTEX_DIR}/DirectXTex)
@@ -43,9 +42,16 @@ set(IMGUI_SRC
       ${IMGUI_DIR}/imgui_widgets.cpp
     )
 
+set(NODE_EDITOR_SRC
+      ${NODE_EDITOR_DIR}/crude_json.cpp
+      ${NODE_EDITOR_DIR}/imgui_canvas.cpp
+      ${NODE_EDITOR_DIR}/imgui_node_editor.cpp
+      ${NODE_EDITOR_DIR}/imgui_node_editor_api.cpp
+    )
+
 set(RESOURCE_SCRIPTS res/dynamo.rc)
 
-add_executable(Dynamo WIN32 ${SRC} ${IMGUI_SRC} ${RESOURCE_SCRIPTS})
+add_executable(Dynamo WIN32 ${SRC} ${IMGUI_SRC} ${NODE_EDITOR_SRC} ${RESOURCE_SCRIPTS})
 target_precompile_headers(Dynamo PRIVATE src/dynamopch.h)
 target_link_libraries(Dynamo "d3d11.lib" "d3dcompiler.lib" "dxgi.lib" DirectXTex assimp)
 add_custom_command(TARGET Dynamo POST_BUILD       

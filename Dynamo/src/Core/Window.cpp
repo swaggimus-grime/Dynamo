@@ -210,18 +210,18 @@ LRESULT Window::HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		m_Graphics->OnWindowResize(m_Width, m_Height);
 		ImGui::GetIO().DisplaySize = ImVec2((float)m_Width, (float)m_Height);
 	case WM_KEYDOWN:
-		if (guiIO.WantCaptureKeyboard)
-			break;
+		//if (guiIO.WantCaptureKeyboard)
+		//	break;
 		m_Input.OnKeyPressed(static_cast<UINT>(wParam));
 		break;
 	case WM_KEYUP:
-		if (guiIO.WantCaptureKeyboard)
-			break;
+		/*if (guiIO.WantCaptureKeyboard)
+			break;*/
 		m_Input.OnKeyReleased(static_cast<UINT>(wParam));
 		break;
 	case WM_MOUSEMOVE:
-		if (guiIO.WantCaptureMouse)
-			break;
+		/*if (guiIO.WantCaptureMouse)
+			break;*/
 		POINTS mp = MAKEPOINTS(lParam);
 		m_Input.OnMouseMoved(mp.x, mp.y);
 		break;
@@ -230,13 +230,13 @@ LRESULT Window::HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		m_Input.OnWheelDelta(wp.x, wp.y);
 		break;
 	case WM_LBUTTONDOWN:
-		if (guiIO.WantCaptureMouse)
-			break;
+		/*if (guiIO.WantCaptureMouse)
+			break;*/
 		m_Input.OnMouseLPressed();
 		break;
 	case WM_LBUTTONUP:
-		if (guiIO.WantCaptureMouse)
-			break;
+		/*if (guiIO.WantCaptureMouse)
+			break;*/
 		m_Input.OnMouseLReleased();
 		break;
 	case WM_INPUT:

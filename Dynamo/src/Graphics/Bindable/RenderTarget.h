@@ -32,7 +32,7 @@ class ReadableRenderTarget : public RenderTarget {
 public:
 	ReadableRenderTarget(Graphics& g, UINT width, UINT height, UINT slot);
 	void Bind(Graphics& g) override;
-
+	inline ID3D11ShaderResourceView* GetTexture() const { return m_SRV.Get(); }
 private:
 	UINT m_Slot;
 	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> m_SRV;
