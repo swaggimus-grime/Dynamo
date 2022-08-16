@@ -7,18 +7,11 @@
 #include "Bindable/RenderTarget.h"
 #include "Pass.h"
 
-struct Link {
-	ed::LinkId id;
-	ed::PinId in;
-	ed::PinId out;
-};
-
-std::vector<Link> links;
-int linkID = 100;
-
 RDG::RDG(Graphics& g)
 	:m_BackBuff(MakeShared<ReadableRenderTarget>(g, g.Width(), g.Height(), 0)), m_MasterDS(MakeShared<WriteOnlyDepthStencil>(g)),
-	m_Editor(ed::CreateEditor())
+	m_Editor(ed::CreateEditor()),
+	m_OutNode(Editor::NextNode()),
+	m_InNode(Editor::NextNode())
 {
 	AddGlobalOut(BufferOut<RenderTarget>::Make("backbuffer", m_BackBuff));
 	AddGlobalOut(BufferOut<DepthStencil>::Make("masterDepth", m_MasterDS));
@@ -50,10 +43,9 @@ void RDG::ShowGUI()
 	ed::SetCurrentEditor(m_Editor);
 
 	ed::Begin("RDG");
-	int uniqueId = 500;
 
-	ed::BeginNode(uniqueId++);
-	ImGui::Text("RDG Globals");
+	ed::BeginNode(m_InNode);
+	ImGui::Text("RDG Output");
 	ImGui::BeginGroup();
 	for (auto& in : m_Ins) {
 		ed::BeginPin(in->PinID(), ed::PinKind::Input);
@@ -61,7 +53,10 @@ void RDG::ShowGUI()
 		ed::EndPin();
 	}
 	ImGui::EndGroup();
-	ImGui::SameLine();
+	ed::EndNode();
+
+	ed::BeginNode(m_OutNode);
+	ImGui::Text("RDG Inputs");
 	ImGui::BeginGroup();
 	for (auto& out : m_Outs) {
 		ed::BeginPin(out->PinID(), ed::PinKind::Output);
@@ -71,29 +66,16 @@ void RDG::ShowGUI()
 	ImGui::EndGroup();
 	ed::EndNode();
 
-	for (auto& pass : m_Passes) {
-		ed::BeginNode(uniqueId++);
-		ImGui::Text(pass->Name().c_str());
-		ImGui::BeginGroup();
-		for (auto& in : pass->Ins()) {
-			ed::BeginPin(in->PinID(), ed::PinKind::Input);
-			ImGui::Text(("-> " + in->Name()).c_str());
-			ed::EndPin();
-		}
-		ImGui::EndGroup();
-		ImGui::SameLine();
-		ImGui::BeginGroup();
-		for (auto& out : pass->Outs()) {
-			ed::BeginPin(out->PinID(), ed::PinKind::Output);
-			ImGui::Text((out->Name() + " ->").c_str());
-			ed::EndPin();
-		}
-		ImGui::EndGroup();
-		ed::EndNode();
-	}
-
-	for (auto& l : links)
-		ed::Link(l.id, l.in, l.out);
+	for (auto& pass : m_Passes) 
+		pass->ShowGUI();
+	
+	for (auto& in : m_Ins)
+		if (in->Linked())
+			ed::Link(in->LinkID(), in->PinID(), in->OutID());
+	for (auto& pass : m_Passes)
+		for (auto& in : pass->Ins())
+			if (in->Linked())
+				ed::Link(in->LinkID(), in->PinID(), in->OutID());
 	
 	if (ed::BeginCreate())
 	{
@@ -104,9 +86,8 @@ void RDG::ShowGUI()
 			{
 				if (ed::AcceptNewItem())
 				{
-					Link l{ linkID++, inputPinId, outputPinId };
-					ed::Link(linkID++, l.in, l.out);
-					links.push_back(std::move(l));
+					unsigned int id = Editor::NextLink();
+					ed::Link(id, inputPinId.Get(), outputPinId.Get());
 				}
 			}
 		}
@@ -117,24 +98,26 @@ void RDG::ShowGUI()
 	{
 		// There may be many links marked for deletion, let's loop over them.
 		ed::LinkId deletedLinkId;
-		while (ed::QueryDeletedLink(&deletedLinkId))
+		loop : while (ed::QueryDeletedLink(&deletedLinkId))
 		{
 			// If you agree that link can be deleted, accept deletion.
 			if (ed::AcceptDeletedItem())
 			{
-				// Then remove link from your data.
-				for (int i = 0; i < links.size(); i++)
-				{
-					if (links[i].id == deletedLinkId)
-					{
-						auto& del = links.erase(links.begin() + i);
-						break;
+				for (auto& in : m_Ins)
+					if (in->LinkID() == deletedLinkId.Get()) {
+						in->Unlink();
+						goto loop;
 					}
-				}
+				for (auto& p : m_Passes)
+					for (auto& in : p->Ins()) {
+						if (in->LinkID() == deletedLinkId.Get()) {
+							in->Unlink();
+							goto loop;
+						}
+					}
+
 			}
 
-			// You may reject link deletion by calling:
-			// ed::RejectDeletedItem();
 		}
 	}
 	ed::EndDelete();
@@ -185,7 +168,6 @@ void RDG::LinkGlobalIns()
 			if (existingPass->Name() == inputSourcePassName)
 			{
 				auto& source = existingPass->GetOut(sink->OutName());
-				links.push_back(Link{ ed::LinkId(linkID++), ed::PinId(source.PinID()), ed::PinId(sink->PinID()) });
 				sink->Link(source);
 				break;
 			}
@@ -207,7 +189,6 @@ void RDG::LinkPass(Pass& pass)
 			{
 				if (source->Name() == si->OutName())
 				{
-					links.push_back(Link{ed::LinkId(linkID++), ed::PinId(source->PinID()), ed::PinId(si->PinID()) });
 					si->Link(*source);
 					bound = true;
 					break;
@@ -228,7 +209,6 @@ void RDG::LinkPass(Pass& pass)
 				if (existingPass->Name() == inputSourcePassName)
 				{
 					auto& source = existingPass->GetOut(si->OutName());
-					links.push_back(Link{ ed::LinkId(linkID++), ed::PinId(source.PinID()),  ed::PinId(si->PinID()) });
 					si->Link(source);
 					linked = true;
 					break;
@@ -286,4 +266,6 @@ void RDG::Finish()
 	}
 	LinkGlobalIns();
 	m_Finished = true;
+
+
 }

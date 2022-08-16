@@ -1,16 +1,18 @@
 #pragma once
 
+#include "Editor.h"
+
 class Channel {
 public:
 	inline const std::string& Name() const { return m_Name; }
-	inline INT PinID() const { return m_PinID; }
+	inline UINT PinID() const { return m_PinID; }
 	virtual ~Channel() = default;
 
 protected:
 	Channel(const std::string& name)
 		:m_Name(std::move(name))
 	{
-		m_PinID = m_NextPinID++;
+		m_PinID = Editor::NextPin();
 		Validate(m_Name);
 	}
 
@@ -22,6 +24,5 @@ protected:
 
 private:
 	std::string m_Name;
-	INT m_PinID;
-	static INT m_NextPinID;
+	UINT m_PinID;
 };

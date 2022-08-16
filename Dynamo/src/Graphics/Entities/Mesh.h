@@ -6,14 +6,18 @@
 #include "Bindable/Texture.h"
 #include "Bindable/TransformBuffer.h"
 
-class Mesh : public Renderable, public Transformable {
+class Model;
+
+class Mesh : public Renderable {
 public:
-	Mesh(Graphics& g, const std::string& directory, const aiMesh* mesh, const aiMaterial* mat);
-	virtual XMMATRIX ModelMat() const { return TransformMat(); }
+	Mesh(Graphics& g, Model* parent, const std::string& directory, const aiMesh* mesh, const aiMaterial* mat);
+	virtual XMMATRIX ModelMat() const;
+
 private:
 	Shared<Texture2D> GetTexture(Graphics& g, const aiMaterial* mat, aiTextureType type, UINT slot);
 
 private:
+	Model* m_Parent;
 	std::vector<Shared<Texture2D>> m_Textures;
 	static VertexLayout m_Layout;
 	std::string m_Directory;

@@ -48,6 +48,12 @@ void PointLight::Bind(Graphics& g)
 	m_LightData->Bind(g);
 }
 
+void PointLight::SetPos(const XMFLOAT3& pos)
+{
+	Transformable::SetPos(pos);
+	m_Light.Pos = pos;
+}
+
 //void PointLight::ShowGUI(Graphics& g)
 //{
 //	if(ImGui::ColorEdit3("Diffuse Color", &m_Light.Color.x))

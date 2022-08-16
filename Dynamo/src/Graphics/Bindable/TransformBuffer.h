@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ConstantBuffer.h"
+#include "GUI/GUIable.h"
 
 struct Transform {
 	XMMATRIX Model = XMMatrixIdentity();
@@ -21,18 +22,20 @@ private:
 	const Renderable* m_Renderable;
 };
 
-class Transformable {
+class Transformable : public GUIable {
 public:
 	Transformable();
-	void SetPos(const XMFLOAT3& pos);
-	void SetRot(const XMFLOAT3& rot);
-	void SetScale(const XMFLOAT3& scale);
+	virtual void SetPos(const XMFLOAT3& pos);
+	virtual void SetRot(const XMFLOAT3& rot);
+	virtual void SetScale(const XMFLOAT3& scale);
 
 	XMFLOAT3 Pos() const { return m_Pos; }
 	XMFLOAT3 Rot() const { return m_Ori; }
 	XMFLOAT3 Scale() const { return m_Size; }
 
 	inline XMMATRIX TransformMat() const { return m_Scale * m_Rot * m_Trans; }
+
+	virtual void ShowGUI() override;
 
 protected:
 	XMMATRIX m_Trans = XMMatrixIdentity();

@@ -1,6 +1,7 @@
 #include "dynamopch.h"
 #include "Mesh.h"
 
+#include "Model.h"
 #include "Bindable/Sampler.h"
 #include "Bindable/Shader.h"
 #include "Bindable/InputLayout.h"
@@ -9,8 +10,13 @@
 
 VertexLayout Mesh::m_Layout = VertexLayout(ATTRIB_POS | ATTRIB_TEX | ATTRIB_NORM | ATTRIB_TAN | ATTRIB_BITAN);
 
-Mesh::Mesh(Graphics& g, const std::string& directory, const aiMesh* mesh, const aiMaterial* mat)
-    :m_Directory(std::move(directory))
+struct Specular {
+    alignas(8) float Intensity;
+    alignas(8) float Power;
+} spec;
+
+Mesh::Mesh(Graphics& g, Model* parent, const std::string& directory, const aiMesh* mesh, const aiMaterial* mat)
+    :m_Parent(parent), m_Directory(std::move(directory))
 {
     VertexData vertices(m_Layout, mesh->mNumVertices);
     for (UINT vert = 0; vert < mesh->mNumVertices; vert++) {
@@ -51,6 +57,11 @@ Mesh::Mesh(Graphics& g, const std::string& directory, const aiMesh* mesh, const 
             only.AddBind(InputLayout::Evaluate(g, m_Layout, *vs));
             only.AddBind(vs);
             only.AddBind(PixelShader::Evaluate(g, "res\\shaders\\Modelps.cso"));
+            auto specular = PixelConstantBuffer<Specular>::Evaluate(g);
+            spec.Intensity = 0.1;
+            spec.Power = 16;
+            specular->Update(g, &spec);
+            only.AddBind(std::move(specular));
             only.AddBind(MakeShared<TransformBuffer>(g));
             for (auto& t : m_Textures)
                only.AddBind(t);
@@ -59,6 +70,11 @@ Mesh::Mesh(Graphics& g, const std::string& directory, const aiMesh* mesh, const 
 
         AddTechnique(lambertian);
     }
+}
+
+XMMATRIX Mesh::ModelMat() const
+{
+    return m_Parent->ModelMat();
 }
 
 Shared<Texture2D> Mesh::GetTexture(Graphics& g, const aiMaterial* mat, aiTextureType type, UINT slot)

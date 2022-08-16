@@ -3,6 +3,7 @@
 
 #include "Graphics.h"
 #include "Render/Renderable.h"
+#include "imgui.h"
 
 TransformBuffer::TransformBuffer(Graphics& g, UINT slot)
 	:VertexConstantBuffer<Transform>(g, slot)
@@ -40,4 +41,14 @@ void Transformable::SetScale(const XMFLOAT3& scale)
 {
 	m_Size = scale;
 	m_Scale = XMMatrixScaling(scale.x, scale.y, scale.z);
+}
+
+void Transformable::ShowGUI()
+{
+	if (ImGui::SliderFloat3("Position", &m_Pos.x, -1000.f, 1000.f))
+		SetPos(m_Pos);
+	else if (ImGui::SliderFloat3("Rotation", &m_Ori.x, 0.f, 2 * M_PI))
+		SetRot(m_Ori);
+	else if (ImGui::SliderFloat3("Scale", &m_Size.x, -100.f, 100.f))
+		SetScale(m_Size);
 }

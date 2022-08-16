@@ -26,9 +26,9 @@ Window::Window(const std::string& name, unsigned int width, unsigned int height)
 	RegisterClassEx(&wc);
 
 	RECT wr = { 0, 0, m_Width, m_Height };
-	AdjustWindowRect(&wr, WS_MINIMIZEBOX | WS_CAPTION | WS_SYSMENU, FALSE);
+	AdjustWindowRect(&wr, WS_OVERLAPPEDWINDOW, FALSE);
 	m_Handle = CreateWindowEx(NULL, m_Name.c_str(), m_Name.c_str(),
-		WS_MINIMIZEBOX | WS_CAPTION | WS_SYSMENU,
+		WS_OVERLAPPEDWINDOW,
 		0, 0,
 		wr.right - wr.left, wr.bottom - wr.top,
 		nullptr, nullptr,

@@ -11,6 +11,7 @@ public:
 	virtual void Run(Graphics& g) = 0;
 	virtual void Clear();
 	virtual void Finish();
+	void ShowGUI() const;
 
 	inline const std::string& Name() const { return m_Name; }
 	inline std::vector<Unique<In>>& Ins() { return m_Ins; }
@@ -26,6 +27,7 @@ protected:
 
 private:
 	std::string m_Name;
+	UINT m_NodeID;
 	std::vector<Unique<In>> m_Ins;
 	std::vector<Unique<Out>> m_Outs;
 };

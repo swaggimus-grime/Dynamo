@@ -77,3 +77,8 @@ XMMATRIX TestCube::ModelMat() const
 	return TransformMat();
 }
 
+void TestCube::ShowGUI()
+{
+	Transformable::ShowGUI();
+}
+

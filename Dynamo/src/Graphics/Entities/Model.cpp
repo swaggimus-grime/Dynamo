@@ -22,7 +22,7 @@ Model::Model(Graphics& g, const std::string& path)
     for (UINT meshIndex = 0; meshIndex < scene->mNumMeshes; meshIndex++) {
         const aiMesh* mesh = scene->mMeshes[meshIndex];
         const aiMaterial* mat = scene->mMaterials[mesh->mMaterialIndex];
-        m_Meshes.push_back(MakeUnique<Mesh>(g, path.substr(0, path.find_last_of('/')), mesh, mat));
+        m_Meshes.push_back(MakeUnique<Mesh>(g, this, path.substr(0, path.find_last_of('/')), mesh, mat));
     }
 }
 
@@ -38,25 +38,12 @@ void Model::LinkToRDG(RDG& graph)
         m->LinkToRDG(graph);
 }
 
-void Model::SetPos(const XMFLOAT3& p)
-{
-    for (auto& m : m_Meshes)
-        m->SetPos(p);
-}
-
-void Model::SetRot(const XMFLOAT3& r)
-{
-    for (auto& m : m_Meshes)
-        m->SetRot(r);
-}
-
-void Model::SetScale(const XMFLOAT3& s)
-{
-    for (auto& m : m_Meshes)
-        m->SetScale(s);
-}
-
 void Model::ShowGUI()
 {
+    Transformable::ShowGUI();
+}
 
+XMMATRIX Model::ModelMat() const
+{
+    return m_Scale * m_Rot * m_Trans;
 }

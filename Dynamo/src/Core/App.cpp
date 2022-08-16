@@ -15,9 +15,11 @@ App::App(const std::string& name, UINT32 width, UINT32 height)
 {
 	m_Cube.LinkToRDG(m_RDG);
 	m_Cube.SetPos({ -5, -2, -1 });
+	m_GUIables.insert({ "Test Cube", &m_Cube });
 
 	m_Sponza.LinkToRDG(m_RDG);
 	m_GF.LinkToRDG(m_RDG);
+	m_GUIables.insert({ "Golden Freddy", &m_GF });
 	m_Light.LinkToRDG(m_RDG);
 }
 
@@ -94,12 +96,18 @@ void App::ShowGUI()
 	ImGui::GetWindowDrawList()->AddImage(
 		(void*)m_RDG.RTTexture(), pos, { pos.x + m_Wnd.GetWidth(), pos.y + m_Wnd.GetHeight() }, 
 		ImVec2(0, 0), ImVec2(1, 1));
+
+	for (auto& p : m_GUIables) {
+		if (ImGui::TreeNode(p.first.c_str())) {
+			p.second->ShowGUI();
+			ImGui::TreePop();
+			ImGui::Separator();
+		}
+	}
+	
 	ImGui::End();
 
 	m_RDG.ShowGUI();
-
-	//if(showCamera)
-		//m_Camera->ShowGUI(m_Window->GetGraphics());
 }
 
 INT App::Run()

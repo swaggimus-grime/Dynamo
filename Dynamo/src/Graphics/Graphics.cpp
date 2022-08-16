@@ -27,7 +27,7 @@ Graphics::Graphics(HWND hWnd, UINT width, UINT height)
     scd.SampleDesc.Count = 1;
     scd.SampleDesc.Quality = 0;
     scd.Windowed = TRUE;
-    scd.Flags = NULL;
+    scd.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 
     D3D11CreateDeviceAndSwapChain(
         NULL,
@@ -64,6 +64,7 @@ Graphics::Graphics(HWND hWnd, UINT width, UINT height)
 Graphics::~Graphics()
 {
     ImGui_ImplDX11_Shutdown();
+    m_SC->SetFullscreenState(false, nullptr);
 }
 
 void Graphics::BeginFrame()
@@ -88,12 +89,11 @@ void Graphics::SubmitRenderTarget(std::shared_ptr<RenderTarget> r)
 
 void Graphics::OnWindowResize(UINT width, UINT height)
 {
-    /*ComPtr<ID3D11Texture2D> tex;
-    m_SC->GetBuffer(0, __uuidof(ID3D11Texture2D), &tex);
-    m_FinalOutput.reset(new RenderTarget(*this, *tex.Get()));
-    m_SC->ResizeBuffers(0, width, height, DXGI_FORMAT_R8G8B8A8_UNORM, 0);
-    for (auto& rt : m_Targets)
-        rt.reset(new RenderTarget(*this, width, height));
+    m_FinalOutput.reset();
+    m_SC->ResizeBuffers(0, width, height, DXGI_FORMAT_UNKNOWN, DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH);
+    ComPtr<ID3D11Texture2D> backbuff;
+    m_SC->GetBuffer(0, __uuidof(ID3D11Texture2D), &backbuff);
+    m_FinalOutput.reset(new WriteOnlyRenderTarget(*this, backbuff.Get()));
     m_Width = width;
-    m_Height = height;*/
+    m_Height = height;
 }

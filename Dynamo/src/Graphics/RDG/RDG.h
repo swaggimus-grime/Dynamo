@@ -5,7 +5,6 @@
 #include "Out.h"
 #include "Pass.h"
 #include <imgui_node_editor.h>
-
 namespace ed = ax::NodeEditor;
 
 class RDG {
@@ -34,6 +33,8 @@ private:
 	Shared<class RenderTarget> m_BackBuff;
 	Shared<class DepthStencil> m_MasterDS;
 	bool m_Finished = false;
+	UINT m_OutNode;
+	UINT m_InNode;
 
 	ed::EditorContext* m_Editor;
 };

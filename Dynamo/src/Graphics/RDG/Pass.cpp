@@ -4,9 +4,12 @@
 #include "Graphics.h"
 #include "In.h"
 #include "Out.h"
+#include "Editor.h"
+#include <imgui_node_editor.h>
+namespace ed = ax::NodeEditor;
 
 Pass::Pass(const std::string& name)
-	:m_Name(std::move(name))
+	:m_Name(std::move(name)), m_NodeID(Editor::NextNode())
 {
 }
 
@@ -62,6 +65,28 @@ void Pass::Finish()
 		in->ValidateLink();
 	for (auto& out : m_Outs)
 		out->ValidateLink();
+}
+
+void Pass::ShowGUI() const
+{
+	ed::BeginNode(m_NodeID);
+	ImGui::Text(m_Name.c_str());
+	ImGui::BeginGroup();
+	for (auto& in : m_Ins) {
+		ed::BeginPin(in->PinID(), ed::PinKind::Input);
+		ImGui::Text(("-> " + in->Name()).c_str());
+		ed::EndPin();
+	}
+	ImGui::EndGroup();
+	ImGui::SameLine();
+	ImGui::BeginGroup();
+	for (auto& out : m_Outs) {
+		ed::BeginPin(out->PinID(), ed::PinKind::Output);
+		ImGui::Text((out->Name() + " ->").c_str());
+		ed::EndPin();
+	}
+	ImGui::EndGroup();
+	ed::EndNode();
 }
 
 void Pass::AddIn(Unique<In> in)

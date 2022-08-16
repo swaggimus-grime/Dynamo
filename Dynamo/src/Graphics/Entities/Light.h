@@ -35,6 +35,7 @@ class PointLight : public Renderable, public Transformable {
 public:
 	PointLight(Graphics& g, const XMFLOAT3& color = {1.f, 1.f, 1.f});
 	void Bind(Graphics& g);
+	virtual void SetPos(const XMFLOAT3& pos) override;
 	inline XMFLOAT3 Color() const { return m_Color; }
 	virtual XMMATRIX ModelMat() const { return TransformMat(); }
 

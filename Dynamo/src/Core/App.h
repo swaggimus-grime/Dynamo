@@ -18,6 +18,8 @@ public:
 private:
 	void UserInput(float deltaTime);
 	void ShowGUI();
+	void ShowGUIableNode();
+
 private:
 	Window m_Wnd;
 	TestCube m_Cube;
@@ -27,4 +29,5 @@ private:
 	Camera m_Camera;
 	OutlineRDG m_RDG;
 
+	std::unordered_map<std::string, GUIable*> m_GUIables;
 };
