@@ -293,6 +293,4 @@ void RDG::Finish()
 	}
 	LinkGlobalIns();
 	m_Finished = true;
-
-
 }
