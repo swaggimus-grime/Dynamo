@@ -6,6 +6,7 @@ class Channel {
 public:
 	inline const std::string& Name() const { return m_Name; }
 	inline UINT PinID() const { return m_PinID; }
+	virtual void Unlink() = 0;
 	virtual ~Channel() = default;
 
 protected:

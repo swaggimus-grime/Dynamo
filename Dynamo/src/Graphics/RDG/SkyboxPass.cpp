@@ -52,6 +52,8 @@ SkyboxPass::SkyboxPass(Graphics& g, const std::string& name)
 
 void SkyboxPass::Run(Graphics& g)
 {
+	if (!CheckFramebuffer())
+		return;
 	DYNAMO_ASSERT(m_Camera, "Skybox needs reference to a camera");
 	UINT indexCount;
 	g.SetCamera(*m_Camera);

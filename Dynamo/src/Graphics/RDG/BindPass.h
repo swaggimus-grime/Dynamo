@@ -9,6 +9,7 @@ public:
 	void AddBind(Shared<Bindable> bind);
 	void BindAll(Graphics& g);
 	virtual void Finish() override;
+	bool CheckFramebuffer() const { return m_RT || m_DS; }
 	template<class T>
 	void AddBindIn(const std::string& name)
 	{

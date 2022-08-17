@@ -34,6 +34,11 @@ public:
 		return m_Buffer; 
 	}
 
+	virtual void Unlink() override
+	{
+		m_Linked = false;
+	}
+
 private:
 	bool m_Linked = false;
 	Shared<T>& m_Buffer;
@@ -53,6 +58,11 @@ public:
 	}
 
 	inline virtual Shared<Bindable> GetBindable() override { return m_Bindable; }
+
+	virtual void Unlink() override
+	{
+		m_Linked = false;
+	}
 
 private:
 	Shared<T>& m_Bindable;

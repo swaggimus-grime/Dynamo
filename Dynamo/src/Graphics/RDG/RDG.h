@@ -15,7 +15,14 @@ public:
 	void Clear();
 	void ShowGUI();
 	class RenderPass* GetRenderPass(const std::string& passName) const;
-	inline ID3D11ShaderResourceView* RTTexture() const { return dynamic_cast<ReadableRenderTarget&>(*m_BackBuff).GetTexture(); }
+	inline ID3D11ShaderResourceView* RTTexture() const { 
+		if (m_BackBuff) {
+			auto& rt = dynamic_cast<ReadableRenderTarget&>(*m_BackBuff);
+			return rt.GetTexture();
+		}
+
+		return nullptr;
+	}
 protected:
 	inline void AddGlobalIn(Unique<In> in);
 	inline void AddGlobalOut(Unique<Out> out);
@@ -25,6 +32,9 @@ protected:
 	Pass& FindPassByName(const std::string& name);
 	void Finish();
 	void LinkGlobalIns();
+
+private:
+	void Recompile();
 
 private:
 	std::vector<Unique<Pass>> m_Passes;

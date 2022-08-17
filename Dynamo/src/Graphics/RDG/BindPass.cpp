@@ -35,6 +35,6 @@ void BindPass::BindFramebuffer(Graphics& g)
 {
 	if (m_RT)
 		m_RT->BindBuffer(g, m_DS.get());
-	else
+	else if(m_DS)
 		m_DS->BindBuffer(g);
 }

@@ -23,7 +23,7 @@ void RenderTarget::BindBuffer(Graphics& g, DepthStencil* depthStencil)
 
 void RenderTarget::Clear(Graphics& g)
 {
-	Clear(g, { 1.0f,0.0f,0.0f,0.0f });
+	Clear(g, { 1.0f,0.0f,0.0f,1.0f });
 }
 
 void RenderTarget::Clear(Graphics& g, const std::array<float, 4>& color)

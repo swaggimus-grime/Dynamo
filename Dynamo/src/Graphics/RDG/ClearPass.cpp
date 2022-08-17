@@ -14,5 +14,6 @@ ClearPass::ClearPass(const std::string& name)
 
 void ClearPass::Run(Graphics& g)
 {
-	m_Buffer->Clear(g);
+	if(m_Buffer)
+		m_Buffer->Clear(g);
 }

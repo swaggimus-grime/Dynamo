@@ -8,8 +8,10 @@ void RenderPass::AddWork(const Work& work)
 
 void RenderPass::Run(Graphics& g)
 {
-	BindPass::BindAll(g);
+	if (!CheckFramebuffer())
+		return;
 
+	BindAll(g);
 	for (const auto& w : m_Works)
 		w.Run(g);
 }

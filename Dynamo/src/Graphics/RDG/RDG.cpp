@@ -26,6 +26,8 @@ RDG::~RDG()
 void RDG::Run(Graphics& g)
 {
 	DYNAMO_ASSERT(m_Finished, "RDG not finished setting up");
+	if (!m_Ins[0]->Linked())
+		return;
 	for (auto& p : m_Passes)
 		p->Run(g);
 }
@@ -86,8 +88,40 @@ void RDG::ShowGUI()
 			{
 				if (ed::AcceptNewItem())
 				{
-					unsigned int id = Editor::NextLink();
-					ed::Link(id, inputPinId.Get(), outputPinId.Get());
+					In* inPtr = nullptr;
+					for (auto& in : m_Ins)
+						if (in->PinID() == outputPinId.Get()) {
+							inPtr = in.get();
+							break;
+						}
+					if (!inPtr) {
+						for (auto& p : m_Passes)
+							for (auto& in : p->Ins()) {
+								if (in->PinID() == outputPinId.Get()) {
+									inPtr = in.get();
+									break;
+								}
+							}
+					}
+					Out* outPtr = nullptr;
+					for (auto& out : m_Outs)
+						if (out->PinID() == inputPinId.Get()) {
+							outPtr = out.get();
+							break;
+						}
+					if (!outPtr) {
+						for (auto& p : m_Passes)
+							for (auto& out : p->Outs()) {
+								if (out->PinID() == inputPinId.Get()) {
+									outPtr = out.get();
+									break;
+								}
+							}
+					}
+					if (inPtr && outPtr) {
+						inPtr->Link(*outPtr);
+						ed::Link(inPtr->LinkID(), inPtr->PinID(), inPtr->OutID());
+					}
 				}
 			}
 		}
@@ -223,13 +257,6 @@ void RDG::LinkPass(Pass& pass)
 		}
 	}
 }
-
-//void RDG::Link(const std::vector<Unique<Out>>& outs, Unique<In>& in)
-//{
-//	auto& out = std::find_if(outs.begin(), outs.end(), [&in](const auto& o) { return o->Name() == in->OutName(); });
-//	DYNAMO_ASSERT(out != outs.end(), "Cannot link an Out pointer with given name");
-//	in->Link(*(*out));
-//}
 
 void RDG::Target(const std::string& in, const std::string& target)
 {

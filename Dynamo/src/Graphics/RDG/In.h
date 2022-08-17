@@ -1,10 +1,7 @@
 #pragma once
 
-#include "Channel.h"
+#include "Out.h"
 #include "Bindable/Bindable.h"
-
-
-class Out;
 
 class In : public Channel {
 public:
@@ -12,17 +9,16 @@ public:
 	inline const std::string& OutName() const { return m_OutName; }
 	void Target(const std::string& pass, const std::string& out);
 	virtual void Link(Out& out) = 0;
-	virtual void Unlink() = 0;
 	virtual void ValidateLink() const;
 	inline UINT LinkID() const { return m_LinkID; }
 	inline bool Linked() const { return m_Linked; }
-	inline UINT OutID() const { return m_OutID; }
+	inline UINT OutID() const { return m_Out->PinID(); }
 
 protected:
 	In(const std::string& name);
 	bool m_Linked = false;
 	UINT m_LinkID;
-	UINT m_OutID;
+	Out* m_Out;
 
 private:
 	std::string m_PassName;
@@ -56,13 +52,15 @@ public:
 
 		m_Buffer = std::move(p);
 		m_Linked = true;
-		m_OutID = out.PinID();
+		m_Out = &out;
 	}
 
 	virtual void Unlink() override
 	{
 		m_Buffer = nullptr;
 		m_Linked = false;
+		m_Out->Unlink();
+		m_Out = nullptr;
 	}
 
 private:
@@ -96,13 +94,15 @@ public:
 
 		m_Bindable = std::move(p);
 		m_Linked = true;
-		m_OutID = out.PinID();
+		m_Out = &out;
 	}
 
 	virtual void Unlink() override
 	{
 		m_Bindable = nullptr;
 		m_Linked = false;
+		m_Out->Unlink();
+		m_Out = nullptr;
 	}
 
 private:
@@ -126,13 +126,15 @@ public:
 
 		m_Vector[m_Idx] = std::move(p);
 		m_Linked = true;
-		m_OutID = out.PinID();
+		m_Out = &out;
 	}
 
 	virtual void Unlink() override
 	{
 		m_Vector[m_Idx] = nullptr;
 		m_Linked = false;
+		m_Out->Unlink();
+		m_Out = nullptr;
 	}
 
 	VectorBindableIn(const std::string& name, std::vector<std::shared_ptr<Bindable>>& vec, size_t idx)
