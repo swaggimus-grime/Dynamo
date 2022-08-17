@@ -19,7 +19,7 @@ cmake -B build
 ## Screenshots
 ![scene](/screenshots/scene.png)
 ![Skybox](/screenshots/skybox.png)
-![RDG](/screenshots/rdg.png)
+![RDG](/screenshots/rdg.PNG)
 
 ## Dependencies
 - Direct3D(for backend rendering)</br>
