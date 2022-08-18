@@ -4,10 +4,12 @@
 cmake_minimum_required (VERSION 3.8)
 set(CMAKE_CXX_STANDARD 17)
 
+set(CMAKE_BUILD_TYPE "Debug")
+set(WIN32 true)
+
 project ("Dynamo")
 
 # Include sub-projects.
-
 find_package(Git QUIET)
 if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
     option(GIT_SUBMODULE "Check submodules during build" ON)
@@ -33,10 +35,8 @@ add_git_submodule("tools/DirectXTex")
 add_git_submodule("tools/imgui")
 add_git_submodule("tools/node-editor")
 
-set(WIN32 true)
-
 add_subdirectory ("Dynamo")
 add_subdirectory("tools/DirectXTex")
 add_subdirectory("tools/assimp")
 
-install(TARGETS Dynamo assimp DirectXTex DESTINATION bin)
+#install(TARGETS Dynamo assimp DirectXTex DESTINATION bin)
