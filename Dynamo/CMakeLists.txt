@@ -53,10 +53,10 @@ set(RESOURCE_SCRIPTS res/dynamo.rc)
 add_executable(Dynamo WIN32 ${SRC} ${IMGUI_SRC} ${NODE_EDITOR_SRC} ${RESOURCE_SCRIPTS})
 target_precompile_headers(Dynamo PRIVATE src/dynamopch.h)
 target_link_libraries(Dynamo "d3d11.lib" "d3dcompiler.lib" "dxgi.lib" DirectXTex assimp)
-add_custom_command(TARGET Dynamo POST_BUILD       
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different 
-        "${PROJECT_SOURCE_DIR}/tools/assimp/bin/Debug/assimp-vc143-mtd.dll"
-        $<TARGET_FILE_DIR:Dynamo>)      
+#add_custom_command(TARGET Dynamo POST_BUILD       
+#    COMMAND ${CMAKE_COMMAND} -E copy_if_different 
+#        "${PROJECT_SOURCE_DIR}/tools/assimp/bin/Debug/assimp-vc143-mtd.dll"
+#        $<TARGET_FILE_DIR:Dynamo>)      
         
 set_source_files_properties(${VERTEX_SHADER_FILES} PROPERTIES VS_SHADER_TYPE "vs")
 set_source_files_properties(${PIXEL_SHADER_FILES} PROPERTIES VS_SHADER_TYPE "ps")
