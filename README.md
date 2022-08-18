@@ -10,6 +10,9 @@
 - Render Dependency Graph
 - Dockable windows
 
+## Compatability
+The project has only been tested on Windows 10. Uses x64 architecture.
+
 ## Build
 This project can be built using CMake(min. version 3.8). 
 ```
