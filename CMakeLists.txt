@@ -8,31 +8,33 @@ project ("Dynamo")
 
 # Include sub-projects.
 
-function(add_git_submodule dir)
-# add a Git submodule directory to CMake, assuming the
-# Git submodule directory is a CMake project.
-#
-# Usage: in CMakeLists.txt
-# 
-# include(AddGitSubmodule.cmake)
-# add_git_submodule(mysubmod_dir)
-
-find_package(Git REQUIRED)
-
-if(NOT EXISTS ${dir}/CMakeLists.txt)
-  execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init --recursive -- ${dir}
-    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-    COMMAND_ERROR_IS_FATAL ANY)
+find_package(Git QUIET)
+if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
+    option(GIT_SUBMODULE "Check submodules during build" ON)
+    if(NOT GIT_SUBMODULE)
+        message(FATAL_ERROR "Failed to turn on GIT_SUBMODULE")
+    endif()
 endif()
 
-add_subdirectory(${dir})
+message(STATUS "Working directory: ${PROJECT_SOURCE_DIR}")
 
+function(add_git_submodule dir)
+    message(STATUS "Submodule update ${dir}")
+    execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init --recursive ${dir}
+                    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+                    RESULT_VARIABLE GIT_SUBMOD_RESULT)
+    if(NOT GIT_SUBMOD_RESULT EQUAL "0")
+        message(FATAL_ERROR "git submodule update --init --recursive ${dir} failed with ${GIT_SUBMOD_RESULT}, please checkout submodules")
+    endif()
 endfunction(add_git_submodule)
 
-
-
-add_git_submodule("Dynamo")
 add_git_submodule("tools/assimp")
 add_git_submodule("tools/DirectXTex")
+add_git_submodule("tools/imgui")
+add_git_submodule("tools/node-editor")
+
+add_subdirectory ("Dynamo")
+add_subdirectory("tools/assimp")
+add_subdirectory("tools/DirectXTex")
 
 install(TARGETS Dynamo assimp DirectXTex DESTINATION bin)
