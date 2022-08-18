@@ -69,13 +69,13 @@
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Dynamo.dir\Release\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Dynamo</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\hunte\source\repos\Dynamo\Dynamo\MinSizeRel\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Dynamo.dir\MinSizeRel\</IntDir>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Dynamo</TargetName>
     <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.exe</TargetExt>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</LinkIncremental>
     <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\hunte\source\repos\Dynamo\Dynamo\RelWithDebInfo\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Dynamo.dir\RelWithDebInfo\</IntDir>
@@ -86,7 +86,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\hunte\source\repos\Dynamo\Dynamo\src;C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui\backends;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\glm;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\assimp\include;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\hunte\source\repos\Dynamo\Dynamo\src;C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui\backends;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\node-editor;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\glm;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\assimp\include;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -106,10 +106,10 @@
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\hunte\source\repos\Dynamo\Dynamo\src;C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui\backends;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\glm;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\assimp\include;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\hunte\source\repos\Dynamo\Dynamo\src;C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui\backends;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\node-editor;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\glm;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\assimp\include;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\hunte\source\repos\Dynamo\Dynamo\src;C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui\backends;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\glm;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\assimp\include;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\hunte\source\repos\Dynamo\Dynamo\src;C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui\backends;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\node-editor;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\glm;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\assimp\include;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -378,8 +378,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <Link>
       <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;dxgi.lib;..\bin\CMake\Debug\DirectXTexd.lib;..\tools\assimp\lib\Debug\assimp-vc143-mtd.lib;..\tools\assimp\contrib\zlib\Debug\zlibstaticd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/Users/hunte/source/repos/Dynamo/Dynamo/Debug/Dynamo.lib</ImportLibrary>
       <ProgramDataBaseFile>C:/Users/hunte/source/repos/Dynamo/Dynamo/Debug/Dynamo.pdb</ProgramDataBaseFile>
@@ -391,7 +390,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\hunte\source\repos\Dynamo\Dynamo\src;C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui\backends;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\glm;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\assimp\include;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\hunte\source\repos\Dynamo\Dynamo\src;C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui\backends;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\node-editor;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\glm;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\assimp\include;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -411,10 +410,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\hunte\source\repos\Dynamo\Dynamo\src;C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui\backends;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\glm;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\assimp\include;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\hunte\source\repos\Dynamo\Dynamo\src;C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui\backends;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\node-editor;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\glm;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\assimp\include;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\hunte\source\repos\Dynamo\Dynamo\src;C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui\backends;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\glm;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\assimp\include;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\hunte\source\repos\Dynamo\Dynamo\src;C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui\backends;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\node-editor;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\glm;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\assimp\include;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -683,7 +682,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <Link>
       <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;dxgi.lib;..\bin\CMake\Release\DirectXTex.lib;..\tools\assimp\lib\Release\assimp-vc143-mt.lib;..\tools\assimp\contrib\zlib\Release\zlibstatic.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/Users/hunte/source/repos/Dynamo/Dynamo/Release/Dynamo.lib</ImportLibrary>
@@ -696,7 +694,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\hunte\source\repos\Dynamo\Dynamo\src;C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui\backends;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\glm;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\assimp\include;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\hunte\source\repos\Dynamo\Dynamo\src;C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui\backends;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\node-editor;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\glm;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\assimp\include;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
@@ -716,10 +714,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\hunte\source\repos\Dynamo\Dynamo\src;C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui\backends;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\glm;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\assimp\include;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\hunte\source\repos\Dynamo\Dynamo\src;C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui\backends;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\node-editor;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\glm;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\assimp\include;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\hunte\source\repos\Dynamo\Dynamo\src;C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui\backends;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\glm;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\assimp\include;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\hunte\source\repos\Dynamo\Dynamo\src;C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui\backends;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\node-editor;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\glm;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\assimp\include;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -988,7 +986,6 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <Link>
       <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;dxgi.lib;..\bin\CMake\MinSizeRel\DirectXTex.lib;..\tools\assimp\lib\MinSizeRel\assimp-vc143-mt.lib;..\tools\assimp\contrib\zlib\MinSizeRel\zlibstatic.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/Users/hunte/source/repos/Dynamo/Dynamo/MinSizeRel/Dynamo.lib</ImportLibrary>
@@ -1001,7 +998,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>C:\Users\hunte\source\repos\Dynamo\Dynamo\src;C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui\backends;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\glm;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\assimp\include;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\hunte\source\repos\Dynamo\Dynamo\src;C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui\backends;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\node-editor;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\glm;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\assimp\include;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -1020,10 +1017,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\hunte\source\repos\Dynamo\Dynamo\src;C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui\backends;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\glm;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\assimp\include;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\hunte\source\repos\Dynamo\Dynamo\src;C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui\backends;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\node-editor;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\glm;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\assimp\include;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Midl>
-      <AdditionalIncludeDirectories>C:\Users\hunte\source\repos\Dynamo\Dynamo\src;C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui\backends;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\glm;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\assimp\include;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\hunte\source\repos\Dynamo\Dynamo\src;C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\imgui\backends;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\node-editor;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\glm;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\assimp\include;C:\Users\hunte\source\repos\Dynamo\Dynamo\..\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\DirectXTex\DirectXTex;C:\Users\hunte\source\repos\Dynamo\tools\assimp\code\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
       <HeaderFileName>%(Filename).h</HeaderFileName>
       <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
@@ -1292,8 +1289,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <Link>
       <AdditionalDependencies>d3d11.lib;d3dcompiler.lib;dxgi.lib;..\bin\CMake\RelWithDebInfo\DirectXTex.lib;..\tools\assimp\lib\RelWithDebInfo\assimp-vc143-mt.lib;..\tools\assimp\contrib\zlib\RelWithDebInfo\zlibstatic.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <ImportLibrary>C:/Users/hunte/source/repos/Dynamo/Dynamo/RelWithDebInfo/Dynamo.lib</ImportLibrary>
       <ProgramDataBaseFile>C:/Users/hunte/source/repos/Dynamo/Dynamo/RelWithDebInfo/Dynamo.pdb</ProgramDataBaseFile>
@@ -1654,6 +1650,13 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/RelWithDebInfo/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\RDG\ClearPass.h" />
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\RDG\Editor.cpp">
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/Debug/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/Release/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/MinSizeRel/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/RelWithDebInfo/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <ClInclude Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\RDG\Editor.h" />
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\Dynamo\src\Graphics\RDG\In.cpp">
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/Debug/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/Release/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -1819,6 +1822,30 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/RelWithDebInfo/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
     </ClCompile>
     <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\tools\imgui\imgui_widgets.cpp">
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/Debug/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/Release/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/MinSizeRel/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/RelWithDebInfo/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\tools\node-editor\crude_json.cpp">
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/Debug/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/Release/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/MinSizeRel/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/RelWithDebInfo/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\tools\node-editor\imgui_canvas.cpp">
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/Debug/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/Release/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/MinSizeRel/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/RelWithDebInfo/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\tools\node-editor\imgui_node_editor.cpp">
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/Debug/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/Release/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/MinSizeRel/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/RelWithDebInfo/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+    </ClCompile>
+    <ClCompile Include="C:\Users\hunte\source\repos\Dynamo\tools\node-editor\imgui_node_editor_api.cpp">
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/Debug/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/Release/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir/MinSizeRel/cmake_pch.hxx;%(ForcedIncludeFiles)</ForcedIncludeFiles>

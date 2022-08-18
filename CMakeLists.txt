@@ -33,6 +33,8 @@ add_git_submodule("tools/DirectXTex")
 add_git_submodule("tools/imgui")
 add_git_submodule("tools/node-editor")
 
+set(WIN32 true)
+
 add_subdirectory ("Dynamo")
 add_subdirectory("tools/assimp")
 add_subdirectory("tools/DirectXTex")
