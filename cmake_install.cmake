@@ -70,7 +70,7 @@ endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
   if("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^([Dd][Ee][Bb][Uu][Gg])$")
-    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE STATIC_LIBRARY FILES "C:/Users/hunte/source/repos/Dynamo/bin/CMake/Debug/DirectXTexd.lib")
+    file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE STATIC_LIBRARY FILES "C:/Users/hunte/source/repos/Dynamo/bin/CMake/Debug/DirectXTex.lib")
   elseif("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^([Rr][Ee][Ll][Ee][Aa][Ss][Ee])$")
     file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE STATIC_LIBRARY FILES "C:/Users/hunte/source/repos/Dynamo/bin/CMake/Release/DirectXTex.lib")
   elseif("${CMAKE_INSTALL_CONFIG_NAME}" MATCHES "^([Mm][Ii][Nn][Ss][Ii][Zz][Ee][Rr][Ee][Ll])$")
@@ -83,8 +83,8 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("C:/Users/hunte/source/repos/Dynamo/Dynamo/cmake_install.cmake")
-  include("C:/Users/hunte/source/repos/Dynamo/tools/assimp/cmake_install.cmake")
   include("C:/Users/hunte/source/repos/Dynamo/tools/DirectXTex/cmake_install.cmake")
+  include("C:/Users/hunte/source/repos/Dynamo/tools/assimp/cmake_install.cmake")
 
 endif()
 

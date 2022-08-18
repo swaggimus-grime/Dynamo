@@ -3,6 +3,13 @@ C:/Users/hunte/source/repos/Dynamo/CMakeFiles/ALL_BUILD.dir
 C:/Users/hunte/source/repos/Dynamo/CMakeFiles/ZERO_CHECK.dir
 C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/Dynamo.dir
 C:/Users/hunte/source/repos/Dynamo/Dynamo/CMakeFiles/INSTALL.dir
+C:/Users/hunte/source/repos/Dynamo/tools/DirectXTex/CMakeFiles/DirectXTex.dir
+C:/Users/hunte/source/repos/Dynamo/tools/DirectXTex/CMakeFiles/texassemble.dir
+C:/Users/hunte/source/repos/Dynamo/tools/DirectXTex/CMakeFiles/texconv.dir
+C:/Users/hunte/source/repos/Dynamo/tools/DirectXTex/CMakeFiles/texdiag.dir
+C:/Users/hunte/source/repos/Dynamo/tools/DirectXTex/CMakeFiles/ddsview.dir
+C:/Users/hunte/source/repos/Dynamo/tools/DirectXTex/CMakeFiles/INSTALL.dir
+C:/Users/hunte/source/repos/Dynamo/tools/DirectXTex/CMakeFiles/ALL_BUILD.dir
 C:/Users/hunte/source/repos/Dynamo/tools/assimp/CMakeFiles/uninstall.dir
 C:/Users/hunte/source/repos/Dynamo/tools/assimp/CMakeFiles/UpdateAssimpLibsDebugSymbolsAndDLLs.dir
 C:/Users/hunte/source/repos/Dynamo/tools/assimp/CMakeFiles/INSTALL.dir
@@ -15,10 +22,3 @@ C:/Users/hunte/source/repos/Dynamo/tools/assimp/code/CMakeFiles/INSTALL.dir
 C:/Users/hunte/source/repos/Dynamo/tools/assimp/test/CMakeFiles/unit.dir
 C:/Users/hunte/source/repos/Dynamo/tools/assimp/test/CMakeFiles/INSTALL.dir
 C:/Users/hunte/source/repos/Dynamo/tools/assimp/test/headercheck/CMakeFiles/INSTALL.dir
-C:/Users/hunte/source/repos/Dynamo/tools/DirectXTex/CMakeFiles/DirectXTex.dir
-C:/Users/hunte/source/repos/Dynamo/tools/DirectXTex/CMakeFiles/texassemble.dir
-C:/Users/hunte/source/repos/Dynamo/tools/DirectXTex/CMakeFiles/texconv.dir
-C:/Users/hunte/source/repos/Dynamo/tools/DirectXTex/CMakeFiles/texdiag.dir
-C:/Users/hunte/source/repos/Dynamo/tools/DirectXTex/CMakeFiles/ddsview.dir
-C:/Users/hunte/source/repos/Dynamo/tools/DirectXTex/CMakeFiles/INSTALL.dir
-C:/Users/hunte/source/repos/Dynamo/tools/DirectXTex/CMakeFiles/ALL_BUILD.dir

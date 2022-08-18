@@ -36,7 +36,7 @@ add_git_submodule("tools/node-editor")
 set(WIN32 true)
 
 add_subdirectory ("Dynamo")
-add_subdirectory("tools/assimp")
 add_subdirectory("tools/DirectXTex")
+add_subdirectory("tools/assimp")
 
 install(TARGETS Dynamo assimp DirectXTex DESTINATION bin)
