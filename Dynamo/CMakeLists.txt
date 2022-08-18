@@ -4,7 +4,6 @@
 cmake_minimum_required (VERSION 3.8)
 
 set(ASSIMP_DIR ../tools/assimp)
-find_package(assimp)
 set(IMGUI_DIR ../tools/imgui)
 set(NODE_EDITOR_DIR ../tools/node-editor)
 set(GLM_DIR ../tools/glm)
