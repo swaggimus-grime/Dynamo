@@ -21,6 +21,7 @@ App::App(const std::string& name, UINT32 width, UINT32 height)
 	m_GF.LinkToRDG(m_RDG);
 	m_GUIables.insert({ "Golden Freddy", &m_GF });
 	m_Light.LinkToRDG(m_RDG);
+	m_GUIables.insert({ "Point Light", &m_Light });
 }
 
 App::~App()

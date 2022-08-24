@@ -38,14 +38,20 @@ public:
 	virtual void SetPos(const XMFLOAT3& pos) override;
 	inline XMFLOAT3 Color() const { return m_Color; }
 	virtual XMMATRIX ModelMat() const { return TransformMat(); }
+	virtual void ShowGUI() override;
 
 private:
 	XMFLOAT3 m_Color;
 
 private:
-	class LightColorBuff : public PixelConstantBuffer<XMFLOAT4> {
+	struct LightDraw {
+		XMMATRIX MVP;
+		alignas(16) XMFLOAT3 Color;
+	};
+
+	class LightBuff : public VertexConstantBuffer<LightDraw> {
 	public:
-		LightColorBuff(Graphics& g, PointLight& light);
+		LightBuff(Graphics& g, PointLight& light);
 		virtual void Bind(Graphics& g) override;
 
 	private:
