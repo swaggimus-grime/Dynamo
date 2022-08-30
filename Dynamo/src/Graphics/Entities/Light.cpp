@@ -56,6 +56,8 @@ void PointLight::SetPos(const XMFLOAT3& pos)
 
 void PointLight::ShowGUI()
 {
+	Transformable::ShowGUI();
+
 	ImGui::ColorEdit3("Diffuse Color", &m_Light.Color.x);
 	ImGui::SliderFloat("Intensity", &m_Light.Intensity, 0.f, 10.0f, "%.2f");
 	ImGui::ColorEdit3("Ambient", &m_Light.Ambient.x);
@@ -64,8 +66,6 @@ void PointLight::ShowGUI()
 	ImGui::SliderFloat("Constant", &m_Light.ConstAtt, 0.05f, 10.0f, "%.2f");
 	ImGui::SliderFloat("Linear", &m_Light.LinAtt, 0.0001f, 4.0f, "%.4f");
 	ImGui::SliderFloat("Quadratic", &m_Light.QuadAtt, 0.00001f, 10.0f, "%.7f");
-
-	Transformable::ShowGUI();
 }
 
 PointLight::LightBuff::LightBuff(Graphics& g, PointLight& light)

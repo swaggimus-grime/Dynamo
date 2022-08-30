@@ -45,6 +45,7 @@ void Transformable::SetScale(const XMFLOAT3& scale)
 
 void Transformable::ShowGUI()
 {
+	ImGui::Text("Transform");
 	if (ImGui::SliderFloat3("Position", &m_Pos.x, -1000.f, 1000.f))
 		SetPos(m_Pos);
 	else if (ImGui::SliderFloat3("Rotation", &m_Ori.x, 0.f, 2 * M_PI))
