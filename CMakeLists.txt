@@ -35,8 +35,13 @@ add_git_submodule("tools/DirectXTex")
 add_git_submodule("tools/imgui")
 add_git_submodule("tools/node-editor")
 
+add_subdirectory("tools/assimp")
 add_subdirectory ("Dynamo")
 add_subdirectory("tools/DirectXTex")
-add_subdirectory("tools/assimp")
+
+set_target_properties(assimp
+    PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY $<TARGET_FILE_DIR:Dynamo>
+)
 
 install(TARGETS Dynamo assimp DirectXTex DESTINATION bin)

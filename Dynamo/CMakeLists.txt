@@ -52,8 +52,12 @@ set(RESOURCE_SCRIPTS res/dynamo.rc)
 
 add_executable(Dynamo WIN32 ${SRC} ${IMGUI_SRC} ${NODE_EDITOR_SRC} ${RESOURCE_SCRIPTS})
 target_precompile_headers(Dynamo PRIVATE src/dynamopch.h)
-target_link_libraries(Dynamo "d3d11.lib" "d3dcompiler.lib" "dxgi.lib" DirectXTex assimp)     
-        
+target_link_libraries(Dynamo "d3d11.lib" "d3dcompiler.lib" "dxgi.lib" DirectXTex assimp::assimp)  
+set_target_properties(
+    Dynamo PROPERTIES
+    VS_DEBUGGER_WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+
+message(STATUS "Working dir: ${VS_DEBUGGER_WORKING_DIRECTORY}")
 set_source_files_properties(${VERTEX_SHADER_FILES} PROPERTIES VS_SHADER_TYPE "vs")
 set_source_files_properties(${PIXEL_SHADER_FILES} PROPERTIES VS_SHADER_TYPE "ps")
 set_source_files_properties(${SHADER_FILES} PROPERTIES VS_SHADER_MODEL "5_0")
