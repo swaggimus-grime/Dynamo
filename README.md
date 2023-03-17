@@ -18,6 +18,7 @@ This project can be built using CMake(min. version 3.8).
 ```
 cmake -B build
 ```
+Note for using CMake for Visual Studio: please set "currentDir" to ${workspaceRoot}\\Dynamo in launch.vs.json
 
 ## Screenshots
 ![scene](/screenshots/scene.png)
