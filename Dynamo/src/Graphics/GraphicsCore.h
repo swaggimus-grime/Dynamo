@@ -3,6 +3,7 @@
 // Global headers
 #include <d3d11.h>
 #include "Graphics.h"
+#include "VectorOps.h"
 
 // Bindable
 #include "Bindable/Bindable.h"

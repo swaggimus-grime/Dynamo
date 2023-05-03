@@ -119,7 +119,7 @@ public:
 		auto p = std::dynamic_pointer_cast<T>(out.GetBindable());
 		if (!p) {
 			std::ostringstream oss;
-			oss << "Binding input [" << GetRegisteredName() << "] to output [" << GetPassName() << "." << GetOutputName() << "] "
+			oss << "Binding input [" << Name() << "] to output [" << PassName() << "." << OutName() << "] "
 				<< " { " << typeid(T).name() << " } does not match { " << typeid(*out.GetBindable().get()).name() << " }";
 			throw DYNAMO_EXCEP(oss.str());
 		}

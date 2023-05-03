@@ -8,7 +8,8 @@ enum class DS_MODE {
 	DEPTH_FIRST,
 	DEPTH_DEFAULT,
 	STENCIL_WRITE,
-	STENCIL_MASK
+	STENCIL_MASK,
+	STENCIL_OFF
 };
 
 class DSState : public Bindable {

@@ -3,8 +3,9 @@
 #include "Window.h"
 
 #include "RDG/OutlineRDG.h"
-#include "Entities/TestCube.h"
+#include "Entities/TestPlane.h"
 #include "Entities/Model.h"
+#include "Animation/AnimModel.h"
 #include "Entities/Light.h"
 
 class App {
@@ -17,14 +18,13 @@ public:
 
 private:
 	void UserInput(float deltaTime);
-	void ShowGUI();
-	void ShowGUIableNode();
 
 private:
 	Window m_Wnd;
-	TestCube m_Cube;
-	Model m_GF;
-	Model m_Sponza;
+	Model m_Venator;
+	Model m_Sus;
+	AnimModel m_MC;
+
 	PointLight m_Light;
 	Camera m_Camera;
 	OutlineRDG m_RDG;

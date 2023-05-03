@@ -8,7 +8,7 @@ public:
 	Renderable() = default;
 	void Submit();
 	void LinkToRDG(class RDG& graph);
-	void Bind(Graphics& g) const;
+	virtual void Bind(Graphics& g) const;
 	inline UINT IndexCount() const { return m_IBuff->Count(); }
 	virtual XMMATRIX ModelMat() const = 0;
 protected:

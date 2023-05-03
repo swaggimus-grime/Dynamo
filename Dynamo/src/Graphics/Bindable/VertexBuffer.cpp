@@ -24,6 +24,14 @@ VertexLayout::VertexLayout(ATTRIB_FLAGS flags)
 		m_Stride += sizeof(XMFLOAT3);
 		m_Elements.push_back({ "Bitan", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 });
 	}
+	if (m_Flags & ATTRIB_BONES) {
+		m_Stride += sizeof(XMINT4);
+		m_Elements.push_back({ "Bones", 0, DXGI_FORMAT_R32G32B32A32_SINT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0});
+	}
+	if (m_Flags & ATTRIB_WEIGHTS) {
+		m_Stride += sizeof(XMFLOAT4);
+		m_Elements.push_back({ "Weights", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, D3D11_APPEND_ALIGNED_ELEMENT, D3D11_INPUT_PER_VERTEX_DATA, 0 });
+	}
 }
 
 VertexData::VertexData(VertexLayout layout, SIZE_T size)
@@ -37,6 +45,10 @@ VertexData::VertexData(VertexLayout layout, SIZE_T size)
 		m_TanSize += sizeof(XMFLOAT3);
 	if (m_Layout.Flags() & ATTRIB_BITAN)
 		m_BitanSize += sizeof(XMFLOAT3);
+	if (m_Layout.Flags() & ATTRIB_BONES)
+		m_BoneSize += sizeof(XMINT4);
+	if (m_Layout.Flags() & ATTRIB_WEIGHTS)
+		m_WeightSize += sizeof(XMFLOAT4);
 
 	m_Bytes.resize(size * m_Layout.Stride());
 }
@@ -79,6 +91,22 @@ XMFLOAT3& VertexData::Bitan(UINT vertIdx)
 		"Invalid index");
 
 	return *reinterpret_cast<XMFLOAT3*>(&m_Bytes[vertIdx * m_Layout.Stride() + m_PosSize + m_TexSize + m_NormSize + m_TanSize]);
+}
+
+XMINT4& VertexData::Bones(UINT vertIdx)
+{
+	DYNAMO_ASSERT(m_Layout.Flags() & ATTRIB_BONES && vertIdx >= 0 && vertIdx < m_Size,
+		"Invalid index");
+
+	return *reinterpret_cast<XMINT4*>(&m_Bytes[vertIdx * m_Layout.Stride() + m_PosSize + m_TexSize + m_NormSize + m_TanSize + m_BitanSize]);
+}
+
+XMFLOAT4& VertexData::Weights(UINT vertIdx)
+{
+	DYNAMO_ASSERT(m_Layout.Flags() & ATTRIB_WEIGHTS && vertIdx >= 0 && vertIdx < m_Size,
+		"Invalid index");
+
+	return *reinterpret_cast<XMFLOAT4*>(&m_Bytes[vertIdx * m_Layout.Stride() + m_PosSize + m_TexSize + m_NormSize + m_TanSize + m_BitanSize + m_BoneSize]);
 }
 
 VertexBuffer::VertexBuffer(Graphics& g, const VertexData& vertData)

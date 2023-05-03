@@ -7,20 +7,22 @@
 #include "Bindable/InputLayout.h"
 #include "Bindable/TransformBuffer.h"
 #include "Light.h"
+#include "ObjectCBuffs.h"
+#include "AssimpXMHelpers.h"
+#include "Animation/Bone.h"
 
-VertexLayout Mesh::m_Layout = VertexLayout(ATTRIB_POS | ATTRIB_TEX | ATTRIB_NORM | ATTRIB_TAN | ATTRIB_BITAN);
-
-struct Specular {
-    alignas(8) float Intensity;
-    alignas(8) float Power;
-} spec;
-
-Mesh::Mesh(Graphics& g, Model* parent, const std::string& directory, const aiMesh* mesh, const aiMaterial* mat)
+Mesh::Mesh(Graphics& g, Model* parent, const std::string& directory, const aiMesh* mesh, const aiMaterial* mat, float scale)
     :m_Parent(parent), m_Directory(std::move(directory))
 {
-    VertexData vertices(m_Layout, mesh->mNumVertices);
+    ATTRIB_FLAGS attribs = ATTRIB_POS | ATTRIB_TEX | ATTRIB_NORM | ATTRIB_TAN | ATTRIB_BITAN;
+    m_Layout = MakeUnique<VertexLayout>(attribs);
+    VertexData vertices(*m_Layout, mesh->mNumVertices);
     for (UINT vert = 0; vert < mesh->mNumVertices; vert++) {
-        vertices.Pos(vert) = *reinterpret_cast<XMFLOAT3*>(&mesh->mVertices[vert].x);
+        auto& pos = *reinterpret_cast<XMFLOAT3*>(&mesh->mVertices[vert].x);
+        pos.x *= scale;
+        pos.y *= scale;
+        pos.z *= scale;
+        vertices.Pos(vert) = pos;
         vertices.Norm(vert) = *reinterpret_cast<XMFLOAT3*>(&mesh->mNormals[vert].x);
         vertices.Tex(vert) = *reinterpret_cast<XMFLOAT2*>(&mesh->mTextureCoords[0][vert].x);
         vertices.Tan(vert) = *reinterpret_cast<XMFLOAT3*>(&mesh->mTangents[vert].x);
@@ -38,13 +40,14 @@ Mesh::Mesh(Graphics& g, Model* parent, const std::string& directory, const aiMes
     m_VBuff = MakeUnique<VertexBuffer>(g, vertices);
     m_IBuff = MakeUnique<IndexBuffer>(g, indices);
     m_Top = Topology::Evaluate(g);
+    auto transform = MakeShared<TransformBuffer>(g);
 
     if (mesh->mMaterialIndex >= 0) {
         if (Shared<Texture2D>& diffuse = GetTexture(g, mat, aiTextureType_DIFFUSE, 0))
             m_Textures.push_back(std::move(diffuse));
-        if (Shared<Texture2D>& specular = GetTexture(g, mat, aiTextureType_SPECULAR, 1))
+        if (Shared<Texture2D>& specular = GetTexture(g, mat, aiTextureType_METALNESS, 1))
             m_Textures.push_back(std::move(specular));
-        if (Shared<Texture2D>& normal = GetTexture(g, mat, aiTextureType_HEIGHT, 2))
+        if (Shared<Texture2D>& normal = GetTexture(g, mat, aiTextureType_NORMALS, 2))
             m_Textures.push_back(std::move(normal));
     }
 
@@ -52,29 +55,50 @@ Mesh::Mesh(Graphics& g, Model* parent, const std::string& directory, const aiMes
         Technique lambertian("Shade");
         {
             Step only("lambertian");
-            only.AddBind(Sampler::Evaluate(g));
-            auto& vs = VertexShader::Evaluate(g, "res\\shaders\\Modelvs.cso");
-            only.AddBind(InputLayout::Evaluate(g, m_Layout, *vs));
+            auto& vs = VertexShader::Evaluate(g, "res\\shaders\\Modelvs.hlsl");
+            only.AddBind(InputLayout::Evaluate(g, *m_Layout, *vs));
             only.AddBind(vs);
-            only.AddBind(PixelShader::Evaluate(g, "res\\shaders\\Modelps.cso"));
-            auto specular = PixelConstantBuffer<Specular>::Evaluate(g);
-            spec.Intensity = 0.1;
-            spec.Power = 16;
+            only.AddBind(PixelShader::Evaluate(g, "res\\shaders\\Modelps.hlsl"));
+            auto camBuff = PixelConstantBuffer<CamStuff>::Evaluate(g, 2);
+            only.AddBind(std::move(camBuff));
+            auto specular = PixelConstantBuffer<SpecularMaterial>::Evaluate(g);
+            SpecularMaterial spec;
+            spec.SpecPower = 4.f;
+            spec.SpecColor = { 0.1f, 0.1f, 0.1f, 1.f };
+            spec.hasSpecMap = true;
             specular->Update(g, &spec);
             only.AddBind(std::move(specular));
-            only.AddBind(MakeShared<TransformBuffer>(g));
+            only.AddBind(transform);
             for (auto& t : m_Textures)
                only.AddBind(t);
-            lambertian.AddStep(only);
+            lambertian.AddStep(std::move(only));
         }
 
-        AddTechnique(lambertian);
+        AddTechnique(std::move(lambertian));
+    }
+    {
+        Technique shadowMap("shadowMap");
+        {
+            Step only("shadowMap");
+            auto& vs = VertexShader::Evaluate(g, "res\\shaders\\Solidvs.hlsl");
+            only.AddBind(vs);
+            only.AddBind(InputLayout::Evaluate(g, *m_Layout, *vs));
+            only.AddBind(transform);
+            shadowMap.AddStep(std::move(only));
+        }
+
+        AddTechnique(std::move(shadowMap));
     }
 }
 
 XMMATRIX Mesh::ModelMat() const
 {
     return m_Parent->ModelMat();
+}
+
+void Mesh::Bind(Graphics& g) const
+{
+    Renderable::Bind(g);
 }
 
 Shared<Texture2D> Mesh::GetTexture(Graphics& g, const aiMaterial* mat, aiTextureType type, UINT slot)
@@ -87,4 +111,3 @@ Shared<Texture2D> Mesh::GetTexture(Graphics& g, const aiMaterial* mat, aiTexture
     texPath = m_Directory + "/" + texPath;
     return Texture2D::Evaluate(g, texPath, slot);
 }
-

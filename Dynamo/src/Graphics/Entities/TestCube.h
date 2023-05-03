@@ -8,5 +8,5 @@ class TestCube : public Renderable, public Transformable
 public:
 	TestCube(Graphics& g, float size);
 	virtual XMMATRIX ModelMat() const override;
-	virtual void ShowGUI() override;
+	virtual void ShowGUI(Graphics& g) override;
 };

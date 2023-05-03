@@ -13,12 +13,49 @@ public:
 	~RDG();
 	void Run(Graphics& g);
 	void Clear();
-	void ShowGUI();
+	void ShowGUI(Graphics& g);
 	class RenderPass* GetRenderPass(const std::string& passName) const;
+
+	inline ID3D11RenderTargetView* RTTarget() const {
+		if (m_BackBuff) {
+			auto& rt = dynamic_cast<ReadableRenderTarget&>(*m_BackBuff);
+			return rt.GetTarget();
+		}
+
+		return nullptr;
+	}
+
+	inline ID3D11Texture2D* RTTextureFrFr() const {
+		if (m_BackBuff) {
+			auto& rt = dynamic_cast<ReadableRenderTarget&>(*m_BackBuff);
+			return rt.GetTextureFrFr();
+		}
+
+		return nullptr;
+	}
+
 	inline ID3D11ShaderResourceView* RTTexture() const { 
 		if (m_BackBuff) {
 			auto& rt = dynamic_cast<ReadableRenderTarget&>(*m_BackBuff);
 			return rt.GetTexture();
+		}
+
+		return nullptr;
+	}
+
+	inline ID3D11ShaderResourceView* DSTexture() const {
+		if (m_MasterDS) {
+			auto& ds = dynamic_cast<ReadableDepthStencil&>(*m_MasterDS);
+			return ds.GetTexture();
+		}
+
+		return nullptr;
+	}
+
+	inline ID3D11ShaderResourceView* ShadowMap() const {
+		if (m_ShadowMap) {
+			auto& ds = dynamic_cast<ReadableDepthStencil&>(*m_ShadowMap);
+			return ds.GetTexture();
 		}
 
 		return nullptr;
@@ -33,8 +70,7 @@ protected:
 	void Finish();
 	void LinkGlobalIns();
 
-private:
-	void Recompile();
+	Shared<DepthStencil> m_ShadowMap;
 
 private:
 	std::vector<Unique<Pass>> m_Passes;
@@ -45,6 +81,7 @@ private:
 	bool m_Finished = false;
 	UINT m_OutNode;
 	UINT m_InNode;
+	Pass* m_SelectedPass;
 
 	ed::EditorContext* m_Editor;
 };

@@ -21,10 +21,10 @@ Skybox::Skybox(Graphics& g, const std::string& texDir)
 		Technique lambertian("Shade");
 		{
 			Step only("BasicDraw");
-			auto& vs = VertexShader::Evaluate(g, "res\\shaders\\Skyboxvs.cso");
+			auto& vs = VertexShader::Evaluate(g, "res\\shaders\\Skyboxvs.hlsl");
 			only.AddBind(InputLayout::Evaluate(g, cube.Vertices.Layout(), *vs));
 			only.AddBind(vs);
-			only.AddBind(PixelShader::Evaluate(g, "res\\shaders\\Skyboxps.cso"));
+			only.AddBind(PixelShader::Evaluate(g, "res\\shaders\\Skyboxps.hlsl"));
 			only.AddBind(MakeShared<SkyboxCbuff>(g));
 			only.AddBind(Cubemap::Evaluate(g, texDir));
 			only.AddBind(Sampler::Evaluate(g));

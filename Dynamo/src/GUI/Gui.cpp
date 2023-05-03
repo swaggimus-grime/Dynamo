@@ -14,14 +14,16 @@ void Gui::Init()
 	ImGui::StyleColorsDark();
 }
 
-void Gui::ActivateMouse(BOOL active)
+void Gui::EnableMouse()
 {
 	auto& io = ImGui::GetIO();
+	io.ConfigFlags &= ~ImGuiConfigFlags_NoMouse;
+}
 
-	if(active)
-		io.ConfigFlags &= ~ImGuiConfigFlags_NoMouse;
-	else
-		io.ConfigFlags |= ImGuiConfigFlags_NoMouse;
+void Gui::DisableMouse()
+{
+	auto& io = ImGui::GetIO();
+	io.ConfigFlags |= ImGuiConfigFlags_NoMouse;
 }
 
 void Gui::Shutdown()

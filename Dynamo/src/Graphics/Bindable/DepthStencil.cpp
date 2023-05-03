@@ -76,9 +76,9 @@ DepthStencil::DepthStencil(Graphics& g, ComPtr<ID3D11Texture2D> texture, UINT fa
     descView.Texture2DArray.MipSlice = 0;
     descView.Texture2DArray.ArraySize = 1;
     descView.Texture2DArray.FirstArraySlice = face;
-    g.Device().CreateDepthStencilView(
+    DX_ASSERT(g.Device().CreateDepthStencilView(
         texture.Get(), &descView, &m_DSV
-    );
+    ));
 }
 
 DepthStencil::DepthStencil(Graphics& g, UINT width, UINT height, bool canBindShaderInput, DS_USAGE usage)
@@ -92,8 +92,14 @@ DepthStencil::DepthStencil(Graphics& g, UINT width, UINT height, bool canBindSha
     descDepth.MipLevels = 1u;
     descDepth.ArraySize = 1u;
     descDepth.Format = MapUsageTypeless(usage);
-    descDepth.SampleDesc.Count = 1u;
-    descDepth.SampleDesc.Quality = 0u;
+    if (canBindShaderInput) {
+        descDepth.SampleDesc.Count = g.MaxSamples();
+        descDepth.SampleDesc.Quality = g.QualityLevel() - 1;
+    }
+    else {
+        descDepth.SampleDesc.Count = 1;
+        descDepth.SampleDesc.Quality = 0;
+    }
     descDepth.Usage = D3D11_USAGE_DEFAULT;
     descDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL | (canBindShaderInput ? D3D11_BIND_SHADER_RESOURCE : 0);
     g.Device().CreateTexture2D(&descDepth, nullptr, &texture);
@@ -102,11 +108,11 @@ DepthStencil::DepthStencil(Graphics& g, UINT width, UINT height, bool canBindSha
     D3D11_DEPTH_STENCIL_VIEW_DESC descView = {};
     descView.Format = MapUsageTyped(usage);
     descView.Flags = 0;
-    descView.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+    descView.ViewDimension = canBindShaderInput ? D3D11_DSV_DIMENSION_TEXTURE2DMS : D3D11_DSV_DIMENSION_TEXTURE2D;
     descView.Texture2D.MipSlice = 0;
-    g.Device().CreateDepthStencilView(
+    DX_ASSERT(g.Device().CreateDepthStencilView(
         texture.Get(), &descView, &m_DSV
-    );
+    ));
 }
 
 ReadableDepthStencil::ReadableDepthStencil(Graphics& g, UINT slot, DS_USAGE usage)
@@ -122,12 +128,12 @@ ReadableDepthStencil::ReadableDepthStencil(Graphics& g, UINT width, UINT height,
 
     D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
     srvDesc.Format = MapUsageColored(usage);
-    srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+    srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2DMS;
     srvDesc.Texture2D.MostDetailedMip = 0;
     srvDesc.Texture2D.MipLevels = 1;
-    g.Device().CreateShaderResourceView(
+    DX_ASSERT(g.Device().CreateShaderResourceView(
         pRes.Get(), &srvDesc, &m_SRV
-    );
+    ));
 }
 
 void ReadableDepthStencil::Bind(Graphics& g)
@@ -146,7 +152,7 @@ WriteOnlyDepthStencil::WriteOnlyDepthStencil(Graphics& g)
 }
 
 WriteOnlyDepthStencil::WriteOnlyDepthStencil(Graphics& g, UINT width, UINT height)
-    :DepthStencil(g, width, height, false, DS_USAGE::DEPTH_STENCIL)
+    :DepthStencil(g, width, height, false, DS_USAGE::DEPTH_ONLY)
 {
 }
 

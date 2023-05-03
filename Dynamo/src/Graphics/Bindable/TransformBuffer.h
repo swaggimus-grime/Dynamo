@@ -2,11 +2,20 @@
 
 #include "ConstantBuffer.h"
 #include "GUI/GUIable.h"
+#include "Animation/Bone.h"
 
 struct Transform {
 	XMMATRIX Model = XMMatrixIdentity();
 	XMMATRIX ModelView = XMMatrixIdentity();
 	XMMATRIX MVP = XMMatrixIdentity();
+};
+
+struct ShadowCamTransform {
+	XMMATRIX view = XMMatrixIdentity();
+};
+
+struct BoneTransform {
+	XMMATRIX boneMats[MAX_NUM_BONES];
 };
 
 class TransformBuffer : public VertexConstantBuffer<Transform> {
@@ -22,12 +31,35 @@ private:
 	const Renderable* m_Renderable;
 };
 
+class ShadowCamBuffer : public VertexConstantBuffer<ShadowCamTransform>{
+public:
+	ShadowCamBuffer(Graphics& g, UINT slot = 1u);
+	virtual void Bind(Graphics& g) override;
+	void SetCamera(const Camera* camera);
+
+private:
+	const Camera* m_Camera;
+};
+
+class BoneBuffer : public VertexConstantBuffer<BoneTransform> {
+public:
+	BoneBuffer(Graphics& g, UINT slot = 2u);
+	virtual void Bind(Graphics& g) override;
+	inline void SetModel(class AnimModel* model) { m_Model = model; }
+
+private:
+	AnimModel* m_Model;
+};
+
 class Transformable : public GUIable {
 public:
 	Transformable();
 	virtual void SetPos(const XMFLOAT3& pos);
 	virtual void SetRot(const XMFLOAT3& rot);
 	virtual void SetScale(const XMFLOAT3& scale);
+	virtual void Move(const XMFLOAT3& delta);
+	virtual void Rotate(const XMFLOAT3& delta);
+	virtual void Rotate(float dx, float dy);
 
 	XMFLOAT3 Pos() const { return m_Pos; }
 	XMFLOAT3 Rot() const { return m_Ori; }
@@ -35,7 +67,7 @@ public:
 
 	inline XMMATRIX TransformMat() const { return m_Scale * m_Rot * m_Trans; }
 
-	virtual void ShowGUI() override;
+	virtual void ShowGUI(Graphics& g) override;
 
 protected:
 	XMMATRIX m_Trans = XMMatrixIdentity();

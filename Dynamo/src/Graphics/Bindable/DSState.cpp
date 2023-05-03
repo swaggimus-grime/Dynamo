@@ -29,6 +29,8 @@ DSState::DSState(Graphics& g, DS_MODE mode)
 		dsDesc.FrontFace.StencilFunc = D3D11_COMPARISON_NOT_EQUAL;
 		dsDesc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
 		break;
+	case DS_MODE::STENCIL_OFF:
+		break;
 	}
 
 	g.Device().CreateDepthStencilState(&dsDesc, m_State.GetAddressOf());

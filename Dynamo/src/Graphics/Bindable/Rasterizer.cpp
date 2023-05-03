@@ -38,3 +38,25 @@ Shared<Rasterizer> Rasterizer::Evaluate(Graphics& g, RS_MODE mode)
 {
 	return Binds::Evaluate<Rasterizer>(g, mode);
 }
+
+ShadowRasterizer::ShadowRasterizer(Graphics& g, int depthBias, float slopeBias, float clamp)
+{
+	UpdateParams(g, depthBias, slopeBias, clamp);
+}
+
+void ShadowRasterizer::UpdateParams(Graphics& g, int depthBias, float slopeBias, float clamp)
+{ 
+	D3D11_RASTERIZER_DESC rasterDesc = CD3D11_RASTERIZER_DESC(CD3D11_DEFAULT{});
+	rasterDesc.MultisampleEnable = true;
+	rasterDesc.CullMode = D3D11_CULL_NONE;
+	rasterDesc.DepthBias = depthBias;
+	rasterDesc.SlopeScaledDepthBias = slopeBias;
+	rasterDesc.DepthBiasClamp = clamp;
+
+	g.Device().CreateRasterizerState(&rasterDesc, &m_State);
+}
+
+void ShadowRasterizer::Bind(Graphics& g)
+{
+	g.DC().RSSetState(m_State.Get());
+}

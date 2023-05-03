@@ -66,4 +66,5 @@ public:
 
 private:
 	Shared<T>& m_Bindable;
+	bool m_Linked = false;
 };

@@ -6,7 +6,8 @@
 class Gui {
 public:
 	static void Init();
-	static void ActivateMouse(BOOL active);
+	static void EnableMouse();
+	static void DisableMouse();
 	static void BeginFrame();
 	static void EndFrame();
 	static void Shutdown();

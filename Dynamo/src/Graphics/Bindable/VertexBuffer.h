@@ -7,12 +7,19 @@ enum ATTRIB_FLAGS {
 	ATTRIB_TEX = 0x10,
 	ATTRIB_NORM = 0x100,
 	ATTRIB_TAN = 0x1000,
-	ATTRIB_BITAN = 0x10000
+	ATTRIB_BITAN = 0x10000,
+	ATTRIB_BONES = 0x100000,
+	ATTRIB_WEIGHTS = 0x1000000
 };
 
 inline ATTRIB_FLAGS operator|(ATTRIB_FLAGS a, ATTRIB_FLAGS b)
 {
 	return static_cast<ATTRIB_FLAGS>(static_cast<int>(a) | static_cast<int>(b));
+}
+
+inline void operator|=(ATTRIB_FLAGS& a, ATTRIB_FLAGS b)
+{
+	a = static_cast<ATTRIB_FLAGS>(static_cast<int>(a) | static_cast<int>(b));
 }
 
 class VertexLayout {
@@ -41,6 +48,8 @@ public:
 	XMFLOAT3& Norm(UINT vertIdx);
 	XMFLOAT3& Tan(UINT vertIdx);
 	XMFLOAT3& Bitan(UINT vertIdx);
+	XMINT4& Bones(UINT vertIdx);
+	XMFLOAT4& Weights(UINT vertIdx);
 
 private:
 	SIZE_T m_Size;
@@ -52,6 +61,8 @@ private:
 	SIZE_T m_NormSize = 0;
 	SIZE_T m_TanSize = 0;
 	SIZE_T m_BitanSize = 0;
+	SIZE_T m_BoneSize = 0;
+	SIZE_T m_WeightSize = 0;
 };
 
 class VertexBuffer : public Bindable {

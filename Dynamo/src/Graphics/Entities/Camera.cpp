@@ -1,10 +1,10 @@
 #include "dynamopch.h"
 #include "Camera.h"
 
-Camera::Camera(XMFLOAT3 pos)
-	:m_Pos(pos), 
-	m_Proj(XMMatrixPerspectiveFovLH(XMConvertToRadians(45.f), 16.f / 9.f, 0.5f, 4000.0f)),
-	m_Pitch(0.f), m_Yaw(0)
+Camera::Camera(const std::string& name, XMFLOAT3 pos)
+	:m_Pos(pos), m_Name(std::move(name)),
+	m_Proj(XMMatrixPerspectiveLH(1.f, 9 / 16.f, 0.5f, 400.0f)),
+	m_Pitch(0), m_Yaw(0)
 {
 }
 
@@ -52,11 +52,12 @@ void Camera::Move(XMFLOAT3 translation)
 		XMMatrixRotationRollPitchYaw(m_Pitch, m_Yaw, 0.0f) *
 		XMMatrixScaling(m_MoveSpeed, m_MoveSpeed, m_MoveSpeed)
 	));
-	m_Pos = {
+	
+	SetPos({ 
 		m_Pos.x + translation.x,
 		m_Pos.y + translation.y,
 		m_Pos.z + translation.z
-	};
+	});
 }
 
 DirectX::XMFLOAT3 Camera::GetPos() const noexcept

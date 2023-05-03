@@ -30,10 +30,10 @@ TestCube::TestCube(Graphics& g, float size)
 			Step only("lambertian");
 			//only.AddBind(Texture2D::Evaluate(g, "res\\skyboxes\\ocean\\0.jpg", 0));
 			//only.AddBind(Sampler::Evaluate(g));
-			auto& vs = VertexShader::Evaluate(g, "res\\shaders\\Solidvs.cso");
+			auto& vs = VertexShader::Evaluate(g, "res\\shaders\\Solidvs.hlsl");
 			only.AddBind(InputLayout::Evaluate(g, shape.Vertices.Layout(), *vs));
 			only.AddBind(std::move(vs));
-			only.AddBind(PixelShader::Evaluate(g, "res\\shaders\\Solidps.cso"));
+			only.AddBind(PixelShader::Evaluate(g, "res\\shaders\\Solidps.hlsl"));
 			only.AddBind(tcb);
 			only.AddBind(Rasterizer::Evaluate(g, RS_MODE::CULL_NONE));
 			shade.AddStep(std::move(only));
@@ -47,7 +47,7 @@ TestCube::TestCube(Graphics& g, float size)
 			Step mask("outlineMask");
 
 			// TODO: better sub-layout generation tech for future consideration maybe
-			mask.AddBind(InputLayout::Evaluate(g, shape.Vertices.Layout(), *VertexShader::Evaluate(g, "res/shaders/Solidvs.cso")));
+			mask.AddBind(InputLayout::Evaluate(g, shape.Vertices.Layout(), *VertexShader::Evaluate(g, "res/shaders/Solidvs.hlsl")));
 
 			mask.AddBind(std::move(tcb));
 
@@ -59,7 +59,7 @@ TestCube::TestCube(Graphics& g, float size)
 			Step draw("outlineDraw");
 
 			// TODO: better sub-layout generation tech for future consideration maybe
-			draw.AddBind(InputLayout::Evaluate(g, shape.Vertices.Layout(), *VertexShader::Evaluate(g, "res/shaders/Solidvs.cso")));
+			draw.AddBind(InputLayout::Evaluate(g, shape.Vertices.Layout(), *VertexShader::Evaluate(g, "res/shaders/Solidvs.hlsl")));
 
 			draw.AddBind(std::make_shared<TransformBuffer>(g));
 
@@ -77,8 +77,8 @@ XMMATRIX TestCube::ModelMat() const
 	return TransformMat();
 }
 
-void TestCube::ShowGUI()
+void TestCube::ShowGUI(Graphics& g)
 {
-	Transformable::ShowGUI();
+	Transformable::ShowGUI(g);
 }
 

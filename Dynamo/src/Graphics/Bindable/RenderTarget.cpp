@@ -50,6 +50,7 @@ RenderTarget::RenderTarget(Graphics& g, ID3D11Texture2D* pTexture, std::optional
 {
 	// get information from texture about dimensions
 	D3D11_TEXTURE2D_DESC textureDesc;
+	m_Texture = pTexture;
 	pTexture->GetDesc(&textureDesc);
 	m_Width = textureDesc.Width;
 	m_Height = textureDesc.Height;
@@ -75,8 +76,8 @@ RenderTarget::RenderTarget(Graphics& g, ID3D11Texture2D* pTexture, std::optional
 	);
 }
 
-RenderTarget::RenderTarget(Graphics& g, UINT width, UINT height)
-	:m_Width(width),	m_Height(height)
+RenderTarget::RenderTarget(Graphics& g, UINT width, UINT height, bool canBindShaderInput)
+	:m_Width(width), m_Height(height)
 {
 	// create texture resource
 	D3D11_TEXTURE2D_DESC textureDesc = {};
@@ -84,43 +85,50 @@ RenderTarget::RenderTarget(Graphics& g, UINT width, UINT height)
 	textureDesc.Height = height;
 	textureDesc.MipLevels = 1;
 	textureDesc.ArraySize = 1;
-	textureDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
-	textureDesc.SampleDesc.Count = 1;
-	textureDesc.SampleDesc.Quality = 0;
+	textureDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	if (canBindShaderInput) {
+		textureDesc.SampleDesc.Count = g.MaxSamples();
+		textureDesc.SampleDesc.Quality = g.QualityLevel() - 1;
+	}
+	else {
+		textureDesc.SampleDesc.Count = 1;
+		textureDesc.SampleDesc.Quality = 0;
+	}
+
 	textureDesc.Usage = D3D11_USAGE_DEFAULT;
 	textureDesc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE; // never do we not want to bind offscreen RTs as inputs
 	textureDesc.CPUAccessFlags = 0;
 	textureDesc.MiscFlags = 0;
-	ComPtr<ID3D11Texture2D> pTexture;
-	g.Device().CreateTexture2D(
-		&textureDesc, nullptr, &pTexture
-	);
+
+	DX_ASSERT(g.Device().CreateTexture2D(
+		&textureDesc, nullptr, &m_Texture
+	))
 
 	// create the target view on the texture
 	D3D11_RENDER_TARGET_VIEW_DESC rtvDesc = {};
 	rtvDesc.Format = textureDesc.Format;
-	rtvDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;
+	rtvDesc.ViewDimension = canBindShaderInput ? D3D11_RTV_DIMENSION_TEXTURE2DMS : D3D11_RTV_DIMENSION_TEXTURE2D;
 	rtvDesc.Texture2D = D3D11_TEX2D_RTV{ 0 };
-	g.Device().CreateRenderTargetView(
-		pTexture.Get(), &rtvDesc, &m_RTV
-	);
+	DX_ASSERT(g.Device().CreateRenderTargetView(
+		m_Texture.Get(), &rtvDesc, &m_RTV
+	));
 }
 
 ReadableRenderTarget::ReadableRenderTarget(Graphics& g, UINT width, UINT height, UINT slot)
-	:RenderTarget(g, width, height), m_Slot(slot)
+	:RenderTarget(g, width, height, true), m_Slot(slot)
 {
 	ComPtr<ID3D11Resource> pRes;
 	m_RTV->GetResource(&pRes);
 
 	// create the resource view on the texture
 	D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
-	srvDesc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
-	srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+	srvDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2DMS;
 	srvDesc.Texture2D.MostDetailedMip = 0;
 	srvDesc.Texture2D.MipLevels = 1;
-	g.Device().CreateShaderResourceView(
+	DX_ASSERT(g.Device().CreateShaderResourceView(
 		pRes.Get(), &srvDesc, &m_SRV
-	);
+	));
 }
 
 void ReadableRenderTarget::Bind(Graphics& g)
@@ -136,4 +144,21 @@ void WriteOnlyRenderTarget::Bind(Graphics& g)
 WriteOnlyRenderTarget::WriteOnlyRenderTarget(Graphics& g, ID3D11Texture2D* pTexture, std::optional<UINT> face)
 	:RenderTarget(g, pTexture, face)
 {
+}
+
+WriteOnlyRenderTarget::WriteOnlyRenderTarget(Graphics& g, UINT width, UINT height)
+	:RenderTarget(g, width, height, false)
+{
+	ComPtr<ID3D11Resource> pRes;
+	m_RTV->GetResource(&pRes);
+
+	// create the resource view on the texture
+	D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
+	srvDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
+	srvDesc.Texture2D.MostDetailedMip = 0;
+	srvDesc.Texture2D.MipLevels = 1;
+	DX_ASSERT(g.Device().CreateShaderResourceView(
+		pRes.Get(), &srvDesc, &m_SRV
+	));
 }

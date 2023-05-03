@@ -95,6 +95,9 @@ std::optional<XMFLOAT2> Input::ReadMouseLPress()
 void Input::SetCursor(BOOL enabled)
 {
 	SetRawDeltaEnabled(enabled); 
-	ShowCursor(!enabled); 
-	Gui::ActivateMouse(!enabled);
+	ShowCursor(!enabled);
+	if (!enabled)
+		Gui::EnableMouse();
+	else
+		Gui::DisableMouse();
 }

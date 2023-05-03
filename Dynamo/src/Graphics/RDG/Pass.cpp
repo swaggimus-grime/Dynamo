@@ -67,7 +67,7 @@ void Pass::Finish()
 		out->ValidateLink();
 }
 
-void Pass::ShowGUI() const
+void Pass::ShowGUI(Graphics& g)
 {
 	ed::BeginNode(m_NodeID);
 	ImGui::Text(m_Name.c_str());
@@ -85,7 +85,9 @@ void Pass::ShowGUI() const
 		ImGui::Text((out->Name() + " ->").c_str());
 		ed::EndPin();
 	}
+
 	ImGui::EndGroup();
+
 	ed::EndNode();
 }
 

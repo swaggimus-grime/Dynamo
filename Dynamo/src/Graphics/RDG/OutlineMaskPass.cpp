@@ -13,7 +13,7 @@ OutlineMaskPass::OutlineMaskPass(Graphics& g, const std::string& name)
 {
 	AddIn(BufferIn<DepthStencil>::Make("depthStencil", m_DS));
 	AddOut(BufferOut<DepthStencil>::Make("depthStencil", m_DS));
-	AddBind(VertexShader::Evaluate(g, "res/shaders/Solidvs.cso"));
+	AddBind(VertexShader::Evaluate(g, "res/shaders/Solidvs.hlsl"));
 	AddBind(NullPixelShader::Evaluate(g));
 	AddBind(DSState::Evaluate(g, DS_MODE::STENCIL_WRITE));
 	AddBind(Rasterizer::Evaluate(g, RS_MODE::CULL_BACK));

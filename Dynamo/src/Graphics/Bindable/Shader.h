@@ -15,6 +15,16 @@ private:
 	ComPtr<ID3D10Blob> m_Code;
 };
 
+class GeometryShader : public Bindable {
+public:
+	GeometryShader(Graphics& g, const std::string& path);
+	virtual void Bind(Graphics& g) override;
+	static std::string CreateHash(const std::string& path);
+	static Shared<GeometryShader> Evaluate(Graphics& g, const std::string& path);
+private:
+	ComPtr<ID3D11GeometryShader> m_Shader;
+};
+
 class PixelShader : public Bindable {
 public:
 	PixelShader(Graphics& g, const std::string& path);

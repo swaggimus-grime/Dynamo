@@ -6,16 +6,19 @@
 #include "Bindable/DepthStencil.h"
 #include "Bindable/RenderTarget.h"
 #include "Pass.h"
+#include <thread>
 
 RDG::RDG(Graphics& g)
-	:m_BackBuff(MakeShared<ReadableRenderTarget>(g, g.Width(), g.Height(), 0)), m_MasterDS(MakeShared<WriteOnlyDepthStencil>(g)),
+	:m_BackBuff(MakeShared<ReadableRenderTarget>(g, g.Width(), g.Height(), 0)), m_MasterDS(MakeShared<ReadableDepthStencil>(g, 3)),
 	m_Editor(ed::CreateEditor()),
 	m_OutNode(Editor::NextNode()),
-	m_InNode(Editor::NextNode())
+	m_InNode(Editor::NextNode()),
+	m_SelectedPass(nullptr)
 {
 	AddGlobalOut(BufferOut<RenderTarget>::Make("backbuffer", m_BackBuff));
 	AddGlobalOut(BufferOut<DepthStencil>::Make("masterDepth", m_MasterDS));
 	AddGlobalIn(BufferIn<RenderTarget>::Make("backbuffer", m_BackBuff));
+	AddGlobalIn(BindableIn<DepthStencil>::Make("masterDepth", m_MasterDS));
 }
 
 RDG::~RDG()
@@ -26,8 +29,8 @@ RDG::~RDG()
 void RDG::Run(Graphics& g)
 {
 	DYNAMO_ASSERT(m_Finished, "RDG not finished setting up");
-	if (!m_Ins[0]->Linked())
-		return;
+	//if (!m_Ins[0]->Linked())
+	//	return;
 	for (auto& p : m_Passes)
 		p->Run(g);
 }
@@ -39,126 +42,143 @@ void RDG::Clear()
 		p->Clear();
 }
 
-void RDG::ShowGUI()
+void RDG::ShowGUI(Graphics& g)
 {
-	ImGui::Begin("Render Dependency Graph");
-	ed::SetCurrentEditor(m_Editor);
+	if (ImGui::Begin("Render Dependency Graph")) {
+		ed::SetCurrentEditor(m_Editor);
 
-	ed::Begin("RDG");
+		ed::Begin("RDG");
 
-	ed::BeginNode(m_InNode);
-	ImGui::Text("RDG Output");
-	ImGui::BeginGroup();
-	for (auto& in : m_Ins) {
-		ed::BeginPin(in->PinID(), ed::PinKind::Input);
-		ImGui::Text(("-> " + in->Name()).c_str());
-		ed::EndPin();
-	}
-	ImGui::EndGroup();
-	ed::EndNode();
+		ed::BeginNode(m_InNode);
+		ImGui::Text("RDG Output");
+		ImGui::BeginGroup();
+		for (auto& in : m_Ins) {
+			ed::BeginPin(in->PinID(), ed::PinKind::Input);
+			ImGui::Text(("-> " + in->Name()).c_str());
+			ed::EndPin();
+		}
+		ImGui::EndGroup();
+		ed::EndNode();
 
-	ed::BeginNode(m_OutNode);
-	ImGui::Text("RDG Inputs");
-	ImGui::BeginGroup();
-	for (auto& out : m_Outs) {
-		ed::BeginPin(out->PinID(), ed::PinKind::Output);
-		ImGui::Text((out->Name() + " ->").c_str());
-		ed::EndPin();
-	}
-	ImGui::EndGroup();
-	ed::EndNode();
+		ed::BeginNode(m_OutNode);
+		ImGui::Text("RDG Inputs");
+		ImGui::BeginGroup();
+		for (auto& out : m_Outs) {
+			ed::BeginPin(out->PinID(), ed::PinKind::Output);
+			ImGui::Text((out->Name() + " ->").c_str());
+			ed::EndPin();
+		}
+		ImGui::EndGroup();
+		ed::EndNode();
 
-	for (auto& pass : m_Passes) 
-		pass->ShowGUI();
-	
-	for (auto& in : m_Ins)
-		if (in->Linked())
-			ed::Link(in->LinkID(), in->PinID(), in->OutID());
-	for (auto& pass : m_Passes)
-		for (auto& in : pass->Ins())
+		for (auto& pass : m_Passes) {
+			pass->ShowGUI(g);
+			if (static_cast<ax::NodeEditor::NodeId>(pass->NodeID()) == ed::GetDoubleClickedNode())
+				m_SelectedPass = pass.get();
+		}
+
+		for (auto& in : m_Ins)
 			if (in->Linked())
 				ed::Link(in->LinkID(), in->PinID(), in->OutID());
-	
-	if (ed::BeginCreate())
-	{
-		ed::PinId inputPinId, outputPinId;
-		if (ed::QueryNewLink(&inputPinId, &outputPinId))
-		{
-			if (inputPinId && outputPinId) // both are valid, let's accept link
-			{
-				if (ed::AcceptNewItem())
-				{
-					In* inPtr = nullptr;
-					for (auto& in : m_Ins)
-						if (in->PinID() == outputPinId.Get()) {
-							inPtr = in.get();
-							break;
-						}
-					if (!inPtr) {
-						for (auto& p : m_Passes)
-							for (auto& in : p->Ins()) {
-								if (in->PinID() == outputPinId.Get()) {
-									inPtr = in.get();
-									break;
-								}
-							}
-					}
-					Out* outPtr = nullptr;
-					for (auto& out : m_Outs)
-						if (out->PinID() == inputPinId.Get()) {
-							outPtr = out.get();
-							break;
-						}
-					if (!outPtr) {
-						for (auto& p : m_Passes)
-							for (auto& out : p->Outs()) {
-								if (out->PinID() == inputPinId.Get()) {
-									outPtr = out.get();
-									break;
-								}
-							}
-					}
-					if (inPtr && outPtr) {
-						inPtr->Link(*outPtr);
-						ed::Link(inPtr->LinkID(), inPtr->PinID(), inPtr->OutID());
-					}
-				}
-			}
-		}
+		for (auto& pass : m_Passes)
+			for (auto& in : pass->Ins())
+				if (in->Linked())
+					ed::Link(in->LinkID(), in->PinID(), in->OutID());
+
+
+		//std::thread createLinks([&]() {
+		//	if (ed::BeginCreate())
+		//	{
+		//		ed::PinId inputPinId, outputPinId;
+		//		if (ed::QueryNewLink(&inputPinId, &outputPinId))
+		//		{
+		//			if (inputPinId && outputPinId) // both are valid, let's accept link
+		//			{
+		//				if (ed::AcceptNewItem())
+		//				{
+		//					In* inPtr = nullptr;
+		//					for (auto& in : m_Ins)
+		//						if (in->PinID() == outputPinId.Get()) {
+		//							inPtr = in.get();
+		//							break;
+		//						}
+		//					if (!inPtr) {
+		//						for (auto& p : m_Passes)
+		//							for (auto& in : p->Ins()) {
+		//								if (in->PinID() == outputPinId.Get()) {
+		//									inPtr = in.get();
+		//									break;
+		//								}
+		//							}
+		//					}
+		//					Out* outPtr = nullptr;
+		//					for (auto& out : m_Outs)
+		//						if (out->PinID() == inputPinId.Get()) {
+		//							outPtr = out.get();
+		//							break;
+		//						}
+		//					if (!outPtr) {
+		//						for (auto& p : m_Passes)
+		//							for (auto& out : p->Outs()) {
+		//								if (out->PinID() == inputPinId.Get()) {
+		//									outPtr = out.get();
+		//									break;
+		//								}
+		//							}
+		//					}
+		//					if (inPtr && outPtr) {
+		//						inPtr->Link(*outPtr);
+		//						ed::Link(inPtr->LinkID(), inPtr->PinID(), inPtr->OutID());
+		//					}
+		//				}
+		//			}
+		//		}
+		//	}
+		//	ed::EndCreate();
+		//});
+
+		//std::thread destoryLinks([&]() {
+		//	if (ed::BeginDelete())
+		//	{
+		//		// There may be many links marked for deletion, let's loop over them.
+		//		ed::LinkId deletedLinkId;
+		//		loop: while (ed::QueryDeletedLink(&deletedLinkId))
+		//		{
+		//			// If you agree that link can be deleted, accept deletion.
+		//			if (ed::AcceptDeletedItem())
+		//			{
+		//				for (auto& in : m_Ins)
+		//					if (in->LinkID() == deletedLinkId.Get()) {
+		//						in->Unlink();
+		//						goto loop;
+		//					}
+		//				for (auto& p : m_Passes)
+		//					for (auto& in : p->Ins()) {
+		//						if (in->LinkID() == deletedLinkId.Get()) {
+		//							in->Unlink();
+		//							goto loop;
+		//						}
+		//					}
+
+		//			}
+
+		//		}
+		//	}
+		//	ed::EndDelete();
+		//});
+
+		//createLinks.join();
+		//destoryLinks.join();
+
+		ed::End();
+		ed::SetCurrentEditor(nullptr);
 	}
-	ed::EndCreate();
 
-	if (ed::BeginDelete())
-	{
-		// There may be many links marked for deletion, let's loop over them.
-		ed::LinkId deletedLinkId;
-		loop : while (ed::QueryDeletedLink(&deletedLinkId))
-		{
-			// If you agree that link can be deleted, accept deletion.
-			if (ed::AcceptDeletedItem())
-			{
-				for (auto& in : m_Ins)
-					if (in->LinkID() == deletedLinkId.Get()) {
-						in->Unlink();
-						goto loop;
-					}
-				for (auto& p : m_Passes)
-					for (auto& in : p->Ins()) {
-						if (in->LinkID() == deletedLinkId.Get()) {
-							in->Unlink();
-							goto loop;
-						}
-					}
-
-			}
-
-		}
-	}
-	ed::EndDelete();
-
-	ed::End();
-	ed::SetCurrentEditor(nullptr);
 	ImGui::End();
+
+	if(m_SelectedPass) {
+		m_SelectedPass->OnNodeSelect(g);
+	}
 }
 
 RenderPass* RDG::GetRenderPass(const std::string& passName) const
@@ -279,7 +299,7 @@ Pass& RDG::FindPassByName(const std::string& name)
 		});
 	if (i == m_Passes.end())
 	{
-		throw std::runtime_error{ "Failed to find pass name" };
+		throw std::runtime_error{ "Failed to find pass name: " + name };
 	}
 	return **i;
 }

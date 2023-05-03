@@ -22,11 +22,13 @@ using namespace std::literals;
 #include <sstream>
 #include "Debug/DynamoException.h"
 
-static std::wstring NarrowToWide(const std::string& str)
+static std::wstring NarrowToWide(const std::string_view& str)
 {
-	wchar_t buff[1000];
-	mbstowcs_s(nullptr, buff, str.c_str(), 1000);
-	return buff;
+    wchar_t buff[1000];
+    if (str.size() >= 1000)
+        throw DYNAMO_EXCEP("String \'" + std::string(str) + "\' exceeds 1000 characters");
+    mbstowcs_s(nullptr, buff, str.data(), 1000);
+    return buff;
 }
 
 static std::vector<std::string> Parse(const std::string& s, char del)

@@ -10,6 +10,7 @@ protected:
 	ConstantBuffer() = delete;
 	ConstantBuffer(Graphics& g, SIZE_T size, UINT slot, LPVOID data);
 	void Update(Graphics& g, SIZE_T size, LPVOID data);
+
 protected:
 	ComPtr<ID3D11Buffer> m_Buff;
 	UINT m_Slot;

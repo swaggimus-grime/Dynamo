@@ -13,8 +13,8 @@ OutlineRenderPass::OutlineRenderPass(Graphics& g, const std::string& name)
 	AddIn(BufferIn<DepthStencil>::Make("depthStencil", m_DS));
 	AddOut(BufferOut<RenderTarget>::Make("renderTarget", m_RT));
 	AddOut(BufferOut<DepthStencil>::Make("depthStencil", m_DS));
-	AddBind(VertexShader::Evaluate(g, "res/shaders/Solidvs.cso"));
-	AddBind(PixelShader::Evaluate(g, "res/shaders/Solidps.cso"));
+	AddBind(VertexShader::Evaluate(g, "res/shaders/Solidvs.hlsl"));
+	AddBind(PixelShader::Evaluate(g, "res/shaders/Solidps.hlsl"));
 	AddBind(DSState::Evaluate(g, DS_MODE::STENCIL_MASK));
 	AddBind(Rasterizer::Evaluate(g, RS_MODE::CULL_BACK));
 }

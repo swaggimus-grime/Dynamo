@@ -2,5 +2,5 @@
 
 class GUIable {
 public:
-	virtual void ShowGUI() = 0;
+	virtual void ShowGUI(Graphics& g) = 0;
 };

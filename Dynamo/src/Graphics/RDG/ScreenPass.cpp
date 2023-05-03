@@ -15,7 +15,7 @@ ScreenPass::ScreenPass(Graphics& g, const std::string& name)
 	AddBind(VertexBuffer::Evaluate(g, "$ScreenPlane", std::move(plane)));
 	std::vector<UINT> indices = { 0, 1, 2, 1, 3, 2 };
 	AddBind(IndexBuffer::Evaluate(g, "$ScreenPlane", std::move(indices)));
-	const auto& vs = VertexShader::Evaluate(g, "res/shaders/Screenvs.cso");
+	const auto& vs = VertexShader::Evaluate(g, "res/shaders/Screenvs.hlsl");
 	AddBind(InputLayout::Evaluate(g, planeLayout, *vs));
 	AddBind(std::move(vs));
 	AddBind(Rasterizer::Evaluate(g));

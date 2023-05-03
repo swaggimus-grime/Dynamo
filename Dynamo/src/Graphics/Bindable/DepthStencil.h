@@ -30,8 +30,9 @@ protected:
 
 class ReadableDepthStencil: public DepthStencil {
 public:
-	ReadableDepthStencil(Graphics& g, UINT slot, DS_USAGE usage = DS_USAGE::DEPTH_STENCIL);
-	ReadableDepthStencil(Graphics& g, UINT width, UINT height, UINT slot, DS_USAGE usage = DS_USAGE::DEPTH_STENCIL);
+	ReadableDepthStencil(Graphics& g, UINT slot, DS_USAGE usage = DS_USAGE::DEPTH_ONLY);
+	ReadableDepthStencil(Graphics& g, UINT width, UINT height, UINT slot, DS_USAGE usage = DS_USAGE::DEPTH_ONLY);
+	inline ID3D11ShaderResourceView* GetTexture() const { return m_SRV.Get(); }
 	virtual void Bind(Graphics& g) override;
 
 private:

@@ -4,6 +4,7 @@
 #include "ClearPass.h"
 #include "BasicRenderPass.h"
 #include "OutlineMaskPass.h"
+#include "ShadowPass.h"
 #include "OutlineRenderPass.h"
 #include "SkyboxPass.h"
 #include "Entities/Camera.h"
@@ -22,7 +23,14 @@ OutlineRDG::OutlineRDG(Graphics& g)
 		AddPass(std::move(pass));
 	}
 	{
+		auto pass = MakeUnique<ShadowPass>(g, "shadowMap");
+		//pass->Link("renderTarget", "clearRT.buffer");
+		//m_ShadowMap = pass->GetDS();
+		AddPass(std::move(pass));
+	}
+	{
 		auto pass = MakeUnique<BasicRenderPass>(g, "lambertian");
+		pass->Link("shadowMap", "shadowMap.shadowMap");
 		pass->Link("renderTarget", "clearRT.buffer");
 		pass->Link("depthStencil", "clearDS.buffer");
 		AddPass(std::move(pass));
@@ -32,7 +40,7 @@ OutlineRDG::OutlineRDG(Graphics& g)
 		pass->Link("renderTarget", "lambertian.renderTarget");
 		pass->Link("depthStencil", "lambertian.depthStencil");
 		AddPass(std::move(pass));
-	}
+	}/*
 	{
 		auto pass = MakeUnique<OutlineMaskPass>(g, "outlineMask");
 		pass->Link("depthStencil", "skybox.depthStencil");
@@ -43,9 +51,10 @@ OutlineRDG::OutlineRDG(Graphics& g)
 		pass->Link("renderTarget", "skybox.renderTarget");
 		pass->Link("depthStencil", "outlineMask.depthStencil");
 		AddPass(std::move(pass));
-	}
+	}*/
 
-	Target("backbuffer", "outlineDraw.renderTarget");
+	Target("backbuffer", "skybox.renderTarget");
+	//Target("masterDepth", "shadowMap.shadowMap");
 	Finish();
 }
 
@@ -53,4 +62,10 @@ void OutlineRDG::SetCamera(Camera& camera)
 {
 	dynamic_cast<BasicRenderPass&>(FindPassByName("lambertian")).SetCamera(camera);
 	dynamic_cast<SkyboxPass&>(FindPassByName("skybox")).SetCamera(camera);
+}
+
+void OutlineRDG::SetLightCamera(Camera& camera)
+{
+	dynamic_cast<BasicRenderPass&>(FindPassByName("lambertian")).SetShadowCamera(camera);
+	dynamic_cast<ShadowPass&>(FindPassByName("shadowMap")).SetCamera(camera);
 }

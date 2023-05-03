@@ -12,7 +12,7 @@ Work::Work(Step& step, Renderable& renderable)
 
 void Work::Run(Graphics& g) const
 {
-	m_Renderable.Bind(g);
 	m_Step.Bind(g);
+	m_Renderable.Bind(g);
 	g.DC().DrawIndexed(m_Renderable.IndexCount(), 0, 0);
 }

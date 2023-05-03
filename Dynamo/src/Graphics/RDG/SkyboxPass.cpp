@@ -19,15 +19,15 @@ SkyboxPass::SkyboxPass(Graphics& g, const std::string& name)
 {
 	AddIn(BufferIn<RenderTarget>::Make("renderTarget", m_RT));
 	AddIn(BufferIn<DepthStencil>::Make("depthStencil", m_DS));
-	AddBind(MakeShared<Cubemap>(g, "res\\skyboxes\\yokohama"));
+	AddBind(MakeShared<Cubemap>(g, "res\\skyboxes\\space"));
 	AddBind(DSState::Evaluate(g, DS_MODE::DEPTH_FIRST));
-	AddBind(Sampler::Evaluate(g, SAMPLER_MODE::LINEAR_WRAP));
+	AddBind(Sampler::Evaluate(g, SAMPLER_MODE::TRILINEAR));
 	AddBind(Rasterizer::Evaluate(g, RS_MODE::CULL_NONE));
 	AddBind(MakeShared<SkyboxCBuff>(g));
-	AddBind(PixelShader::Evaluate(g, "res/shaders/Skyboxps.cso"));
+	AddBind(PixelShader::Evaluate(g, "res/shaders/Skyboxps.hlsl"));
 	AddBind(Topology::Evaluate(g, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 	{ // geometry-related
-		auto pvs = VertexShader::Evaluate(g, "res/shaders/Skyboxvs.cso");
+		auto pvs = VertexShader::Evaluate(g, "res/shaders/Skyboxvs.hlsl");
 		{ // cube
 			auto model = Cube::Make();
 			const auto geometryTag = "$cube_map";

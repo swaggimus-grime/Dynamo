@@ -154,3 +154,31 @@ public:
 		};
 	}
 };
+
+class Plane {
+public:
+	static Shape MakeIndependentTextured()
+	{
+		constexpr float side = 1.0f / 2.0f;
+		VertexLayout layout(ATTRIB_POS | ATTRIB_TEX | ATTRIB_NORM);
+		VertexData vertices(layout, 24);
+		vertices.Pos(0) = { -side,-side,0 };// 0 near side
+		vertices.Pos(1) = { side,-side,0 };// 1
+		vertices.Pos(2) = { -side,side,0 };// 2
+		vertices.Pos(3) = { side,side,0 };// 3
+		vertices.Tex(0) = { 0.0f,0.0f };
+		vertices.Tex(1) = { 1.0f,0.0f };
+		vertices.Tex(2) = { 0.0f,1.0f };
+		vertices.Tex(3) = { 1.0f,1.0f };
+		vertices.Norm(0) = { 0.f, 0.f, 1.f };
+		vertices.Norm(1) = { 0.f, 0.f, 1.f };
+		vertices.Norm(2) = { 0.f, 0.f, 1.f };
+		vertices.Norm(3) = { 0.f, 0.f, 1.f };
+
+		return{
+			std::move(vertices),{
+				0,2, 1,    2,3,1,
+			}
+		};
+	}
+};
