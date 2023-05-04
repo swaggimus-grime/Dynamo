@@ -1,6 +1,11 @@
 # Dynamo 
 ### <sub> _Dynamic Modeler_ </sub>
-3D game engine using Direct3D.
+3D modeling engine using Direct3D. 
+
+## Controls
+- WASD: Move camera in cardinal directions
+- Q/E: Move camera up/down
+- Tab: Toggle mouse movement
 
 ## Features
 - Scene support 
